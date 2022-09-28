@@ -1,0 +1,33 @@
+---COMPOSITION---
+
+---COMPOSITION---
+
+## Initial population
+total_structures  15
+formula_units     2
+dimension         3
+volume_factor     1.1
+
+## Discrimination parameters
+energy_range            5.0
+max_number_inputs       7
+min_energy_difference   0.00004
+min_volume_difference   0.0001
+
+##Queue system and Computer resources
+qsys              local
+
+##GEGA parameters
+number_of_matings 10
+number_of_mutants 15
+max_number_gens   5
+crit_stop_nrep    5
+
+---GULP---
+
+---GULP---
+
+---GULP.CONF---
+exe_gulp=/home/carlos/bin/gulp
+---GULP.CONF---
+

@@ -1,0 +1,25 @@
+---COMPOSITION---
+
+---COMPOSITION---
+
+## Initial population
+total_structures  10
+formula_units     2
+dimension         3
+volume_factor     1.1
+
+##Queue system and Computer resources
+qsys              local
+number_of_stages  1
+
+## Discrimination parameters
+min_energy_difference   0.00004
+min_volume_difference   0.0001
+
+---GULP1---
+
+---GULP1---
+
+---GULP.CONF---
+exe_gulp=/home/carlos/bin/gulp
+---GULP.CONF---
