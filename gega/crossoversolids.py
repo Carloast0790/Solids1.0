@@ -270,9 +270,7 @@ def crossover(base_xtal,complement_xtal):
 	avg_uc = combined_unit_cell(base, comp)
 	# translate them into this new uc
 	avg_base = translating_to_avg_uc(base,avg_uc)
-	# writeposcars([avg_base],'t_mom.vasp','D')
 	avg_comp = translating_to_avg_uc(comp,avg_uc)
-	# writeposcars([avg_comp],'t_dad.vasp','D')
 	stop = 0
 	wflag = False
 	# Note: ref_dist was selected randomly and this value seems to work effectively
@@ -281,17 +279,13 @@ def crossover(base_xtal,complement_xtal):
 		iflag = True
 		# translate both structures' unit cell randomly in all three dimensions
 		t_base = translation_3D(avg_base)
-		# writeposcars([t_base],'t_tmom.vasp','D')
 		t_comp = translation_3D(avg_comp)
-		# writeposcars([t_comp],'t_tdad.vasp','D')
 		# find the random vector and point on which the cut will be performed
 		r_vect = random.choice(['a','b','c'])
 		r_point = bounded_random_point(0.6,0.4)
 		# cut the structures
 		xtal_out = parent_cut_bellow(t_base,r_vect,r_point)
-		# writeposcars([xtal_out],'t_cutmom.vasp','D')
 		cut_comp = parent_cut_above(t_comp,r_vect,r_point)
-		# writeposcars([cut_comp],'t_cutdad.vasp','D')
 		# find the stoichiometry of the structures after the cut
 		new_stoich = molecular_stoichiometry(xtal_out,0)
 		comp_stoich = molecular_stoichiometry(cut_comp,0)
@@ -299,7 +293,7 @@ def crossover(base_xtal,complement_xtal):
 		m_atm = missing_atoms_identifier(org_stoich,new_stoich)
 		# for each tuple in m_atm, get the symbol and amount of missing atoms
 		for t in m_atm:
-			# iflag tell if there are enough atoms in comp to perform the union
+			# iflag tells if there are enough atoms in comp to perform the union
 			if iflag == False:
 				break
 			else:
@@ -336,6 +330,7 @@ def crossover(base_xtal,complement_xtal):
 		# if there was succes,break the cycle, if there weren't try again
 		if out_stoich == org_stoich:
 			wflag = True
+			xtal_out.i = str(base_xtal.i) + '_x_' + str(complement_xtal.i)
 		else:
 			stop = stop + 1
 		# if after n attempts there were no luck, break the cycle and return False
@@ -349,7 +344,7 @@ def many_crossovers(m_list,f_list):
 	all_cross = []
 	for i, ix in enumerate(m_list):
 		for j, jx in enumerate(f_list):
-			if i == j:
+			if i == j and ix != jx:
 				child = crossover(ix,jx)
 				if child:
 					all_cross.append(child)
@@ -369,10 +364,15 @@ def popgen_childs(poscarlist, index):
 	pop = get_roulette_wheel_selection(poscarlist, number_of_childs*2)
 	poscarout = many_crossovers(mom,pop)
 	poscarout = poscarout[0:number_of_childs]
-	basename = 'mating_' + str(index).zfill(3) + '_'
-	poscarout  = rename_molecule(poscarout, basename, 4)
 	logfile = open(log_file,'a')
+	cont = 0 
+	for x in poscarout:
+		aux_name = 'crossover_' + str(index).zfill(3) + '_' + str(cont).zfill(3)
+		print('%s ---> %s' %(aux_name,x.i), file=logfile)
+		cont = cont + 1
 	print("We have %d POSCAR files type MATING from %d solicited" %(len(poscarout), number_of_childs), file=logfile)
 	logfile.close()
+	basename = 'mating_' + str(index).zfill(3) + '_'
+	poscarout  = rename_molecule(poscarout, basename, 4)
 	return poscarout   
 #----------------------------------------------------------------------------------------------------------

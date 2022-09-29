@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, '/home/carlos/installdir/solids/glomos_solidsGH/')
+sys.path.insert(0, '/home/carlos/installdir/solids/GLOMOSolids1.0/')
 
 import os.path
 from inout.getbilparam import get_a_int, get_a_str, get_a_float

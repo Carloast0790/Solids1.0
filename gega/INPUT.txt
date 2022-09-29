@@ -4,8 +4,8 @@ O     2
 ---COMPOSITION---
 
 ## Initial population
-total_structures  5
-formula_units     2
+total_structures  10
+formula_units     4
 dimension         3
 volume_factor     1.1
 
@@ -19,10 +19,10 @@ min_volume_difference   0.0001
 qsys              local
 
 ##GEGA parameters
-number_of_matings 4
-number_of_mutants 2
-max_number_gens   3
-crit_stop_nrep    5
+number_of_matings 20
+number_of_mutants 10
+max_number_gens   5
+crit_stop_nrep    3
 
 ---GULP---
 opti conj conp
