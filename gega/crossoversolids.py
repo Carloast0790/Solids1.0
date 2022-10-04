@@ -3,7 +3,7 @@ import numpy as np
 from utils.atomic  import get_covalent_radius
 from utils.libmoleculas import copymol, Molecule, Atom, sort_by_stoichiometry, molecular_stoichiometry, rename_molecule
 from vasp.libperiodicos import direct2cartesian, cartesian2direct
-from translation_rotation import translation_3D
+from translation_rotation import translation_3D,rotation2D
 
 from solids_roulette import get_roulette_wheel_selection
 from inout.getbilparam    import get_a_int, get_a_str
@@ -280,9 +280,12 @@ def crossover(base_xtal,complement_xtal):
 		# translate both structures' unit cell randomly in all three dimensions
 		t_base = translation_3D(avg_base)
 		t_comp = translation_3D(avg_comp)
+		# rotate the structures
+		# r_base = rotation2D(t_base)
+		# r_comp = rotation2D(t_comp)
 		# find the random vector and point on which the cut will be performed
 		r_vect = random.choice(['a','b','c'])
-		r_point = bounded_random_point(0.6,0.4)
+		r_point = bounded_random_point(0.8,0.2)
 		# cut the structures
 		xtal_out = parent_cut_bellow(t_base,r_vect,r_point)
 		cut_comp = parent_cut_above(t_comp,r_vect,r_point)

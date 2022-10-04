@@ -1,0 +1,61 @@
+-------------------------------------------------------------------
+Current PID          = 6305
+Chemical Formula     = Mg1 Al2 O4
+Formula Units        = 2
+Making initial file  = initial.vasp
+-------------------------------------------------------------------
+-----------------------POPULATION  GENERATOR-----------------------
+random001_sym_P-4m2
+random002_sym_0P6
+random003_sym_0P3
+random004_sym_P4mm
+random005_sym_Pmm2
+random006_sym_P-31m
+random007_sym_0P4
+random008_sym_P622
+random009_sym_0P2
+random010_sym_P312
+random011_sym_P4/m
+random012_sym_P-3
+random013_sym_0P1
+random014_sym_P-6m2
+random015_sym_P2/m
+random016_sym_P31m
+random017_sym_P222
+random018_sym_P6/mmm
+random019_sym_P422
+random020_sym_0Pm
+random021_sym_P-6
+random022_sym_Pmmm
+random023_sym_P4/mmm
+random024_sym_P-42m
+random025_sym_P6mm
+random026_sym_P-62m
+random027_sym_P321
+random028_sym_P-3m1
+random029_sym_P-4
+random030_sym_P6/m
+random031_sym_P-1
+random032_sym_P3m1
+random033_sym_0P6
+random034_sym_P321
+random035_sym_P-6m2
+random036_sym_P422
+random037_sym_0P6
+random038_sym_P321
+random039_sym_P-4m2
+random040_sym_P-1
+random041_sym_P-42m
+random042_sym_P-3m1
+random043_sym_P31m
+random044_sym_0Pm
+random045_sym_P4/m
+random046_sym_P-6
+random047_sym_P-62m
+random048_sym_P-42m
+random049_sym_P-62m
+random050_sym_0P3
+Created: initial.vasp
+-------------------------------------------------------------
+SOLIDS HAS FINISHED SUCCESSFULLY
+-------------------------------------------------------------

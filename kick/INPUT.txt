@@ -5,7 +5,7 @@ O     4
 ---COMPOSITION---
 
 ## Initial population
-total_structures  5
+total_structures  50
 formula_units     2
 dimension         3
 volume_factor     1.1
@@ -14,7 +14,7 @@ volume_factor     1.1
 qsys              local
 
 ##Kick parameters
-number_of_stages  1
+number_of_stages  0
 
 ## Discrimination parameters
 min_energy_difference   0.00004

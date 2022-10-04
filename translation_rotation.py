@@ -1,9 +1,9 @@
 import random
 import numpy as np
-
 from utils.libmoleculas import copymol
 from vasp.libperiodicos import writeposcars, direct2cartesian, cartesian2direct, readposcars
 
+#----------------------------------------------------------------------------------------------------------
 def translation_x(xtal_in,delta_x):
 	"""
 	This function as well as 'translation_y' and 'translation_z' translates the unit cell across 
@@ -29,6 +29,7 @@ def translation_x(xtal_in,delta_x):
 		iatom.xc,iatom.yc,iatom.zc = direct2cartesian(iatom.xc,iatom.yc,iatom.zc,xtal_out.m)
 	return xtal_out
 
+#----------------------------------------------------------------------------------------------------------
 def translation_y(xtal_in, delta_y):
 	xtal_out = copymol(xtal_in)
 	for iatom in xtal_out.atoms:
@@ -45,6 +46,7 @@ def translation_y(xtal_in, delta_y):
 		iatom.xc,iatom.yc,iatom.zc = direct2cartesian(iatom.xc,iatom.yc,iatom.zc,xtal_out.m)
 	return xtal_out
 
+#----------------------------------------------------------------------------------------------------------
 def translation_z(xtal_in, delta_z):
 	xtal_out = copymol(xtal_in)
 	for iatom in xtal_out.atoms:
@@ -61,6 +63,7 @@ def translation_z(xtal_in, delta_z):
 		iatom.xc,iatom.yc,iatom.zc = direct2cartesian(iatom.xc,iatom.yc,iatom.zc,xtal_out.m)
 	return xtal_out
 
+#----------------------------------------------------------------------------------------------------------
 def translation_3D(xtal_in):
 	"""
 	This function randomly translates the unit cell in the same amount in all three dimensions of crystal
@@ -76,6 +79,7 @@ def translation_3D(xtal_in):
 	xtal_out = translation_z(xtal_out2,delta)
 	return xtal_out
 
+#----------------------------------------------------------------------------------------------------------
 def rotation_matrix_transformation(lattice_matrix,rand_degree):
 	cos, sin = np.cos(rand_degree), np.sin(rand_degree)
 	A = np.array([[cos, -sin, 0],
@@ -87,6 +91,7 @@ def rotation_matrix_transformation(lattice_matrix,rand_degree):
 	transformed_rotation_matrix = np.dot(m,v)
 	return(transformed_rotation_matrix)
 
+#----------------------------------------------------------------------------------------------------------
 def rotation_z(xtal_in):
 	xtal_out = copymol(xtal_in)
 	xtal_out = translation_3D(xtal_out)
@@ -105,8 +110,25 @@ def rotation_z(xtal_in):
 		iatom.xc, iatom.yc, iatom.zc = direct2cartesian(n_vector[0],n_vector[1],n_vector[2],xtal_out.m)
 	return xtal_out
 
-# xtala = readposcars('espinela_a.vasp')[0]
-# print('largo lista original',len(xtala.atoms))
-# xtal_rot = rotation_z(xtala)
-# print('largo de lista despues de rotación',len(xtal_rot.atoms))
-# writeposcars([xtal_rot],'rotado.vasp','D')
+#----------------------------------------------------------------------------------------------------------
+def rotation2D(xtal_in):
+	xtal_out = copymol(xtal_in)
+	r = random.randint(2,10)
+	deg = np.pi / r
+	cos, sin = np.cos(deg), np.sin(deg)
+	m = np.array([[cos,-sin],[sin,cos]])
+	for a in xtal_out.atoms:
+		xd, yd = a.xc,a.yc
+		v = np.array([xd,yd])
+		nv = np.matmul(v,m)
+		nx,ny = nv[0],nv[1]
+		a.xc, a.yc = nx,ny	
+	return xtal_out
+
+# from vasp.libperiodicos import readposcars, writeposcars
+# x = readposcars('rutilo.vasp')[0]
+# y = translation_3D(x)
+# writeposcars([y],'translation.vasp','D')
+# z = rotation2D(y)
+# z.i = 'rot01'
+# writeposcars([z],'rotation.vasp','D')

@@ -1,6 +1,7 @@
 ---COMPOSITION---
-Ti    1
-O     2
+Mg    1
+Al    2
+O     4
 ---COMPOSITION---
 
 ## Initial population
@@ -19,29 +20,35 @@ min_volume_difference   0.0001
 qsys              local
 
 ##GEGA parameters
-number_of_matings 20
+number_of_matings 15
 number_of_mutants 10
 max_number_gens   5
 crit_stop_nrep    3
 
 ---GULP---
-opti conj conp
-switch_minimiser bfgs gnorm 0.5
+opti conjugate nosymmetry conp 
+pressure 100 GPa
 vectors
 LATTICEVECTORS
 frac
 COORDINATES
 species
-Ti  2.196
-O  -1.098
-buck
-Ti Ti 31120.1 0.1540 5.25  15
-O  O  11782.7 0.2340 30.22 15
-Ti O  16957.5 0.1940 12.59 15
+Mg  2.0
+Al  3.0
+O  -2.0
 lennard 12 6
-Ti Ti   1   0 15
-O  O    1   0 15
-Ti O    1   0 15
+Mg O   1.50 0.00 0.00 6.0
+Al O   1.50 0.00 0.00 6.0
+O O    1.50 0.00 0.00 6.0
+Mg Mg  1.50 0.00 0.00 6.0
+Mg Al  1.50 0.00 0.00 6.0
+Al Al  1.50 0.00 0.00 6.0
+buck
+Mg O 1428.5 0.2945 0.0 0.0 7.0
+Al O 1114.9 0.3118 0.0 0.0 7.0
+O O  2023.8 0.2674 0.0 0.0 7.0
+maxcyc 850
+switch rfo 0.010
 ---GULP---
 
 ---GULP.CONF---
