@@ -277,18 +277,14 @@ def crossover(base_xtal,complement_xtal):
 	ref_dist = 0.5
 	while wflag == False:
 		iflag = True
-		# translate both structures' unit cell randomly in all three dimensions
-		t_base = translation_3D(avg_base)
-		t_comp = translation_3D(avg_comp)
-		# rotate the structures
-		# r_base = rotation2D(t_base)
-		# r_comp = rotation2D(t_comp)
 		# find the random vector and point on which the cut will be performed
 		r_vect = random.choice(['a','b','c'])
 		r_point = bounded_random_point(0.8,0.2)
 		# cut the structures
-		xtal_out = parent_cut_bellow(t_base,r_vect,r_point)
-		cut_comp = parent_cut_above(t_comp,r_vect,r_point)
+		xtal_out = parent_cut_bellow(avg_base,r_vect,r_point)
+		cut_comp = parent_cut_above(avg_comp,r_vect,r_point)
+		xtal_out = translation_3D(xtal_out)
+		cut_comp = translation_3D(cut_comp)
 		# find the stoichiometry of the structures after the cut
 		new_stoich = molecular_stoichiometry(xtal_out,0)
 		comp_stoich = molecular_stoichiometry(cut_comp,0)
@@ -343,12 +339,118 @@ def crossover(base_xtal,complement_xtal):
 	return xtal_out
 
 #----------------------------------------------------------------------------------------------------------
+# From this section on, the other way to mate is coded
+#----------------------------------------------------------------------------------------------------------
+def chem_formula_bisect(xtal_in):
+	'''
+	This functions splits the chemical formula into two lists of tuples, where each tuple is (simbol,num_atoms)
+
+	in: xtal_in (Molecule), the original structures whose formula is to be split
+	out: chem_for
+	'''
+	big_formula = molecular_stoichiometry(xtal_in,0)
+	f_half, s_half = [], []
+	for ii in big_formula:
+		n1 = ii[1]//2
+		n2 = ii[1] - n1
+		if n1 != 0 : f_half.append((ii[0], n1))
+		if n2 != 0: s_half.append((ii[0], n2))
+	return f_half, s_half
+
+
+#------------------------------------------------------------------------------------------
+def build_str_half_comp(xtal_in,chemformula):
+	'''
+	This function builds a structure, based on the input one, by randomly selecting atoms
+	until the desired chemical formula is achieved
+
+	in: xtal_in (Molecule), the original structure that will be reduced in its composition
+	    chemformula (list), a list of tuples (symbol,atm_number) with the desired composition
+	out: xtal_out (Molecule), the new structure with the desired composition
+	'''
+	xtal = copymol(xtal_in)
+	xtal_out = Molecule(xtal.i, 0.0, xtal.m)
+	inatoms=[]
+	for ii in chemformula:
+		for _ in range(ii[1]):
+			inatoms.append(ii[0])
+	random.shuffle(inatoms)
+	atomlist = xtal.atoms.copy()
+	random.shuffle(atomlist)
+	for si in inatoms:
+		for iatom in atomlist:
+			if si==iatom.s:
+				xtal_out.add_atom(iatom)
+				atomlist.remove(iatom)
+				break
+	xtal_out=sort_by_stoichiometry([xtal_out])[0]
+	return xtal_out
+
+#------------------------------------------------------------------------------------------
+def get_complement(xtal_receipt,xtal_donor,comp_stoich,original_stoich):
+	'''
+	This function builts the crossover between two structures using a different idea that the 
+	one in crossover function. Under this scheme, the receiver will contain the half of the 
+	composition but the atoms that comprais it will be chosen randomly. The full structure then 
+	is built by adding random atoms from the donor.
+
+	in: xtal_receipt (Molecule), the structure that will receive the atoms
+	    xtal_donor (Molecule), the donor of random atoms
+	    comp_stoich (list), a list of tuples of the missing composition of xtal_receipt
+	    original_stoich(list), a list of tuples of the original stoichiometry
+	out: new_xtal (Molecule), if the structure was succesfuly built, then it contains it. If it 
+	     wasn't, then returns a False value.
+	'''
+	donor = copymol(xtal_donor)
+	new_xtal = copymol(xtal_receipt)
+	inatoms=[]
+	for iii in comp_stoich:
+		for _ in range(iii[1]):
+			inatoms.append(iii[0])
+			random.shuffle(inatoms)
+			atomlist = donor.atoms.copy()
+			random.shuffle(atomlist)
+	for si in inatoms:
+		for iatom in atomlist:
+			if si == iatom.s:
+				di = min_dist_atm_xtal(iatom,new_xtal)
+				if di > 0.5:
+					new_xtal.add_atom(iatom)
+					atomlist.remove(iatom)
+					break
+	new_stoich = molecular_stoichiometry(new_xtal,0)
+	if new_stoich == original_stoich:
+		new_xtal=sort_by_stoichiometry([new_xtal])[0]
+	else:
+		new_xtal = False
+	return new_xtal
+
+#------------------------------------------------------------------------------------------
+def new_crossover(base_xtal,complement_xtal):
+	base = copymol(base_xtal)
+	comp = copymol(complement_xtal)
+	org_stoich = molecular_stoichiometry(base,0)
+	avg_uc = combined_unit_cell(base,comp)
+	avg_base = translating_to_avg_uc(base,avg_uc)
+	avg_comp = translating_to_avg_uc(comp,avg_uc)
+	f_half,s_half = chem_formula_bisect(avg_base)
+	receptor = build_str_half_comp(avg_base,f_half)
+	combined = get_complement(receptor,avg_comp,s_half,org_stoich)
+	if combined:
+		combined.i = base.i + '_XC_' + comp.i
+	return combined
+
+#----------------------------------------------------------------------------------------------------------
 def many_crossovers(m_list,f_list):
 	all_cross = []
 	for i, ix in enumerate(m_list):
 		for j, jx in enumerate(f_list):
 			if i == j and ix != jx:
-				child = crossover(ix,jx)
+				r = random.gauss(0,2)
+				if r > 0:
+					child = crossover(ix,jx)
+				else:
+					child = new_crossover(ix,jx)
 				if child:
 					all_cross.append(child)
 	return all_cross
@@ -368,9 +470,9 @@ def popgen_childs(poscarlist, index):
 	poscarout = many_crossovers(mom,pop)
 	poscarout = poscarout[0:number_of_childs]
 	logfile = open(log_file,'a')
-	cont = 0 
+	cont = 1 
 	for x in poscarout:
-		aux_name = 'crossover_' + str(index).zfill(3) + '_' + str(cont).zfill(3)
+		aux_name = 'mating_' + str(index).zfill(3) + '_' + str(cont).zfill(3)
 		print('%s ---> %s' %(aux_name,x.i), file=logfile)
 		cont = cont + 1
 	print("We have %d POSCAR files type MATING from %d solicited" %(len(poscarout), number_of_childs), file=logfile)
@@ -378,4 +480,3 @@ def popgen_childs(poscarlist, index):
 	basename = 'mating_' + str(index).zfill(3) + '_'
 	poscarout  = rename_molecule(poscarout, basename, 4)
 	return poscarout   
-#----------------------------------------------------------------------------------------------------------

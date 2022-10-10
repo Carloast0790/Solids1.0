@@ -5,14 +5,14 @@ O     4
 ---COMPOSITION---
 
 ## Initial population
-total_structures  10
-formula_units     4
+total_structures  15
+formula_units     8
 dimension         3
-volume_factor     1.1
+volume_factor     0.9
 
 ## Discrimination parameters
 energy_range            5.0
-max_number_inputs       5
+max_number_inputs       8
 min_energy_difference   0.00004
 min_volume_difference   0.0001
 
@@ -23,11 +23,11 @@ qsys              local
 number_of_matings 15
 number_of_mutants 10
 max_number_gens   5
-crit_stop_nrep    3
+crit_stop_nrep    5
 
 ---GULP---
 opti conjugate nosymmetry conp 
-pressure 100 GPa
+#pressure 100 GPa
 vectors
 LATTICEVECTORS
 frac

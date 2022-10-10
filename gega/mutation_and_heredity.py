@@ -112,14 +112,8 @@ def lattice_mutation(xtal_in):
     out: xtal_out (Molecule), the structure with the mutated UC
     """ 
     o_lat = xtal_in.m
-    # x = random.gauss(0,0.2)
-    x = -1
-    if x > 0:
-        str_lat = strained_lattice_restricted(o_lat)
-        name = '_restricted_strain'
-    else:
-        str_lat = strained_lattice_unrestricted(o_lat)
-        name = '_unrestricted_strain'
+    str_lat = strained_lattice_unrestricted(o_lat)
+    name = '_lattice_strain'
     xtal_out = Molecule(xtal_in.i+name,xtal_in.e,str_lat)
     for a in xtal_in.atoms:
         ox,oy,oz = cartesian2direct(a.xc,a.yc,a.zc,o_lat)
