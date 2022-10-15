@@ -8,17 +8,8 @@ from utils.libmoleculas import readxyzs, writexyzs, rename_molecule, sort_by_ene
 from vasp.libperiodicos import readposcars, writeposcars, expand_poscar
 from gulp.calculator_all import calculator_gulp_all_check
 from discriminator import discriminate_calculated
-#------------------------------------------------------------------------------------------------
-def get_xcomp(composition):
-    x = len(composition[0])
-    species = []
-    atms_per_specie = []
-    for ii in range(x):
-        s = composition[0][ii][0]
-        species.append(s)
-        n = composition[0][ii][1]
-        atms_per_specie.append(n)
-    return species, atms_per_specie
+
+from miscellaneous import get_xcomp
 
 #------------------------------------------------------------------------------------------------
 composition=read_var_composition('composition')
@@ -29,6 +20,9 @@ dimension = get_a_int('dimension',3)
 volume_factor = get_a_float('volume_factor', 1.1)
 nofstages=get_a_int('number_of_stages', 2)
 log_file =get_a_str('output_file','glomos_out.txt')
+
+#Restrictions 
+
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
 fopen = open(log_file,'w')

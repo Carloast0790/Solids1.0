@@ -1,48 +1,55 @@
 ---COMPOSITION---
-Mg    1
-Al    2
-O     4
+Mg   1
+Si   1
+O    3
 ---COMPOSITION---
 
 ## Initial population
-total_structures  50
-formula_units     2
+total_structures  10
+formula_units     4
 dimension         3
-volume_factor     1.1
+volume_factor     1.0
 
 ##Queue system and Computer resources
 qsys              local
 
 ##Kick parameters
-number_of_stages  0
+number_of_stages   1
 
+##Restrictions
+fixed_UC      2.474 8.121 6.138 90.0 90.0 90.0
+     
 ## Discrimination parameters
 min_energy_difference   0.00004
 min_volume_difference   0.0001
 
 ---GULP1---
-opti conjugate nosymmetry conp 
+opti conjugate nosymmetry conv
 vectors
 LATTICEVECTORS
 frac
 COORDINATES
 species
-Mg  2.0
-Al  3.0
-O  -2.0
+Mg 1.8
+Si 2.4
+O -1.4
 lennard 12 6
-Mg O   1.50 0.00 0.00 6.0
-Al O   1.50 0.00 0.00 6.0
-O O    1.50 0.00 0.00 6.0
-Mg Mg  1.50 0.00 0.00 6.0
-Mg Al  1.50 0.00 0.00 6.0
-Al Al  1.50 0.00 0.00 6.0
+Mg O  2.5 0.0 0.0 6.0
+Mg Si 1.5 0.0 0.0 6.0
+Si O  1.5 0.0 0.0 6.0
+Mg Mg 1.5 0.0 0.0 6.0
+Si O  1.5 0.0 0.0 6.0
+O  O  2.5 0.0 0.0 6.0
 buck
-Mg O 1428.5 0.2945 0.0 0.0 7.0
-Al O 1114.9 0.3118 0.0 0.0 7.0
-O O  2023.8 0.2674 0.0 0.0 7.0
-maxcyc 850
-switch rfo 0.010
+Mg O   806.915 0.291 2.346 0.0 10.0
+Si O  1122.392 0.256 0.000 0.0 10.0
+O O    792.329 0.362 31.58 0.0 10.0
+Mg Mg  900.343 0.220 0.174 0.0 10.0
+Mg Si 1536.282 0.185 0.000 0.0 10.0
+Si Si 3516.558 0.150 0.000 0.0 10.0
+maxcyc
+300
+switch rfo cycle 350
 ---GULP1---
 
 ---GULP.CONF---
