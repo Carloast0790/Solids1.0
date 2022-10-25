@@ -6,7 +6,7 @@ import random
 from discriminate.energy import cutter_energy
 from inout.getbilparam import get_a_int, get_a_str, get_a_float
 from inout.readbil import read_var_composition, clustername
-from utils.libmoleculas import readxyzs, writexyzs, rename_molecule, sort_by_energy
+from utils.libmoleculas import rename_molecule, sort_by_energy
 from vasp.libperiodicos import readposcars, writeposcars, expand_poscar
 from gulp.calculator_all import calculator_gulp_all_check
 #------------------------------------------------------------------------------------------------
@@ -14,17 +14,9 @@ from gega.aptitude import get_aptitude
 from discriminator import discriminate_calculated, discriminate_calculated_vs_pool
 from crossoversolids import crossover, popgen_childs
 from mutation_and_heredity import popgen_mutants, make_mutants
-#------------------------------------------------------------------------------------------------
-def get_xcomp(composition):
-    x = len(composition[0])
-    species = []
-    atms_per_specie = []
-    for ii in range(x):
-        s = composition[0][ii][0]
-        species.append(s)
-        n = composition[0][ii][1]
-        atms_per_specie.append(n)
-    return species, atms_per_specie
+
+from miscellaneous import get_xcomp, uc_restriction, rescale_str
+vol_restriction = uc_restriction()
 #------------------------------------------------------------------------------------------------
 composition = read_var_composition('composition')
 atms_specie,atms_per_specie = get_xcomp(composition)
@@ -57,7 +49,7 @@ def build_population_0():
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        poscarlist=random_crystal_gen(total_structures,atms_specie,atms_per_specie,formula_units,dimension,volume_factor)
+        poscarlist=random_crystal_gen(total_structures,atms_specie,atms_per_specie,formula_units,dimension,volume_factor,vol_restriction)
         poscarlist = rename_molecule(poscarlist, 'random_000_', 4)
         writeposcars(poscarlist, initialfile, 'D')
     else:
@@ -119,6 +111,9 @@ def build_population_n(poscarlist, generation=1):
         xtal_out.extend(cross)
         mut = popgen_mutants(poscarlist,generation)
         xtal_out.extend(mut)
+        if vol_restriction:
+            for x in xtal_out:
+                x = rescale_str(x,vol_restriction)
         writeposcars(xtal_out, initialfile, 'D')
     return xtal_out
 
@@ -140,9 +135,9 @@ for generation in range(1,nmaxgen + 1):
     poscar01 = run_calculator(poscar00, folder, generation)
     poscar01 = sort_by_energy(poscar01,1)
     #discrimination among local structures
-    poscar01 = discriminate_calculated(poscar01)
+    poscar01 = discriminate_calculated(poscar01,vol_restriction)
     #discrimination btwn remaining local vs pool
-    poscar02 = discriminate_calculated_vs_pool(poscar01,poscarxx)
+    poscar02 = discriminate_calculated_vs_pool(poscar01,poscarxx,vol_restriction)
     if len(poscar02) == 0:
         fopen = open(log_file,'a')
         print("-------------------------------------------------------------------", file=fopen)

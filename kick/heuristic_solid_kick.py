@@ -9,8 +9,7 @@ from vasp.libperiodicos import readposcars, writeposcars, expand_poscar
 from gulp.calculator_all import calculator_gulp_all_check
 from discriminator import discriminate_calculated
 
-from miscellaneous import get_xcomp
-
+from miscellaneous import get_xcomp, uc_restriction
 #------------------------------------------------------------------------------------------------
 composition=read_var_composition('composition')
 atms_specie,atms_per_specie=get_xcomp(composition)
@@ -18,10 +17,10 @@ total_structures = get_a_int('total_structures', 4)
 formula_units = get_a_int('formula_units',1)
 dimension = get_a_int('dimension',3)
 volume_factor = get_a_float('volume_factor', 1.1)
-nofstages=get_a_int('number_of_stages', 2)
-log_file =get_a_str('output_file','glomos_out.txt')
+nofstages = get_a_int('number_of_stages', 2)
+log_file = get_a_str('output_file','glomos_out.txt')
 
-#Restrictions 
+vol_restriction = uc_restriction() 
 
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
@@ -42,7 +41,7 @@ def build_population_0():
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        poscarlist=random_crystal_gen(total_structures,atms_specie,atms_per_specie, formula_units,dimension,volume_factor)
+        poscarlist=random_crystal_gen(total_structures,atms_specie,atms_per_specie, formula_units,dimension,volume_factor,vol_restriction)
         poscarlist=rename_molecule(poscarlist, 'random', 3)
         writeposcars(poscarlist, initialfile, 'D')
     else:
@@ -88,7 +87,7 @@ for stage in range(nofstages):
     folder = basenm+'/'
     poscar01 = rename_molecule(poscar00, basenm, 3)
     poscar00 = run_calculator(poscar01, folder, stage)
-    poscar00 = discriminate_calculated(poscar00)
+    poscar00 = discriminate_calculated(poscar00,vol_restriction)
     display_mol_info(poscar00,stage)
     writeposcars(poscar00, basenm + '.vasp', 'D')
 fopen = open(log_file,'a')
