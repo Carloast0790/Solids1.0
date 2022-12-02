@@ -6,18 +6,17 @@ import random
 from discriminate.energy import cutter_energy
 from inout.getbilparam import get_a_int, get_a_str, get_a_float
 from inout.readbil import read_var_composition, clustername
-from utils.libmoleculas import rename_molecule, sort_by_energy
+from utils.libmoleculas import rename_molecule, sort_by_energy, sort_by_stoichiometry
 from vasp.libperiodicos import readposcars, writeposcars, expand_poscar
-from gulp.calculator_all import calculator_gulp_all_check
 #------------------------------------------------------------------------------------------------
 from gega.aptitude import get_aptitude
 from discriminator import discriminate_calculated, discriminate_calculated_vs_pool
 from crossoversolids import crossover, popgen_childs
 from mutation_and_heredity import popgen_mutants, make_mutants
-
 from miscellaneous import get_xcomp, uc_restriction, rescale_str
-vol_restriction = uc_restriction()
 #------------------------------------------------------------------------------------------------
+vol_restriction = uc_restriction()
+flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
 atms_specie,atms_per_specie = get_xcomp(composition)
 total_structures = get_a_int('total_structures', 4)
@@ -29,7 +28,7 @@ log_file = get_a_str('output_file','glomos_out.txt')
 max_number_inputs = get_a_int('max_number_inputs',20)
 emax = get_a_float('energy_range', 100.0)
 nmaxgen = get_a_int('max_number_gens',50)
-nmaxrep=get_a_int('crit_stop_nrep',10)
+nmaxrep = get_a_int('crit_stop_nrep',10)
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
 fopen = open(log_file,'w')
@@ -49,13 +48,14 @@ def build_population_0():
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        poscarlist=random_crystal_gen(total_structures,atms_specie,atms_per_specie,formula_units,dimension,volume_factor,vol_restriction)
+        poscarlist = random_crystal_gen(total_structures,atms_specie,atms_per_specie,formula_units,dimension,volume_factor,vol_restriction)
         poscarlist = rename_molecule(poscarlist, 'random_000_', 4)
         writeposcars(poscarlist, initialfile, 'D')
     else:
-        poscarlist=readposcars(initialfile)
+        poscarlist = readposcars(initialfile)
+        poscarlist = rename_molecule(poscarlist, 'restart_000_', 4)
         fopen = open(log_file,'a')
-        print("%s exist .... we take it" %(initialfile), file=fopen)
+        print("%s exists... we take it" %(initialfile), file=fopen)
         fopen.close()
     return poscarlist
 
@@ -65,14 +65,20 @@ def run_calculator(poscarlistin, folder, generation=0):
     print("-------------------------------------------------------------------", file=fopen)
     print("---------------- LOCAL OPTIMIZATION: GENERATION %d   ----------------" %(generation), file=fopen)
     fopen.close()
-    blockname = 'gulp'
-    poscarlistout = calculator_gulp_all_check(poscarlistin, folder, blockname, generation)
+    if flag == 'vasp':
+        from vasp.calculator_all import calculator_vasp_all_check
+        poscarlistin = sort_by_stoichiometry(poscarlistin)
+        poscarlistout = calculator_vasp_all_check(poscarlistin,folder,0)
+    if flag == 'gulp':
+        from gulp.calculator_all import calculator_gulp_all_check
+        poscarlistin = sort_by_stoichiometry(poscarlistin)
+        poscarlistout = calculator_gulp_all_check(poscarlistin,folder,'gulp',generation)
     return poscarlistout
 
 #------------------------------------------------------------------------------------------------
 def display_info(poscarlist, flagsum=0, generation=0):
     fopen = open(log_file,'a')
-    if flagsum==0:
+    if flagsum == 0:
         print("\n--------------------------GLOBAL  SUMMARY--------------------------", file=fopen)
         print("energy_range = %f" %(emax), file=fopen)
         print("max_number_inputs = %d" %(max_number_inputs), file=fopen)
@@ -88,8 +94,8 @@ def display_info(poscarlist, flagsum=0, generation=0):
     for ii, iposcar in enumerate(poscarzz):
         deltae = iposcar.e - emin
         nt = iposcar.c[0]
-        jj=str(ii+1).zfill(5)
-        if flagsum==0:
+        jj = str(ii+1).zfill(5)
+        if flagsum == 0:
             print("#%s %16s  %12.8f %10.6f  %2d" %(jj, iposcar.i, iposcar.e,deltae, nt), file=fopen)
         else:
             fitness = list(get_aptitude(poscarlist))
@@ -102,9 +108,9 @@ def build_population_n(poscarlist, generation=1):
     if os.path.isfile(initialfile):
         fopen = open(log_file,'a')
         print("\n------------------------- NEW  GENERATION -------------------------", file=fopen)
-        print("%s exist .... we take it" %(initialfile), file=fopen)
+        print("%s exists... we take it" %(initialfile), file=fopen)
         fopen.close()
-        xtal_out=readposcars(initialfile)
+        xtal_out = readposcars(initialfile)
     else:
         xtal_out = []
         cross = popgen_childs(poscarlist, generation)
@@ -122,6 +128,7 @@ poscar00 = build_population_0()
 generation =  0
 folder = 'generation000/'
 poscar01 = run_calculator(poscar00, folder, generation)
+poscar01 = discriminate_calculated(poscar01,vol_restriction)
 poscar01 = sort_by_energy(poscar01,1)
 poscarxx = poscar01[0:max_number_inputs]
 display_info(poscarxx, 0)
@@ -133,7 +140,6 @@ for generation in range(1,nmaxgen + 1):
     folder = 'generation' + str(generation).zfill(3) + '/'
     poscar00 = build_population_n(poscarxx, generation)
     poscar01 = run_calculator(poscar00, folder, generation)
-    poscar01 = sort_by_energy(poscar01,1)
     #discrimination among local structures
     poscar01 = discriminate_calculated(poscar01,vol_restriction)
     #discrimination btwn remaining local vs pool
@@ -142,16 +148,17 @@ for generation in range(1,nmaxgen + 1):
         fopen = open(log_file,'a')
         print("-------------------------------------------------------------------", file=fopen)
         print("-------------------------------------------------------------------", file=fopen)
-        print('The process has stopped, we were unable to build new structures', file=fopen)
+        print('The Process has Stopped, We Were Unable to Build New Structures', file=fopen)
         fopen.close()
         exit()        
-    display_info(poscar02, 1,generation)
+    poscar02 = sort_by_energy(poscar02,1)
+    display_info(poscar02,1,generation)
     poscarxx.extend(poscar02)
     poscarxx = sort_by_energy(poscarxx, 1)
     poscarxx = poscarxx[0:max_number_inputs]
     poscarxx = cutter_energy(poscarxx, emax, 1)
     display_info(poscarxx, 0)
-    poscaryy=sort_by_energy(poscarxx, 0)
+    poscaryy = sort_by_energy(poscarxx, 0)
     writeposcars(poscaryy, 'summary.vasp', 'D')
     emini = poscarxx[0].e
     if emini < emin:

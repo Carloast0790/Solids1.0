@@ -5,31 +5,36 @@ O      2
 
 ## Initial population
 total_structures  5
-formula_units     4
+formula_units     2
 dimension         3
 volume_factor     1.0
 
 ## Discrimination parameters
 energy_range            5.0
-max_number_inputs       5
+max_number_inputs       3
 min_energy_difference   0.00004
-min_volume_difference   0.0001
+min_volume_difference   0.00001
 
 ##Queue system and Computer resources
 qsys              local
 
 ##GEGA parameters
 number_of_matings 5
-number_of_mutants 3
+number_of_mutants 2
 max_number_gens   3
 crit_stop_nrep    3
 
 ##Restrictions
-#fixed_UC     2.5 8.0 6.0
-fixed_vol    130.4
+#fixed_UC     4.59 4.59 2.95
+#fixed_vol    130.4
+
+##Calculation parameters
+calculator                      gulp
+percent_of_convergence          97.0
+no_attempts_opt                 1
 
 ---GULP---
-opti conj conv
+opti conj conp
 switch_minimiser bfgs gnorm 0.5
 vectors
 LATTICEVECTORS

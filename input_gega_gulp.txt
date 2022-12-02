@@ -4,28 +4,29 @@ O    2
 ---COMPOSITION---
 
 ## Initial population
-total_structures  5
+total_structures  3
 formula_units     2
 dimension         3
 volume_factor     1.0
 
+## Discrimination parameters
+energy_range            7.0
+max_number_inputs       7
+min_energy_difference   0.00004
+min_volume_difference   0.0001
+
 ##Queue system and Computer resources
 qsys              local
 
-##Kick parameters
-calculator         gulp
-number_of_stages   1
+##GEGA parameters
+calculator        gulp
+number_of_matings 10
+number_of_mutants 7
+max_number_gens   3
+crit_stop_nrep    3
 
-##Restrictions
-#fixed_UC      2.5 8.0 6.0
-#fixed_vol     130.4
-     
-## Discrimination parameters
-min_energy_difference   0.00004
-min_volume_difference   0.00001
-
----GULP1---
-opti conj conv
+---GULP---
+opti conj conp
 switch_minimiser bfgs gnorm 0.5
 vectors
 LATTICEVECTORS
@@ -42,8 +43,9 @@ lennard 12 6
 Ti Ti   1   0 15
 O  O    1   0 15
 Ti O    1   0 15
----GULP1---
+---GULP---
 
 ---GULP.CONF---
-exe_gulp=/home/carlos/bin/gulp
+exe_gulp=/LUSTRE/home/carlosl/bin/gulp
 ---GULP.CONF---
+

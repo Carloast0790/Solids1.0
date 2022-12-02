@@ -18,7 +18,7 @@ def strained_lattice_unrestricted(original_lattice):
     aux = []
     cont = 0 
     while cont <= 5:
-        x = random.gauss(0,0.2)
+        x = random.gauss(0,1)
         if abs(x) <= 1:
             aux.append(x)
             cont = cont + 1        
@@ -53,24 +53,22 @@ def lattice_mutation(xtal_in):
 #------------------------------------------------------------------------------------------
 def atom_exchange(xtal_in,rounds):
     xtal_out = copymol(xtal_in)
-    xtal_out.m = xtal_out.m * 1.1
-    l = len(xtal_out.atoms)
     for _ in range(rounds):
         atm1 = random.choice(xtal_out.atoms)
         s1,x1,y1,z1 = atm1.s,atm1.xc,atm1.yc,atm1.zc
-        cont = 0
-        while cont <= l:
-          atm2 = random.choice(xtal_out.atoms)
-          s2,x2,y2,z2 = atm2.s,atm2.xc,atm2.yc,atm2.zc
-          if s2 != s1:
-             atm1.xc = x2
-             atm1.yc = y2
-             atm1.zc = z2
-             atm2.xc = x1
-             atm2.yc = y1
-             atm2.zc = z1
-             break
-          cont = cont + 1
+        flag = 0
+        while flag == 0:
+            atm2 = random.choice(xtal_out.atoms)
+            s2,x2,y2,z2 = atm2.s,atm2.xc,atm2.yc,atm2.zc
+            if s2 != s1:
+                atm1.xc = x2
+                atm1.yc = y2
+                atm1.zc = z2
+                atm2.xc = x1
+                atm2.yc = y1
+                atm2.zc = z1
+                flag = 1
+                break
     xtal_out.i = xtal_in.i + '_atom_exchange'
     return xtal_out
 

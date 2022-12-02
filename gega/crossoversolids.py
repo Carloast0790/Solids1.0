@@ -3,12 +3,11 @@ import numpy as np
 from utils.atomic  import get_covalent_radius
 from utils.libmoleculas import copymol, Molecule, Atom, sort_by_stoichiometry, molecular_stoichiometry, rename_molecule
 from vasp.libperiodicos import direct2cartesian, cartesian2direct
-from translation_rotation import translation_3D,rotation2D
 
 from solids_roulette import get_roulette_wheel_selection
 from inout.getbilparam    import get_a_int, get_a_str
 #----------------------------------------------------------------------------------------------------------
-number_of_childs = get_a_int('number_of_matings',10)               ## GEGA parameter
+number_of_childs = get_a_int('number_of_matings',10)
 log_file = get_a_str('output_file','glomos_out.txt')
 #----------------------------------------------------------------------------------------------------------
 def bounded_random_point(r_max,r_min):
@@ -260,6 +259,7 @@ def crossover(base_xtal,complement_xtal):
 	in: base_xtal, complement_xtal (Molecule), the two structures that will be attempted to crossed
 	out: xtal_out, (Molecule or False), the crossover between the structures if passible, False otherwise
 	'''
+	from translation_rotation import translation_3D,rotation2D
 	# copy the original xtals and get their stoichiometry
 	base = copymol(base_xtal)
 	base = unit_cell_non_negative_coordinates(base)
@@ -279,10 +279,12 @@ def crossover(base_xtal,complement_xtal):
 		iflag = True
 		# find the random vector and point on which the cut will be performed
 		r_vect = random.choice(['a','b','c'])
-		r_point = bounded_random_point(0.8,0.2)
+		r_point = bounded_random_point(0.6,0.2)
 		# cut the structures
 		xtal_out = parent_cut_bellow(avg_base,r_vect,r_point)
 		cut_comp = parent_cut_above(avg_comp,r_vect,r_point)
+		# writeposcars([xtal_out],'cuta.vasp','D')
+		# writeposcars([cut_comp],'cutb.vasp','D')
 		xtal_out = translation_3D(xtal_out)
 		cut_comp = translation_3D(cut_comp)
 		# find the stoichiometry of the structures after the cut
@@ -324,6 +326,7 @@ def crossover(base_xtal,complement_xtal):
 							ma = ma - 1
 			# organize the resulting crossover
 			xtal_out = sort_by_stoichiometry([xtal_out])[0]
+			# writeposcars([xtal_out],'out.vasp','D')
 		# get its stoichiometry and compare it with the original 
 		out_stoich = molecular_stoichiometry(xtal_out,0)
 		# if there was succes,break the cycle, if there weren't try again
@@ -339,7 +342,8 @@ def crossover(base_xtal,complement_xtal):
 	return xtal_out
 
 #----------------------------------------------------------------------------------------------------------
-# From this section on, the other way to mate is coded
+# From this section on, there is another way to make the crossovers; that is, by using only half 
+# of the chemical formula and randomly selecting the atoms  of each structure.
 #----------------------------------------------------------------------------------------------------------
 def chem_formula_bisect(xtal_in):
 	'''

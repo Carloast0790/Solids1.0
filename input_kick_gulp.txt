@@ -4,7 +4,7 @@ O    2
 ---COMPOSITION---
 
 ## Initial population
-total_structures  5
+total_structures  3
 formula_units     2
 dimension         3
 volume_factor     1.0
@@ -12,20 +12,20 @@ volume_factor     1.0
 ##Queue system and Computer resources
 qsys              local
 
-##Kick parameters
-calculator         gulp
-number_of_stages   1
-
 ##Restrictions
-#fixed_UC      2.5 8.0 6.0
-#fixed_vol     130.4
-     
+#fixed_UC   1.0 1.0 1.0
+#fixed_vol  10.0
+
+##Kick paramters
+calculator        gulp
+number_of_stages  1
+
 ## Discrimination parameters
 min_energy_difference   0.00004
-min_volume_difference   0.00001
+min_volume_difference   0.0001
 
 ---GULP1---
-opti conj conv
+opti conj conp
 switch_minimiser bfgs gnorm 0.5
 vectors
 LATTICEVECTORS
@@ -45,5 +45,6 @@ Ti O    1   0 15
 ---GULP1---
 
 ---GULP.CONF---
-exe_gulp=/home/carlos/bin/gulp
+exe_gulp=/LUSTRE/home/carlosl/bin/gulp
 ---GULP.CONF---
+

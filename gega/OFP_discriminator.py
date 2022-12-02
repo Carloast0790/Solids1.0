@@ -54,22 +54,11 @@ def discriminate_all_OFP(xtal_list):
                 break
     return xtal_out
 
-# from vasp.libperiodicos import readposcars, writeposcars
-# a = readposcars('summary.vasp')
-# discriminate_all_OFP(a)
-
-
-la = [0,1,2,3,4,5,6]
-lb = [4,5,6,7,8,9,10]
-
-
-
-
 #------------------------------------------------------------------------------------------
 def run_sample():
     from vasp.libperiodicos import readposcars, writeposcars, expand_poscar
-    x = readposcars('his_best.vasp')[0]
-    y = readposcars('our_best.vasp')[0]
-    ans=oganov_fingerprint_function(x,y)
+    x = readposcars('reported_rutilo.vasp')[0]
+    y = readposcars('found_rutilo.vasp')[0]
+    ans = compare_oganov_fp(x,x)
     print(ans)
-# run_sample()
+run_sample()
