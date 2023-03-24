@@ -2,12 +2,12 @@ import random
 from utils.libmoleculas import sort_by_stoichiometry
 from inout.getbilparam import get_a_str
 from pyxtal import pyxtal
-
-from miscellaneous import pyxtal2xyz, possible_sym, rescale_str
+from pyxtal.tolerance import Tol_matrix
+from miscellaneous import pyxtal2xyz, possible_sym, rescale_str, unit_cell_non_negative_coordinates
 
 log_file = get_a_str('output_file','glomos_out.txt')
 #------------------------------------------------------------------------------------------------
-def random_crystal_gen(total_of_xtals,species,atoms_per_specie,formula_units=1,dimension=3,volume_factor=1.1,vol_restr=False):
+def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_units=1,dimension=3,volume_factor=1.1,vol_restr=False):
     '''
     This function generates the initial population for the algorithm using Pyxtal to build random structures
     and later translate them into GLOMOS Molecule object. It takes into consideration the restrictions imposed 
@@ -16,6 +16,7 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,formula_units=1,d
     in: total_of_xtals (int), the requested number of random structures
         species (list), the species of all the atoms in the unit cell ['Mg','O']
         atoms_per_specie (list), it concatenates with 'species' according with composition [1,2]
+        p_list (Tol_mtx), PyXtal object used for checking interatomic distances 
         formula_units (int), the number of formula units within the unit cell
         dimension (int), so far only 3D
         volumen_factor (float), a fixed value to expand or contract the unit cell
@@ -40,9 +41,11 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,formula_units=1,d
         c = c + 1
         # build the crystal with volume restrictions if requested
         xtal = pyxtal()
-        xtal.from_random(dimension, random_sym, species, atoms_per_specie, volume_factor)
+        xtal.from_random(dim=dimension, group=random_sym, species=species, numIons=atoms_per_specie, factor=volume_factor,tm=p_list)
+        #dim=3,group=225,species=['Ti','O'],numIons=[4,8],tm=tma
         # translate the crystal to GLOMOS and add them to xtal_list
         glomos_xtal = pyxtal2xyz(xtal)
+        glomos_xtal = unit_cell_non_negative_coordinates(glomos_xtal)
         if vol_restr:
             glomos_xtal = rescale_str(glomos_xtal,vol_restr)
         glomos_xtal.i = 'random' + str(ii+1).zfill(3) + '_sym_' + random_sym.zfill(3)
@@ -60,13 +63,14 @@ def run_sample():
     from inout.getbilparam import get_a_int, get_a_float
     from inout.readbil import read_var_composition
     from vasp.libperiodicos import writeposcars
-    from miscellaneous import get_xcomp
+    from miscellaneous import get_xcomp,get_tolerances
     composition = read_var_composition('composition')
     atms_specie, atms_per_specie = get_xcomp(composition)
+    l_tol,p_tol = get_tolerances(atms_specie)
     total_structures = get_a_int('total_structures', 4)
     formula_units = get_a_int('formula_units',1)
     dimension = get_a_int('dimension',3)
     volume_factor = get_a_float('volume_factor', 1.1)
-    poscarlist=random_crystal_gen(total_structures,atms_specie,atms_per_specie, formula_units,dimension,volume_factor)
+    poscarlist=random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor)
     writeposcars(poscarlist,'test.vasp','D')
 # run_sample()

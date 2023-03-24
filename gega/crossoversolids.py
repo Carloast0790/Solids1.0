@@ -1,11 +1,15 @@
+import sys
+sys.path.insert(0, '/home/carlos/installdir/solids/GLOMOSolids1.0/')
+
 import random
 import numpy as np
 from utils.atomic  import get_covalent_radius
 from utils.libmoleculas import copymol, Molecule, Atom, sort_by_stoichiometry, molecular_stoichiometry, rename_molecule
 from vasp.libperiodicos import direct2cartesian, cartesian2direct
-
 from solids_roulette import get_roulette_wheel_selection
-from inout.getbilparam    import get_a_int, get_a_str
+from inout.getbilparam import get_a_int, get_a_str
+from miscellaneous import unit_cell_non_negative_coordinates, overlap_check
+from translation_rotation import translation_3D
 #----------------------------------------------------------------------------------------------------------
 number_of_childs = get_a_int('number_of_matings',10)
 log_file = get_a_str('output_file','glomos_out.txt')
@@ -16,13 +20,23 @@ def bounded_random_point(r_max,r_min):
 	Note: 0 < r_max & r_min < 1 
 	'''
 	random_point = 1
+	if r_min > r_max:
+		random_point = 0.4
+		return random_point
 	while random_point > r_max or random_point < r_min:
-		if r_max > 1 or r_min < 0:
-			random_point = 0.5
-			break
 		random_point = random.random()
 	random_point = round(random_point,2)
 	return random_point
+
+#----------------------------------------------------------------------------------------------------------
+def rot(xtal_in):
+	xtal_out = copymol(xtal_in)
+	org = list(xtal_out.m)
+	# print('org',xtal_out.m)
+	random.shuffle(org)
+	new = np.array(org)
+	# print('shuff',new)
+	return xtal_out
 
 #----------------------------------------------------------------------------------------------------------
 def combined_unit_cell(xtal_a, xtal_b, weight_h=0.6, weight_s=0.4):
@@ -50,23 +64,6 @@ def combined_unit_cell(xtal_a, xtal_b, weight_h=0.6, weight_s=0.4):
 			ci = ai*0.5 + bi*0.5
 		new_mtx.append(ci)
 	return np.array(new_mtx)
-
-#----------------------------------------------------------------------------------------------------------
-def unit_cell_non_negative_coordinates(xtal_in):
-	'''
-	This function transforms every negative coordinate in the crystal structure to the equivalent positive one
-	in order to correctly calculate the distances between atoms whithin the UC.
-	'''
-	xtal_out = copymol(xtal_in)
-	for a in xtal_out.atoms:
-		x,y,z = cartesian2direct(a.xc,a.yc,a.zc,xtal_out.m)
-		l = [x,y,z]
-		for i in range(3):
-			if l[i] < 0:
-				l[i] = l[i] + 1
-		a.xc, a.yc, a.zc = l[0], l[1], l[2]
-		a.xc,a.yc,a.zc = direct2cartesian(a.xc,a.yc,a.zc,xtal_out.m)
-	return xtal_out
 
 #----------------------------------------------------------------------------------------------------------
 def parent_cut_bellow(xtal_in, axis, cutting_point):
@@ -102,15 +99,30 @@ def parent_cut_bellow(xtal_in, axis, cutting_point):
 	return xtal_out
 
 #----------------------------------------------------------------------------------------------------------
+def atms_correction_above_cut(xtal_in):
+	xtal_out = copymol(xtal_in)
+	for a in xtal_out.atoms:
+		a.xc,a.yc,a.zc = cartesian2direct(a.xc,a.yc,a.zc,xtal_out.m)
+		if a.xc == 0:
+			a.xc = 1
+		if a.yc == 0:
+			a.yc = 1 
+		if a.zc == 0:
+			a.zc = 1
+		a.xc,a.yc,a.zc = direct2cartesian(a.xc,a.yc,a.zc,xtal_out.m)
+	return xtal_out
+
+#----------------------------------------------------------------------------------------------------------
 def parent_cut_above(xtal_in, axis, cutting_point):
 	'''
 	This function is exactly the same than parent_cut_bellow but cutting above the cutting_point
 	'''
 	cp_xtal = copymol(xtal_in)
+	cp_xtal = atms_correction_above_cut(cp_xtal)
 	name = cp_xtal.i + str('_cutA_') + str(cutting_point) + axis 
 	new_xtal = Molecule(name, cp_xtal.e, cp_xtal.m)
 	for a in cp_xtal.atoms:
-		x,y,z = cartesian2direct(a.xc,a.yc,a.zc,cp_xtal.m)
+		x,y,z = cartesian2direct(a.xc,a.yc,a.zc,cp_xtal.m) 
 		s = a.s
 		if axis == 'a':
 			if x > cutting_point:
@@ -128,6 +140,7 @@ def parent_cut_above(xtal_in, axis, cutting_point):
 				atom = Atom(s,xc,yc,zc)
 				new_xtal.add_atom(atom)
 	return new_xtal
+
 #----------------------------------------------------------------------------------------------------------
 def translating_to_avg_uc(xtal_in,avg_uc):
 	'''
@@ -179,79 +192,7 @@ def missing_atoms_identifier(original_stoich,new_stoich):
 	return missing_atoms
 
 #----------------------------------------------------------------------------------------------------------
-def virtual_expansion(xtal_in):
-	'''
-	This function takes the original structure and expands it in all dimensions in order to later check
-	the overlapping between atoms. The cell that will be of interest is the one in the middle of them  
-
-	in: xtal_in (Molecule), the structure that will be expanded
-	out: xtal_out (Molecule), the expanded structure 
-	'''
-	cp_xtal = copymol(xtal_in)
-	mtx = cp_xtal.m
-	a1, a2, a3 = mtx[0,:], mtx[1,:], mtx[2,:]
-	exp_mtx = np.array([3*a1,3*a2,3*a3])
-	xtal_out = Molecule(cp_xtal.i, cp_xtal.e, exp_mtx)
-	for ii,iatom in enumerate(cp_xtal.atoms):
-		for x in [-1,0,1]:
-			for y in [-1,0,1]:
-				for z in [-1,0,1]:
-					vt = float(x)*a1 + float(y)*a2 + float(z)*a3
-					xc, yc, zc = iatom.xc + vt[0], iatom.yc + vt[1], iatom.zc + vt[2]
-					if x==1 and y==1 and z==1:
-						xf, yf, zf = iatom.xf, iatom.yf, iatom.zf
-					else:
-						xf, yf, zf = 'F','F','F'
-					ai = Atom(iatom.s,xc,yc,zc,xf,yf,zf)
-					xtal_out.add_atom(ai)
-	return xtal_out
-
-#----------------------------------------------------------------------------------------------------------
-def min_dist_atm_xtal(xatom, xtal_host):
-	'''
-	This function calculates the distance between the added atom, marked as T, and the rest of them,
-	marked as F, in the same expanded structure
-
-	in: xatom (Atom), the recently added atom
-	    xtal_host (Molecule), the structure that will receive the atom and be expanded
-	out: dmin (float), the minimal distance found between the added atom and everything else
-	'''
-	new_xtal = copymol(xtal_host)
-	cp_atom = xatom
-	for a in new_xtal.atoms:
-		a.xf, a.yf, a.zf='F','F','F'
-	cp_atom.xf,cp_atom.yf,cp_atom.zf='T','T','T'
-	new_xtal.add_atom(cp_atom)
-	poscarhlp = virtual_expansion(new_xtal)
-	poscarhlp = unit_cell_non_negative_coordinates(poscarhlp)
-	natoms = poscarhlp.n
-	dmin = 100.0
-	for iatom in range(natoms):
-		qi = poscarhlp.atoms[iatom].xf
-		if qi == 'T':
-			si = poscarhlp.atoms[iatom].s
-			ri = get_covalent_radius(si)
-			xi = poscarhlp.atoms[iatom].xc
-			yi = poscarhlp.atoms[iatom].yc
-			zi = poscarhlp.atoms[iatom].zc
-			vi = np.array([xi, yi, zi])
-			for jatom in range(natoms):
-				if jatom != iatom:
-					qj = poscarhlp.atoms[jatom].xf
-					sj = poscarhlp.atoms[jatom].s
-					rj = get_covalent_radius(sj)
-					xj = poscarhlp.atoms[jatom].xc
-					yj = poscarhlp.atoms[jatom].yc
-					zj = poscarhlp.atoms[jatom].zc
-					vj = np.array([xj, yj, zj])
-					dist = np.linalg.norm(vj-vi)
-					dist = dist /  (ri + rj)
-					if dist < dmin:
-						dmin = dist
-	return dmin
-
-#----------------------------------------------------------------------------------------------------------
-def crossover(base_xtal,complement_xtal):
+def crossover(base_xtal,complement_xtal,ref_d):
 	'''
 	This function gets two structures, randomly transfers each unit cell in 3 dimensions, cuts them 
 	in a random point located on a random vector, and unites the halves into one single structure
@@ -259,7 +200,6 @@ def crossover(base_xtal,complement_xtal):
 	in: base_xtal, complement_xtal (Molecule), the two structures that will be attempted to crossed
 	out: xtal_out, (Molecule or False), the crossover between the structures if passible, False otherwise
 	'''
-	from translation_rotation import translation_3D,rotation2D
 	# copy the original xtals and get their stoichiometry
 	base = copymol(base_xtal)
 	base = unit_cell_non_negative_coordinates(base)
@@ -271,62 +211,57 @@ def crossover(base_xtal,complement_xtal):
 	# translate them into this new uc
 	avg_base = translating_to_avg_uc(base,avg_uc)
 	avg_comp = translating_to_avg_uc(comp,avg_uc)
-	stop = 0
+	general_stop = 0
 	wflag = False
-	# Note: ref_dist was selected randomly and this value seems to work effectively
-	ref_dist = 0.5
 	while wflag == False:
-		iflag = True
 		# find the random vector and point on which the cut will be performed
 		r_vect = random.choice(['a','b','c'])
-		r_point = bounded_random_point(0.6,0.2)
+		r_point = bounded_random_point(0.7,0.4)
+		# rotate the structures 
+		avg_base = rot(avg_base)
+		avg_comp = rot(avg_comp)
+		# translate the structures
+		avg_base = translation_3D(avg_base)
+		avg_comp = translation_3D(avg_comp)
 		# cut the structures
 		xtal_out = parent_cut_bellow(avg_base,r_vect,r_point)
 		cut_comp = parent_cut_above(avg_comp,r_vect,r_point)
-		# writeposcars([xtal_out],'cuta.vasp','D')
-		# writeposcars([cut_comp],'cutb.vasp','D')
-		xtal_out = translation_3D(xtal_out)
-		cut_comp = translation_3D(cut_comp)
+		# writeposcars([xtal_out],'tbase.vasp','D')
+		# writeposcars([cut_comp],'tcomp.vasp','D')
 		# find the stoichiometry of the structures after the cut
 		new_stoich = molecular_stoichiometry(xtal_out,0)
 		comp_stoich = molecular_stoichiometry(cut_comp,0)
 		# find how many atoms of each kind are missing
 		m_atm = missing_atoms_identifier(org_stoich,new_stoich)
-		# for each tuple in m_atm, get the symbol and amount of missing atoms
-		for t in m_atm:
-			# iflag tells if there are enough atoms in comp to perform the union
-			if iflag == False:
-				break
-			else:
-				# to know iflag, explore the available stoichiometry
-				ms,ma = t[0],t[1]
-				for tt in comp_stoich:
-					avs,ava = tt[0], tt[1]
-					# if the amount of available atoms is less than the required one break the cycle 
-					if avs == ms and ava < ma:
-						iflag = False
-						break
-		# the search for overlaps will occur only if the structures are complementary
-		if iflag == True:
-			# for each tuple in m_atm, get the symbol and amount of missing atoms
+		# find if the available composition has the required atoms in it
+		av_atms, ms_atms = 0,0
+		for ta,tm in zip(comp_stoich,m_atm):
+			av_atms = av_atms + ta[1]
+			ms_atms = ms_atms + tm[1]
+		# if the amount of atoms is enough try to complement
+		# print('----------hay',av_atms,'y faltan',ms_atms,'---------')
+		if av_atms >= ms_atms:
+			# to do that, obtain the symbol and missing number of atoms of each tuple
+			aux_list = cut_comp.atoms.copy()
+			random.shuffle(aux_list)
+			# print('Hay suficientes, el complemento tiene',len(aux_list),'disponibles')
 			for t in m_atm:
 				ms, ma = t[0],t[1]
-				# search for the symbol in the comp structure
-				for a in cut_comp.atoms:
-					s = a.s
-					if s == ms:
-						# once found, check for overlaps
-						if ma == 0:
-							continue
-						try_atom = Atom(s,a.xc,a.yc,a.zc)
-						min_dist = min_dist_atm_xtal(try_atom, xtal_out)
-						# if there are non overlaps, add the atom to the structure
-						if min_dist > ref_dist:
-							xtal_out.add_atom(try_atom)
-							ma = ma - 1
-			# organize the resulting crossover
-			xtal_out = sort_by_stoichiometry([xtal_out])[0]
-			# writeposcars([xtal_out],'out.vasp','D')
+				# print('faltan',ma,'de',ms)
+				for i in range(ma):
+					if aux_list:
+						r_atm = random.choice(aux_list)
+						x,y,z = r_atm.xc,r_atm.yc, r_atm.zc 
+						# print('vamos a intentar agregar','el atomo',r_atm.s,'coord ',x,y,z,'con simb',ms)
+						natm = Atom(ms,x,y,z)
+						oc = overlap_check(natm,xtal_out,ref_d)
+						if oc == False:
+							# print('añadido con exito')
+							xtal_out.add_atom(natm)
+							aux_list.remove(r_atm)
+		else:
+			continue
+		xtal_out = sort_by_stoichiometry([xtal_out])[0]
 		# get its stoichiometry and compare it with the original 
 		out_stoich = molecular_stoichiometry(xtal_out,0)
 		# if there was succes,break the cycle, if there weren't try again
@@ -334,133 +269,46 @@ def crossover(base_xtal,complement_xtal):
 			wflag = True
 			xtal_out.i = str(base_xtal.i) + '_x_' + str(complement_xtal.i)
 		else:
-			stop = stop + 1
+			general_stop = general_stop + 1
 		# if after n attempts there were no luck, break the cycle and return False
-		if stop == 10:
+		if general_stop == 2:
 			xtal_out = False
 			break
 	return xtal_out
 
+# from vasp.libperiodicos import readposcars, writeposcars
+# from miscellaneous import get_tolerances,get_xcomp
+# from inout.readbil import read_var_composition
+# composition = read_var_composition('composition')
+# atms_specie, atms_per_specie = get_xcomp(composition)
+
+# a = readposcars('stage1.vasp')
+# r = get_tolerances(atms_specie)
+# print(r)
+# a1 = a[0]
+# a2 = a[1]
+# a3 = crossover(a1,a2,r)
+# if a3:
+# 	writeposcars([a3],'test_cross.vasp','D')
+# 	print('se pudo hacer la cruzar')
+# else:
+# 	print('fracaso')
+# exit()
 #----------------------------------------------------------------------------------------------------------
-# From this section on, there is another way to make the crossovers; that is, by using only half 
-# of the chemical formula and randomly selecting the atoms  of each structure.
-#----------------------------------------------------------------------------------------------------------
-def chem_formula_bisect(xtal_in):
-	'''
-	This functions splits the chemical formula into two lists of tuples, where each tuple is (simbol,num_atoms)
-
-	in: xtal_in (Molecule), the original structures whose formula is to be split
-	out: chem_for
-	'''
-	big_formula = molecular_stoichiometry(xtal_in,0)
-	f_half, s_half = [], []
-	for ii in big_formula:
-		n1 = ii[1]//2
-		n2 = ii[1] - n1
-		if n1 != 0 : f_half.append((ii[0], n1))
-		if n2 != 0: s_half.append((ii[0], n2))
-	return f_half, s_half
-
-
-#------------------------------------------------------------------------------------------
-def build_str_half_comp(xtal_in,chemformula):
-	'''
-	This function builds a structure, based on the input one, by randomly selecting atoms
-	until the desired chemical formula is achieved
-
-	in: xtal_in (Molecule), the original structure that will be reduced in its composition
-	    chemformula (list), a list of tuples (symbol,atm_number) with the desired composition
-	out: xtal_out (Molecule), the new structure with the desired composition
-	'''
-	xtal = copymol(xtal_in)
-	xtal_out = Molecule(xtal.i, 0.0, xtal.m)
-	inatoms=[]
-	for ii in chemformula:
-		for _ in range(ii[1]):
-			inatoms.append(ii[0])
-	random.shuffle(inatoms)
-	atomlist = xtal.atoms.copy()
-	random.shuffle(atomlist)
-	for si in inatoms:
-		for iatom in atomlist:
-			if si==iatom.s:
-				xtal_out.add_atom(iatom)
-				atomlist.remove(iatom)
-				break
-	xtal_out=sort_by_stoichiometry([xtal_out])[0]
-	return xtal_out
-
-#------------------------------------------------------------------------------------------
-def get_complement(xtal_receipt,xtal_donor,comp_stoich,original_stoich):
-	'''
-	This function builts the crossover between two structures using a different idea that the 
-	one in crossover function. Under this scheme, the receiver will contain the half of the 
-	composition but the atoms that comprais it will be chosen randomly. The full structure then 
-	is built by adding random atoms from the donor.
-
-	in: xtal_receipt (Molecule), the structure that will receive the atoms
-	    xtal_donor (Molecule), the donor of random atoms
-	    comp_stoich (list), a list of tuples of the missing composition of xtal_receipt
-	    original_stoich(list), a list of tuples of the original stoichiometry
-	out: new_xtal (Molecule), if the structure was succesfuly built, then it contains it. If it 
-	     wasn't, then returns a False value.
-	'''
-	donor = copymol(xtal_donor)
-	new_xtal = copymol(xtal_receipt)
-	inatoms=[]
-	for iii in comp_stoich:
-		for _ in range(iii[1]):
-			inatoms.append(iii[0])
-			random.shuffle(inatoms)
-			atomlist = donor.atoms.copy()
-			random.shuffle(atomlist)
-	for si in inatoms:
-		for iatom in atomlist:
-			if si == iatom.s:
-				di = min_dist_atm_xtal(iatom,new_xtal)
-				if di > 0.5:
-					new_xtal.add_atom(iatom)
-					atomlist.remove(iatom)
-					break
-	new_stoich = molecular_stoichiometry(new_xtal,0)
-	if new_stoich == original_stoich:
-		new_xtal=sort_by_stoichiometry([new_xtal])[0]
-	else:
-		new_xtal = False
-	return new_xtal
-
-#------------------------------------------------------------------------------------------
-def new_crossover(base_xtal,complement_xtal):
-	base = copymol(base_xtal)
-	comp = copymol(complement_xtal)
-	org_stoich = molecular_stoichiometry(base,0)
-	avg_uc = combined_unit_cell(base,comp)
-	avg_base = translating_to_avg_uc(base,avg_uc)
-	avg_comp = translating_to_avg_uc(comp,avg_uc)
-	f_half,s_half = chem_formula_bisect(avg_base)
-	receptor = build_str_half_comp(avg_base,f_half)
-	combined = get_complement(receptor,avg_comp,s_half,org_stoich)
-	if combined:
-		combined.i = base.i + '_XC_' + comp.i
-	return combined
-
-#----------------------------------------------------------------------------------------------------------
-def many_crossovers(m_list,f_list):
+def many_crossovers(m_list,f_list,ref_d):
 	all_cross = []
 	for i, ix in enumerate(m_list):
+		n1 = ix.i
 		for j, jx in enumerate(f_list):
-			if i == j and ix != jx:
-				r = random.gauss(0,2)
-				if r > 0:
-					child = crossover(ix,jx)
-				else:
-					child = new_crossover(ix,jx)
+			n2 = jx.i
+			if i == j:
+				child = crossover(ix,jx,ref_d)
 				if child:
 					all_cross.append(child)
 	return all_cross
-#----------------------------------------------------------------------------------------------------------
 
-def popgen_childs(poscarlist, index):
+#----------------------------------------------------------------------------------------------------------
+def popgen_childs(poscarlist, ref_d, index):
 	if number_of_childs==0:
 		poscarout=[]
 		return poscarout
@@ -469,9 +317,15 @@ def popgen_childs(poscarlist, index):
 	print("------------------------ MATING: CROSSOVER ------------------------", file=logfile)
 	print("CONSTRUCTION OF THE PARENT LIST THROUGH ROULETTE", file=logfile)
 	logfile.close()
-	mom = get_roulette_wheel_selection(poscarlist, number_of_childs*2)
-	pop = get_roulette_wheel_selection(poscarlist, number_of_childs*2)
-	poscarout = many_crossovers(mom,pop)
+	c,c2 = 0,0
+	while c < number_of_childs:
+		mom = get_roulette_wheel_selection(poscarlist, number_of_childs)
+		pop = get_roulette_wheel_selection(poscarlist, number_of_childs)
+		poscarout = many_crossovers(mom,pop,ref_d)
+		c = c + len(poscarout)
+		c2 = c2 + 1
+		if c2 > 15:
+			break
 	poscarout = poscarout[0:number_of_childs]
 	logfile = open(log_file,'a')
 	cont = 1 
@@ -484,3 +338,5 @@ def popgen_childs(poscarlist, index):
 	basename = 'mating_' + str(index).zfill(3) + '_'
 	poscarout  = rename_molecule(poscarout, basename, 4)
 	return poscarout   
+
+

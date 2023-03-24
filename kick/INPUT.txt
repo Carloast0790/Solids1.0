@@ -1,49 +1,66 @@
+=======================================
+========= Optimization scheme =========
+=======================================
+
+heuristic      MH
+
+=======================================
+==== Crystal structure information ====
+=======================================
+
 ---COMPOSITION---
-Ti   1
-O    2
+C   8
 ---COMPOSITION---
 
-## Initial population
-total_structures  5
-formula_units     2
-dimension         3
-volume_factor     1.0
+formula_units   1
 
-##Queue system and Computer resources
+=======================================
+=========== Constrictions =============
+=======================================
+
+#max_cell_vol      150 [1.0,1.0,1.0]
+#custom_tolerances    Ti,Ti,3.3 Ti,O,1.7 O,O,2.5
+interatom_scale_value  1.05
+=======================================
+========= Initial population ==========
+=======================================
+
+initial_structures  30
+
+=======================================
+======== Algorithm parameters =========
+=======================================
+
+number_of_stages    1
+
+=======================================
+========== Discrimination =============
+=======================================
+
+min_energy_difference   0.0005
+min_volume_difference   0.0001
+energy_range            7.0
+
+=======================================
+====== Calculation parameters =========
+=======================================
+
+calculator        gulp
 qsys              local
 
-##Kick parameters
-calculator         gulp
-number_of_stages   1
-
-##Restrictions
-#fixed_UC      2.5 8.0 6.0
-#fixed_vol     130.4
-     
-## Discrimination parameters
-min_energy_difference   0.00004
-min_volume_difference   0.00001
-
 ---GULP1---
-opti conj conv
+opti conj conp
 switch_minimiser bfgs gnorm 0.5
 vectors
 LATTICEVECTORS
 frac
 COORDINATES
-species
-Ti  2.196
-O  -1.098
-buck
-Ti Ti 31120.1 0.1540 5.25  15
-O  O  11782.7 0.2340 30.22 15
-Ti O  16957.5 0.1940 12.59 15
-lennard 12 6
-Ti Ti   1   0 15
-O  O    1   0 15
-Ti O    1   0 15
+lib /home/carlos/gulp-6.0/Libraries/edip_marks.lib
 ---GULP1---
 
 ---GULP.CONF---
 exe_gulp=/home/carlos/bin/gulp
 ---GULP.CONF---
+
+
+

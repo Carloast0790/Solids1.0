@@ -1,56 +1,67 @@
+=======================================
+========= Optimization scheme =========
+=======================================
+
+heuristic      GA
+
+=======================================
+==== Crystal structure information ====
+=======================================
+
 ---COMPOSITION---
-Ti     1
-O      2
+C    8
 ---COMPOSITION---
 
-## Initial population
-total_structures  5
-formula_units     2
-dimension         3
-volume_factor     1.0
+formula_units     1
 
-## Discrimination parameters
-energy_range            5.0
-max_number_inputs       3
-min_energy_difference   0.00004
-min_volume_difference   0.00001
+=======================================
+=========== Constrictions ============= 
+=======================================
 
-##Queue system and Computer resources
-qsys              local
+#max_cell_vol      150 [1.0,1.0,1.0]
+#custom_tolerances    Ti,Ti,3.3 Ti,O,1.7 O,O,2.5
+interatom_scale_value  1.02
 
-##GEGA parameters
-number_of_matings 5
-number_of_mutants 2
-max_number_gens   3
-crit_stop_nrep    3
+=======================================
+========= Initial population ==========
+=======================================
 
-##Restrictions
-#fixed_UC     4.59 4.59 2.95
-#fixed_vol    130.4
+initial_structures 5
 
-##Calculation parameters
-calculator                      gulp
-percent_of_convergence          97.0
-no_attempts_opt                 1
+=======================================
+======== Algorithm parameters =========
+=======================================
+
+number_of_matings  10
+number_of_mutants  5
+max_number_gens    6
+crit_stop_nrep     3
+max_number_inputs  7
+
+=======================================
+========== Discrimination =============
+=======================================
+
+min_energy_difference   0.00001
+min_volume_difference   0.0001
+energy_range            7.0
+
+=======================================
+====== Calculation parameters =========
+=======================================
+
+calculator               gulp
+qsys                     local
 
 ---GULP---
 opti conj conp
 switch_minimiser bfgs gnorm 0.5
+#pressure 200 GPa
 vectors
 LATTICEVECTORS
 frac
 COORDINATES
-species
-Ti  2.196
-O  -1.098
-buck
-Ti Ti 31120.1 0.1540 5.25  15
-O  O  11782.7 0.2340 30.22 15
-Ti O  16957.5 0.1940 12.59 15
-lennard 12 6
-Ti Ti   1   0 15
-O  O    1   0 15
-Ti O    1   0 15
+lib /home/carlos/gulp-6.0/Libraries/edip_marks.lib
 ---GULP---
 
 ---GULP.CONF---

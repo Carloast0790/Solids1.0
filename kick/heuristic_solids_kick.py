@@ -5,21 +5,26 @@ import os.path
 from inout.getbilparam import get_a_int, get_a_str, get_a_float
 from inout.readbil import read_var_composition,  clustername
 from utils.libmoleculas import readxyzs, writexyzs, rename_molecule, sort_by_energy
+from discriminate.energy import cutter_energy
 from vasp.libperiodicos import readposcars, writeposcars, expand_poscar
 from gulp.calculator_all import calculator_gulp_all_check
 from discriminator import discriminate_calculated
-from miscellaneous import get_xcomp, uc_restriction
+from miscellaneous import get_xcomp, uc_restriction, get_tolerances
 #------------------------------------------------------------------------------------------------
 vol_restriction = uc_restriction() 
 flag = get_a_str('calculator','vasp')
 composition=read_var_composition('composition')
+emax =  get_a_float('energy_range', 99.0)
 atms_specie,atms_per_specie=get_xcomp(composition)
-total_structures = get_a_int('total_structures', 4)
-formula_units = get_a_int('formula_units',1)
+total_structures = get_a_int('initial_structures', 10)
+formula_units = get_a_int('formula_units',4)
 dimension = get_a_int('dimension',3)
-volume_factor = get_a_float('volume_factor', 1.1)
-nofstages = get_a_int('number_of_stages', 2)
+volume_factor = get_a_float('volume_factor', 1.0)
+nofstages = get_a_int('number_of_stages', 1)
 log_file = get_a_str('output_file','glomos_out.txt')
+
+l_tol,p_tol = get_tolerances(atms_specie)
+
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
 fopen = open(log_file,'w')
@@ -39,7 +44,7 @@ def build_population_0():
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        poscarlist = random_crystal_gen(total_structures,atms_specie,atms_per_specie, formula_units,dimension,volume_factor,vol_restriction)
+        poscarlist = random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
         poscarlist = rename_molecule(poscarlist, 'random', 4)
         writeposcars(poscarlist, initialfile, 'D')
     else:
@@ -67,16 +72,6 @@ def run_calculator(poscarlistin, folder, stage=0):
        poscarlistout = sort_by_energy(poscarlistout,1)
     return poscarlistout
 
-# def run_calculator(poscarlistin, folder, stage=0):
-#     fopen = open(log_file,'a')
-#     print("-------------------------------------------------------------------",file=fopen)
-#     print("------------------- LOCAL OPTIMIZATION: STAGE %d -------------------" %(stage+1),file=fopen)
-#     fopen.close()
-#     blockname = 'gulp'+str(stage+1)
-#     poscarlistout = calculator_gulp_all_check(poscarlistin, folder, blockname, stage)
-#     poscarlistout = sort_by_energy(poscarlistout,1)
-#     return poscarlistout
-
 #------------------------------------------------------------------------------------------------
 def display_mol_info(moleculein, stage=0, opt=0):
     fopen = open(log_file,'a')
@@ -102,6 +97,7 @@ for stage in range(nofstages):
     folder = basenm+'/'
     poscar01 = rename_molecule(poscar00, basenm, 3)
     poscar00 = run_calculator(poscar01, folder, stage)
+    poscar00 = cutter_energy(poscar00,emax,1)
     poscar00 = discriminate_calculated(poscar00,vol_restriction)
     display_mol_info(poscar00,stage)
     writeposcars(poscar00, basenm + '.vasp', 'D')

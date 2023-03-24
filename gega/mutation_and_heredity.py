@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from utils.libmoleculas import Molecule, Atom, copymol, rename_molecule, get_min_binding_distance
+from utils.libmoleculas import Molecule, Atom, copymol, rename_molecule
 from vasp.libperiodicos import cartesian2direct, direct2cartesian
 from inout.getbilparam import get_a_int, get_a_str
 from solids_roulette import get_roulette_wheel_selection
@@ -9,25 +9,66 @@ number_of_mutants = get_a_int('number_of_mutants',5)
 log_file = get_a_str('output_file','glomos_out.txt')
 #------------------------------------------------------------------------------------------
 def strained_lattice_unrestricted(original_lattice):
+    # Nota ahorita es para pruebas, originalmente es el strained_lattice_restricted
     '''
-    This functions multiplies a random strain matrix by each of the lattice vectors of a crystal unit cell
+    This functions multiplies a random strain matrix by all the lattice vectors of a crystal unit cell
 
     in: original_lattice (numpy array)
     out: mutated_lattice (numpy array) 
     '''
-    aux = []
-    cont = 0 
-    while cont <= 5:
-        x = random.gauss(0,1)
-        if abs(x) <= 1:
-            aux.append(x)
-            cont = cont + 1        
-    random.shuffle(aux)
-    e11, e22, e33 = 1 + aux[0], 1 + aux[1], 1 + aux[2]
-    e12, e13, e23 = aux[3] / 2, aux[4] / 2, aux[5] / 2 
-    strain_matrix = np.array([[e11,e12,e13],[e12,e22,e23],[e13,e23,e33]])
-    mutated_lattice = np.array([np.dot(original_lattice[ii],strain_matrix) for ii in range(3)])
+    flag = False
+    stop = 0
+    while flag == False:
+        aux = []
+        cont = 0 
+        while cont <= 5:
+            x = random.gauss(0,1)
+            if abs(x) <= 1:
+                aux.append(x)
+                cont = cont + 1        
+        random.shuffle(aux)
+        e11, e22, e33 = 1 + aux[0], 1 + aux[1], 1 + aux[2]
+        e12, e13, e23 = aux[3] / 2, aux[4] / 2, aux[5] / 2 
+        strain_matrix = np.array([[e11,e12,e13],[e12,e22,e23],[e13,e23,e33]])
+        mutated_lattice = np.array([np.dot(original_lattice[ii],strain_matrix) for ii in range(3)])
+        for i in range(len(mutated_lattice)):
+            vi = mutated_lattice[i]
+            mi = np.linalg.norm(vi)
+            for j in range(i+1,len(mutated_lattice)):
+                vj = mutated_lattice[j]
+                mj = np.linalg.norm(vj)
+                div = np.dot(vi,vj)/(mi*mj)
+                theta = np.arccos(div)
+                theta = round(theta,2)
+                if theta > 1.05 and theta < 2.10:
+                    flag = True
+                else:
+                    flag = False
+                    break
+            if flag == False:
+                break
     return mutated_lattice
+#------------------------------------------------------------------------------------------
+# def strained_lattice_unrestricted(original_lattice):
+#     '''
+#     This functions multiplies a random strain matrix by each of the lattice vectors of a crystal unit cell
+
+#     in: original_lattice (numpy array)
+#     out: mutated_lattice (numpy array) 
+#     '''
+#     aux = []
+#     cont = 0 
+#     while cont <= 5:
+#         x = random.gauss(0,1)
+#         if abs(x) <= 1:
+#             aux.append(x)
+#             cont = cont + 1        
+#     random.shuffle(aux)
+#     e11, e22, e33 = 1 + aux[0], 1 + aux[1], 1 + aux[2]
+#     e12, e13, e23 = aux[3] / 2, aux[4] / 2, aux[5] / 2 
+#     strain_matrix = np.array([[e11,e12,e13],[e12,e22,e23],[e13,e23,e33]])
+#     mutated_lattice = np.array([np.dot(original_lattice[ii],strain_matrix) for ii in range(3)])
+#     return mutated_lattice
 
 #------------------------------------------------------------------------------------------
 def lattice_mutation(xtal_in):
@@ -53,6 +94,7 @@ def lattice_mutation(xtal_in):
 #------------------------------------------------------------------------------------------
 def atom_exchange(xtal_in,rounds):
     xtal_out = copymol(xtal_in)
+    l = len(xtal_out.atoms)
     for _ in range(rounds):
         atm1 = random.choice(xtal_out.atoms)
         s1,x1,y1,z1 = atm1.s,atm1.xc,atm1.yc,atm1.zc
@@ -75,16 +117,31 @@ def atom_exchange(xtal_in,rounds):
 #--------------------------------------------------------------------------------------------
 def make_mutants(the_chosen_ones_list):
     xtal_out = []
+    s_list = []
+    [s_list.append(a.s) for a in the_chosen_ones_list[0].atoms if a.s not in s_list]
+    l = len(s_list)
     for xtal in the_chosen_ones_list:
         tmp_xtal = copymol(xtal)
         mut_type = random.gauss(0,1)
-        if mut_type > 0: 
-            muty = lattice_mutation(xtal)
-        if mut_type < 0:
+        if mut_type < 0 and l > 1:
             r = random.randint(1,4)
             muty = atom_exchange(xtal,r)
+        else: 
+            muty = lattice_mutation(xtal)
         xtal_out.append(muty)
     return xtal_out
+
+# import sys
+# sys.path.insert(0, '/home/carlos/installdir/solids/GLOMOSolids1.0/')
+# from vasp.libperiodicos import readposcars, writeposcars
+# from miscellaneous import get_min_interatomic_distance
+
+# a = readposcars('initial000.vasp')
+# b = make_mutants(a)
+# writeposcars(b,'tmut.vasp','D')
+# exit()
+
+
 
 #--------------------------------------------------------------------------------------------
 def popgen_mutants(xtal_list, generation):
@@ -144,43 +201,4 @@ def popgen_mutants(xtal_list, generation):
 #         xtal_out.add_atom(n_atm)
 #     return xtal_out
 
-#------------------------------------------------------------------------------------------
-# def strained_lattice_restricted(original_lattice):
-#     '''
-#     This functions multiplies a random strain matrix by all the lattice vectors of a crystal unit cell
 
-#     in: original_lattice (numpy array)
-#     out: mutated_lattice (numpy array) 
-#     '''
-#     flag = False
-#     stop = 0
-#     while flag == False:
-#         aux = []
-#         cont = 0 
-#         while cont <= 5:
-#             x = random.gauss(0,0.2)
-#             if abs(x) <= 1:
-#                 aux.append(x)
-#                 cont = cont + 1        
-#         random.shuffle(aux)
-#         e11, e22, e33 = 1 + aux[0], 1 + aux[1], 1 + aux[2]
-#         e12, e13, e23 = aux[3] / 2, aux[4] / 2, aux[5] / 2 
-#         strain_matrix = np.array([[e11,e12,e13],[e12,e22,e23],[e13,e23,e33]])
-#         mutated_lattice = np.array([np.dot(original_lattice[ii],strain_matrix) for ii in range(3)])
-#         for i in range(len(mutated_lattice)):
-#             vi = mutated_lattice[i]
-#             mi = np.linalg.norm(vi)
-#             for j in range(i+1,len(mutated_lattice)):
-#                 vj = mutated_lattice[j]
-#                 mj = np.linalg.norm(vj)
-#                 div = np.dot(vi,vj)/(mi*mj)
-#                 theta = np.arccos(div)
-#                 theta = round(theta,2)
-#                 if theta > 1.05 and theta < 2.10:
-#                     flag = True
-#                 else:
-#                     flag = False
-#                     break
-#             if flag == False:
-#                 break
-#     return mutated_lattice

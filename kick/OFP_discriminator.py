@@ -57,7 +57,7 @@ def discriminate_all_OFP(xtal_list):
 #------------------------------------------------------------------------------------------
 def run_sample():
     from vasp.libperiodicos import readposcars, writeposcars, expand_poscar
-    x = readposcars('summary.vasp')[0]
+    x = readposcars('stage1.vasp')[0]
     y = readposcars('oga.vasp')[0]
     ans = compare_oganov_fp(x,x)
     print(ans)

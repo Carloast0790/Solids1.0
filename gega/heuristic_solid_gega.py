@@ -3,6 +3,7 @@ sys.path.insert(0, '/home/carlos/installdir/solids/GLOMOSolids1.0/')
 
 import os.path
 import random
+import numpy as np
 from discriminate.energy import cutter_energy
 from inout.getbilparam import get_a_int, get_a_str, get_a_float
 from inout.readbil import read_var_composition, clustername
@@ -13,21 +14,23 @@ from gega.aptitude import get_aptitude
 from discriminator import discriminate_calculated, discriminate_calculated_vs_pool
 from crossoversolids import crossover, popgen_childs
 from mutation_and_heredity import popgen_mutants, make_mutants
-from miscellaneous import get_xcomp, uc_restriction, rescale_str
-#------------------------------------------------------------------------------------------------
+from miscellaneous import get_xcomp, uc_restriction, rescale_str,get_tolerances
+#-------------------------------------------------------------------------------------------------
 vol_restriction = uc_restriction()
 flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
 atms_specie,atms_per_specie = get_xcomp(composition)
-total_structures = get_a_int('total_structures', 4)
-formula_units = get_a_int('formula_units',1)
+total_structures = get_a_int('initial_structures', 4)
+formula_units = get_a_int('formula_units',2)
 dimension = get_a_int('dimension',3)
-volume_factor = get_a_float('volume_factor', 1.1)
+volume_factor = get_a_float('volume_factor', 1.0)
 log_file = get_a_str('output_file','glomos_out.txt')
+
+l_tol,p_tol = get_tolerances(atms_specie)
 #------------------------------------------------------------------------------------------------
 max_number_inputs = get_a_int('max_number_inputs',20)
-emax = get_a_float('energy_range', 100.0)
-nmaxgen = get_a_int('max_number_gens',50)
+emax = get_a_float('energy_range', 3.0)
+nmaxgen = get_a_int('max_number_gens',10)
 nmaxrep = get_a_int('crit_stop_nrep',10)
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
@@ -48,7 +51,8 @@ def build_population_0():
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        poscarlist = random_crystal_gen(total_structures,atms_specie,atms_per_specie,formula_units,dimension,volume_factor,vol_restriction)
+        # poscarlist = random_crystal_gen(total_structures,atms_specie,atms_per_specie,formula_units,dimension,volume_factor,vol_restriction)
+        poscarlist = random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
         poscarlist = rename_molecule(poscarlist, 'random_000_', 4)
         writeposcars(poscarlist, initialfile, 'D')
     else:
@@ -103,7 +107,7 @@ def display_info(poscarlist, flagsum=0, generation=0):
     fopen.close()
 
 #------------------------------------------------------------------------------------------------
-def build_population_n(poscarlist, generation=1):
+def build_population_n(poscarlist,ref_d,generation=1):
     initialfile = 'initial' + str(generation).zfill(3) + '.vasp'
     if os.path.isfile(initialfile):
         fopen = open(log_file,'a')
@@ -113,24 +117,29 @@ def build_population_n(poscarlist, generation=1):
         xtal_out = readposcars(initialfile)
     else:
         xtal_out = []
-        cross = popgen_childs(poscarlist, generation)
+        cross = popgen_childs(poscarlist, ref_d, generation)
         xtal_out.extend(cross)
         mut = popgen_mutants(poscarlist,generation)
         xtal_out.extend(mut)
         if vol_restriction:
             for x in xtal_out:
                 x = rescale_str(x,vol_restriction)
+        else:
+            get_vol = lambda v0,v1,v2: abs(np.dot(np.cross(v0,v1),v2))
+            best_mtx = poscarlist[0].m
+            best_vol = get_vol(best_mtx[0],best_mtx[1],best_mtx[2])
+            for x in xtal_out:
+                x = rescale_str(x,best_vol)
         writeposcars(xtal_out, initialfile, 'D')
     return xtal_out
 
 #------------------------------------------------------------------------------------------------
 poscar00 = build_population_0()
-generation =  0
-folder = 'generation000/'
-poscar01 = run_calculator(poscar00, folder, generation)
+poscar01 = run_calculator(poscar00, 'generation000/', 0)
 poscar01 = discriminate_calculated(poscar01,vol_restriction)
 poscar01 = sort_by_energy(poscar01,1)
 poscarxx = poscar01[0:max_number_inputs]
+# list_ref_distances = get_min_interatomic_distance(poscarxx[0],min_rad,scale_fact)
 display_info(poscarxx, 0)
 poscaryy = sort_by_energy(poscarxx, 0)
 writeposcars(poscaryy, 'summary.vasp', 'D')
@@ -138,8 +147,9 @@ emin = poscarxx[0].e
 cont = 0
 for generation in range(1,nmaxgen + 1):
     folder = 'generation' + str(generation).zfill(3) + '/'
-    poscar00 = build_population_n(poscarxx, generation)
+    poscar00 = build_population_n(poscarxx,l_tol,generation)
     poscar01 = run_calculator(poscar00, folder, generation)
+    poscar01 = cutter_energy(poscar01,emax,1)
     #discrimination among local structures
     poscar01 = discriminate_calculated(poscar01,vol_restriction)
     #discrimination btwn remaining local vs pool
@@ -156,7 +166,6 @@ for generation in range(1,nmaxgen + 1):
     poscarxx.extend(poscar02)
     poscarxx = sort_by_energy(poscarxx, 1)
     poscarxx = poscarxx[0:max_number_inputs]
-    poscarxx = cutter_energy(poscarxx, emax, 1)
     display_info(poscarxx, 0)
     poscaryy = sort_by_energy(poscarxx, 0)
     writeposcars(poscaryy, 'summary.vasp', 'D')

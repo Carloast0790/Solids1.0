@@ -1,5 +1,7 @@
 import numpy as np
 #------------------------------------------------------------------------------------------------
+#-------------------------First Random Generations-----------------------------------------------
+#------------------------------------------------------------------------------------------------
 def check_compatible(group, numIons):
     from copy import deepcopy
     """
@@ -171,6 +173,8 @@ def pyxtal2xyz(xtal_from_pyxtal):
     return glomos_xtal
 
 #------------------------------------------------------------------------------------------------
+#---------------------------------General Constrains---------------------------------------------
+#------------------------------------------------------------------------------------------------
 def uc_restriction():
     '''
     This functions obtains the restrictions imposed by the user to the unit cell
@@ -228,8 +232,249 @@ def rescale_str(xtal_in, reference_volume):
         xtal_out.add_atom(natm)
     return xtal_out
 
+#------------------------------------------------------------------------------------------------
+def get_default_tolerances(species,scale_value):
+    '''
+    This function gets the default tolerances of each pair of atoms in the structure.
+    
+    in: species (list), a list of strings, with each species found in the crystal
+        scale_value (float), a scaling value for the sum of each species' covalent radius.
+        The scaled sum will be used as the minimum interatomic distance.
+    out: tolerances (list), a list containing tuples with each min int dist, [(s1,s2,d1),(s1,s3,d2),...]
+         py_tol (Tol_matrix), a PyXtal object used for the initial generation of structures
+    '''
+    from utils.libmoleculas import get_covalent_radius
+    from pyxtal.tolerance import Tol_matrix
+    py_tol = Tol_matrix()
+    tolerances = []
+    if len(species) == 1:
+        s = species[0]
+        r = get_covalent_radius(s)
+        tv = r*scale_value*2
+        tv = round(tv,2)
+        tolerances.append((s,s,tv))
+        py_tol.set_tol(s,s,tv)
+        return tolerances,py_tol
+    else:
+        for i,s1 in enumerate(species):
+            r1 = get_covalent_radius(s1)
+            tv = r1*scale_value*2
+            tv = round(tv,2)
+            tolerances.append((s1,s1,tv))
+            py_tol.set_tol(s1,s1,tv)
+            for j in range(i+1,len(species)):
+                s2 = species[j]
+                r2 = get_covalent_radius(s2)
+                tv_mix = (r1+r2)*scale_value
+                tv_mix = round(tv_mix,2)
+                tolerances.append((s1,s2,tv_mix))
+                py_tol.set_tol(s1,s2,tv_mix)
+        return tolerances,py_tol 
+
+#------------------------------------------------------------------------------------------------
+def get_custom_tolerances():
+    '''
+    This function obtains a list of the tuples containing each of the min interatomic distances 
+    provided by the user.
+    
+    out: tolerances (list), a list containing tuples with each min int dist, [(s1,s2,d1),(s1,s3,d2),...]
+         py_tol (Tol_matrix), a PyXtal object used for the initial generation of structures
+    '''
+    import os.path
+    from pyxtal.tolerance import Tol_matrix
+    file = 'INPUT.txt'
+    py_tol = Tol_matrix()
+    if os.path.isfile(file):
+        bilfile = open(file,"r")
+        for line in bilfile:
+            if not line.startswith('#') and 'custom_tolerances' in line:
+                tolerances = []
+                line = line.lstrip('\n')
+                readline = line.split()
+                readline = readline[1:]
+                for i in readline:
+                    x = i.split(',')
+                    tupla = (x[0],x[1],float(x[2]))
+                    tolerances.append(tupla)
+                    py_tol.set_tol(x[0],x[1],float(x[2]))
+        bilfile.close()
+    return tolerances,py_tol
+
+#------------------------------------------------------------------------------------------------
+def get_tolerances(species):
+    from inout.getbilparam import get_a_float
+    tv = get_a_float('interatom_scale_value',False)
+    if tv:
+        dtv,p_dtv = get_default_tolerances(species,tv)
+        return dtv,p_dtv
+    else:
+        ctv, p_ctv = get_custom_tolerances()
+        return ctv,p_ctv
+
+#------------------------------------------------------------------------------------------------
+# def virtual_expansion(xtal_in):
+#     '''
+#     This function takes the original structure and expands it in all dimensions in order to later check
+#     the overlapping between atoms. The cell that will be of interest is the one in the middle of them  
+
+#     in: xtal_in (Molecule), the structure that will be expanded
+#     out: xtal_out (Molecule), the expanded structure 
+#     '''
+#     from utils.libmoleculas import copymol, Molecule, Atom
+#     cp_xtal = copymol(xtal_in)
+#     mtx = cp_xtal.m
+#     a1, a2, a3 = mtx[0,:], mtx[1,:], mtx[2,:]
+#     exp_mtx = np.array([3*a1,3*a2,3*a3])
+#     xtal_out = Molecule(cp_xtal.i, cp_xtal.e, exp_mtx)
+#     for ii,iatom in enumerate(cp_xtal.atoms):
+#         for x in [-1,0,1]:
+#             for y in [-1,0,1]:
+#                 for z in [-1,0,1]:
+#                     vt = float(x)*a1 + float(y)*a2 + float(z)*a3
+#                     xc, yc, zc = iatom.xc + vt[0], iatom.yc + vt[1], iatom.zc + vt[2]
+#                     if x==1 and y==1 and z==1:
+#                         xf, yf, zf = iatom.xf, iatom.yf, iatom.zf
+#                     else:
+#                         xf, yf, zf = 'F','F','F'
+#                     ai = Atom(iatom.s,xc,yc,zc,xf,yf,zf)
+#                     xtal_out.add_atom(ai)
+#     return xtal_out
+
+def virtual_expansion(singleposcar, tol=0.01):
+    import numpy as np
+    from utils.libmoleculas import Atom, Molecule
+    matrix=np.copy(singleposcar.m)
+    a1, a2, a3=matrix[0,:], matrix[1,:], matrix[2,:]
+    mi=np.linalg.inv(matrix)
+    poscarout=Molecule(singleposcar.i, singleposcar.e, matrix)
+    xdmin,xdmax=0.0,1.0
+    ydmin,ydmax=0.0,1.0
+    zdmin,zdmax=0.0,1.0
+    for ii,iatom in enumerate(singleposcar.atoms):
+        for x in [-1,0,1]:
+            for y in [-1,0,1]:
+                for z in [-1,0,1]:
+                    vt=float(x)*a1+float(y)*a2+float(z)*a3
+                    xc, yc, zc=iatom.xc+vt[0], iatom.yc+vt[1], iatom.zc+vt[2]
+                    xf, yf, zf=iatom.xf, iatom.yf, iatom.zf
+                    vector=np.array([xc, yc, zc])
+                    vd=np.matmul(mi,vector)
+                    xd, yd, zd = vd[0], vd[1], vd[2]
+                    suma=0
+                    if (xd >= xdmin-tol) and (xd <= xdmax+tol): suma=suma+1 
+                    if (yd >= ydmin-tol) and (yd <= ydmax+tol): suma=suma+1 
+                    #if (zd >= zdmin-tol) and (zd <= zdmax+tol): suma=suma+1 
+                    if (zd >= zdmin) and (zd <= zdmax): suma=suma+1 
+                    if suma == 3:
+                        ai=Atom(iatom.s,xc,yc,zc,xf,yf,zf)
+                        poscarout.add_atom(ai)
+    return poscarout
+
+
+#------------------------------------------------------------------------------------------------
+def distance_atom_atom(iatom, jatom):
+    vi=np.array([iatom.xc, iatom.yc, iatom.zc])
+    vj=np.array([jatom.xc, jatom.yc, jatom.zc])
+    c_dist = np.linalg.norm(vi-vj)
+    return c_dist
+
+#------------------------------------------------------------------------------------------------
+def overlap_check(xatom, xtal_host,ref_dist):
+    from utils.libmoleculas import copymol
+    import copy
+    # from vasp.libperiodicos import writeposcars
+    new_xtal = copymol(xtal_host)
+    cp_atom = copy.copy(xatom)
+    for a in new_xtal.atoms:
+        a.xf, a.yf, a.zf='F','F','F'
+    cp_atom.xf,cp_atom.yf,cp_atom.zf='T','T','T'
+    new_xtal.add_atom(cp_atom)
+    extended_xtal = virtual_expansion(new_xtal,0.3)
+    # writeposcars([extended_xtal],'ext_check.vasp','D')
+    natoms = extended_xtal.n
+    flag = False
+    for i, ia in enumerate(extended_xtal.atoms):
+        if ia.xf == 'T':
+            for j in range(i+1,natoms):
+                ja = extended_xtal.atoms[j]
+                auxt = [ia.s,ja.s]
+                auxt.sort()
+                for t in ref_dist:
+                    refsym = [t[0],t[1]]
+                    refsym.sort()
+                    if refsym == auxt:
+                        dmin = float(t[2])
+                        break
+                d = distance_atom_atom(ia,ja)
+                if d < dmin:
+                    # print('traslape detectado entre',ia.s,ja.s)
+                    flag = True
+                    break
+                # else:
+                #     print('todo bien')
+            if flag == True:
+                break
+    return flag
+
+
+# def overlap_check(xatom, xtal_host,ref_dist):
+#     from utils.libmoleculas import copymol
+#     # from vasp.libperiodicos import writeposcars
+#     new_xtal = copymol(xtal_host)
+#     cp_atom = xatom
+#     for a in new_xtal.atoms:
+#         a.xf, a.yf, a.zf='F','F','F'
+#     cp_atom.xf,cp_atom.yf,cp_atom.zf='T','T','T'
+#     new_xtal.add_atom(cp_atom)
+#     extended_xtal = virtual_expansion(new_xtal)
+#     # writeposcars([extended_xtal],'ext_check.vasp','D')
+#     # poscarhlp = unit_cell_non_negative_coordinates(poscarhlp)
+#     natoms = extended_xtal.n
+#     flag = False
+#     for i, ia in enumerate(extended_xtal.atoms):
+#         if ia.xf == 'T':
+#             for j in range(i+1,natoms):
+#                 ja = extended_xtal.atoms[j]
+#                 auxt = [ia.s,ja.s]
+#                 auxt.sort()
+#                 for t in ref_dist:
+#                     if t[0] == auxt:
+#                         dmin = t[1]
+#                     break
+#                 d = distance_atom_atom(ia,ja)
+#                 if d < dmin:
+#                     # print('traslape detectado entre',ia.s,ja.s)
+#                     flag = True
+#                     break
+#                 # else:
+#                 #     print('todo bien')
+#             if flag == True:
+#                 break
+#     return flag
+
+#----------------------------------------------------------------------------------------------------------
+def unit_cell_non_negative_coordinates(xtal_in):
+    '''
+    This function transforms every negative coordinate in the crystal structure to the equivalent positive one
+    in order to correctly calculate the distances between atoms whithin the UC.
+    '''
+    from vasp.libperiodicos import cartesian2direct, direct2cartesian
+    from utils.libmoleculas import copymol
+    xtal_out = copymol(xtal_in)
+    for a in xtal_out.atoms:
+        x,y,z = cartesian2direct(a.xc,a.yc,a.zc,xtal_out.m)
+        l = [x,y,z]
+        for i in range(3):
+            if l[i] < 0:
+                l[i] = l[i] + 1
+            elif l[i] > 1:
+                l[i] = l[i] - 1
+        a.xc, a.yc, a.zc = l[0], l[1], l[2]
+        a.xc,a.yc,a.zc = direct2cartesian(a.xc,a.yc,a.zc,xtal_out.m)
+    return xtal_out
+
+
 # from vasp.libperiodicos import readposcars,writeposcars
-# o = readposcars('ours.vasp')[0]
-# # vol org = 123.32073085200001
-# n = reescale_str(o,122)
-# writeposcars([n],'compression.vasp','D')
+# o = readposcars('test.vasp')[0]
+# o = overlap_check(o)
+# writeposcars([o],'no_neg.vasp','D')
