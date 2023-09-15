@@ -74,7 +74,7 @@ def compare_fingerprints(xtal_a,xtal_b,vol_restr):
 #---------------------------------------------------------------------------------------------------------
 def discriminate_calculated(xtal_list, vol_restr):
 	xtalist_out = xtal_list.copy()
-	l_list = len(xtal_list)-1
+	l_list = len(xtal_list)
 	fopen = open(log_file,'a')
 	print('-------------------------------------------------------------------',file=fopen)
 	print('------------------- DISCRIMINATION Generation ---------------------',file=fopen)

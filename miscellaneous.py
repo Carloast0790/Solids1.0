@@ -185,7 +185,7 @@ def uc_restriction():
          them from scratch with the lattice parameters
     '''
     import os.path
-    from pyxtal.lattice import Lattice
+    #from pyxtal.lattice import Lattice
     file = 'INPUT.txt'
     if os.path.isfile(file):
         restr_v = False

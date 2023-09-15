@@ -9,10 +9,11 @@ heuristic      MH
 =======================================
 
 ---COMPOSITION---
-C   8
+Al   2
+O    3
 ---COMPOSITION---
 
-formula_units   1
+formula_units   4
 
 =======================================
 =========== Constrictions =============
@@ -20,18 +21,18 @@ formula_units   1
 
 #max_cell_vol      150 [1.0,1.0,1.0]
 #custom_tolerances    Ti,Ti,3.3 Ti,O,1.7 O,O,2.5
-interatom_scale_value  1.05
+interatom_scale_value  0.5
 =======================================
 ========= Initial population ==========
 =======================================
 
-initial_structures  30
+initial_structures  5
 
 =======================================
 ======== Algorithm parameters =========
 =======================================
 
-number_of_stages    1
+number_of_stages    0
 
 =======================================
 ========== Discrimination =============
@@ -39,7 +40,7 @@ number_of_stages    1
 
 min_energy_difference   0.0005
 min_volume_difference   0.0001
-energy_range            7.0
+energy_range            10.0
 
 =======================================
 ====== Calculation parameters =========
@@ -50,17 +51,13 @@ qsys              local
 
 ---GULP1---
 opti conj conp
-switch_minimiser bfgs gnorm 0.5
 vectors
 LATTICEVECTORS
 frac
 COORDINATES
-lib /home/carlos/gulp-6.0/Libraries/edip_marks.lib
+lib /home/carlos/gulp-6.0/Libraries/reaxff_zno.lib
 ---GULP1---
 
 ---GULP.CONF---
 exe_gulp=/home/carlos/bin/gulp
 ---GULP.CONF---
-
-
-

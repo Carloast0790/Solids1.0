@@ -2,63 +2,42 @@ import random
 from utils.libmoleculas import sort_by_stoichiometry
 from inout.getbilparam import get_a_str
 from pyxtal import pyxtal
-from pyxtal.tolerance import Tol_matrix
-from miscellaneous import pyxtal2xyz, possible_sym, rescale_str, unit_cell_non_negative_coordinates
+from miscellaneous import pyxtal2xyz, rescale_str, unit_cell_non_negative_coordinates
 
 log_file = get_a_str('output_file','glomos_out.txt')
+
 #------------------------------------------------------------------------------------------------
 def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_units=1,dimension=3,volume_factor=1.1,vol_restr=False):
-    '''
-    This function generates the initial population for the algorithm using Pyxtal to build random structures
-    and later translate them into GLOMOS Molecule object. It takes into consideration the restrictions imposed 
-    by the user, if requested.
-
-    in: total_of_xtals (int), the requested number of random structures
-        species (list), the species of all the atoms in the unit cell ['Mg','O']
-        atoms_per_specie (list), it concatenates with 'species' according with composition [1,2]
-        p_list (Tol_mtx), PyXtal object used for checking interatomic distances 
-        formula_units (int), the number of formula units within the unit cell
-        dimension (int), so far only 3D
-        volumen_factor (float), a fixed value to expand or contract the unit cell
-        vol_restr (Lattice), Pyxtal's Lattice object if requested, False otherwise
-
-    out: xtal_list (list), This list contains all the generated structures
-    '''
     xtal_list = []
-    possym = possible_sym(atoms_per_specie)
     z = len(atoms_per_specie)
     # Expand the chemical formula to match the amount of formula units
     for i in range(z):
         atoms_per_specie[i] = atoms_per_specie[i] * formula_units
-    c = 0
-    for ii in range(total_of_xtals):
-        # select one of the possible symmetries
-        if c < len(possym):
-            random_sym = possym[c]
+    xc = 1
+    for sym in range (2,230):
+        # build the crystal with specified symmetry
+        if xc <= total_of_xtals:
+            xtal = pyxtal()
+            xtal.from_random(dimension,sym,species,atoms_per_specie,volume_factor,p_list,force_pass=True)
+            if xtal.valid:
+                # translate the crystal to GLOMOS and add them to xtal_list
+                glomos_xtal = pyxtal2xyz(xtal)
+                glomos_xtal = unit_cell_non_negative_coordinates(glomos_xtal)
+                if vol_restr:
+                    glomos_xtal = rescale_str(glomos_xtal,vol_restr)
+                glomos_xtal.i = 'random' + str(xc+1).zfill(3) + '_sym_' + str(sym).zfill(3)
+                glomos_xtal.c.append(0)
+                fopen = open(log_file,'a')
+                print('random'+str(xc+1).zfill(3)+'_sym_'+str(sym).zfill(3),file=fopen)
+                fopen.close()
+                xtal_list.append(glomos_xtal)
+                xc = xc + 1
         else:
-            random.shuffle(possym)
-            random_sym = random.choice(possym)
-        c = c + 1
-        # build the crystal with volume restrictions if requested
-        xtal = pyxtal()
-        xtal.from_random(dim=dimension, group=random_sym, species=species, numIons=atoms_per_specie, factor=volume_factor,tm=p_list)
-        #dim=3,group=225,species=['Ti','O'],numIons=[4,8],tm=tma
-        # translate the crystal to GLOMOS and add them to xtal_list
-        glomos_xtal = pyxtal2xyz(xtal)
-        glomos_xtal = unit_cell_non_negative_coordinates(glomos_xtal)
-        if vol_restr:
-            glomos_xtal = rescale_str(glomos_xtal,vol_restr)
-        glomos_xtal.i = 'random' + str(ii+1).zfill(3) + '_sym_' + random_sym.zfill(3)
-        glomos_xtal.c.append(0)
-        fopen = open(log_file,'a')
-        print('random'+str(ii+1).zfill(3)+'_sym_'+random_sym.zfill(3),file=fopen)
-        fopen.close()
-        xtal_list.append(glomos_xtal)
+            break
     xtal_list = sort_by_stoichiometry(xtal_list)
     return xtal_list
 
 #------------------------------------------------------------------------------------------------
-
 def run_sample():
     from inout.getbilparam import get_a_int, get_a_float
     from inout.readbil import read_var_composition
@@ -74,3 +53,54 @@ def run_sample():
     poscarlist=random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor)
     writeposcars(poscarlist,'test.vasp','D')
 # run_sample()
+
+#------------------------------------------------------------------------------------------------
+# def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_units=1,dimension=3,volume_factor=1.1,vol_restr=False):
+#     '''
+#     This function generates the initial population for the algorithm using Pyxtal to build random structures
+#     and later translate them into GLOMOS Molecule object. It takes into consideration the restrictions imposed 
+#     by the user, if requested.
+
+#     in: total_of_xtals (int), the requested number of random structures
+#         species (list), the species of all the atoms in the unit cell ['Mg','O']
+#         atoms_per_specie (list), it concatenates with 'species' according with composition [1,2]
+#         p_list (Tol_mtx), PyXtal object used for checking interatomic distances 
+#         formula_units (int), the number of formula units within the unit cell
+#         dimension (int), so far only 3D
+#         volumen_factor (float), a fixed value to expand or contract the unit cell
+#         vol_restr (Lattice), Pyxtal's Lattice object if requested, False otherwise
+
+#     out: xtal_list (list), This list contains all the generated structures
+#     '''
+#     xtal_list = []
+#     possym = possible_sym(atoms_per_specie)
+#     z = len(atoms_per_specie)
+#     # Expand the chemical formula to match the amount of formula units
+#     for i in range(z):
+#         atoms_per_specie[i] = atoms_per_specie[i] * formula_units
+#     c = 0
+#     for ii in range(total_of_xtals):
+#         # select one of the possible symmetries
+#         if c < len(possym):
+#             random_sym = possym[c]
+#         else:
+#             random.shuffle(possym)
+#             random_sym = random.choice(possym)
+#         c = c + 1
+#         # build the crystal with volume restrictions if requested
+#         xtal = pyxtal()
+#         xtal.from_random(dim=dimension, group=random_sym, species=species, numIons=atoms_per_specie, factor=volume_factor,tm=p_list)
+#         #dim=3,group=225,species=['Ti','O'],numIons=[4,8],tm=tma
+#         # translate the crystal to GLOMOS and add them to xtal_list
+#         glomos_xtal = pyxtal2xyz(xtal)
+#         glomos_xtal = unit_cell_non_negative_coordinates(glomos_xtal)
+#         if vol_restr:
+#             glomos_xtal = rescale_str(glomos_xtal,vol_restr)
+#         glomos_xtal.i = 'random' + str(ii+1).zfill(3) + '_sym_' + random_sym.zfill(3)
+#         glomos_xtal.c.append(0)
+#         fopen = open(log_file,'a')
+#         print('random'+str(ii+1).zfill(3)+'_sym_'+random_sym.zfill(3),file=fopen)
+#         fopen.close()
+#         xtal_list.append(glomos_xtal)
+#     xtal_list = sort_by_stoichiometry(xtal_list)
+#     return xtal_list

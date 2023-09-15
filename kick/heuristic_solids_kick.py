@@ -4,7 +4,7 @@ sys.path.insert(0, '/home/carlos/installdir/solids/GLOMOSolids1.0/')
 import os.path
 from inout.getbilparam import get_a_int, get_a_str, get_a_float
 from inout.readbil import read_var_composition,  clustername
-from utils.libmoleculas import readxyzs, writexyzs, rename_molecule, sort_by_energy
+from utils.libmoleculas import readxyzs, writexyzs, rename_molecule, sort_by_energy, sort_by_stoichiometry
 from discriminate.energy import cutter_energy
 from vasp.libperiodicos import readposcars, writeposcars, expand_poscar
 from gulp.calculator_all import calculator_gulp_all_check
@@ -13,18 +13,16 @@ from miscellaneous import get_xcomp, uc_restriction, get_tolerances
 #------------------------------------------------------------------------------------------------
 vol_restriction = uc_restriction() 
 flag = get_a_str('calculator','vasp')
-composition=read_var_composition('composition')
+composition = read_var_composition('composition')
 emax =  get_a_float('energy_range', 99.0)
-atms_specie,atms_per_specie=get_xcomp(composition)
+atms_specie,atms_per_specie = get_xcomp(composition)
 total_structures = get_a_int('initial_structures', 10)
 formula_units = get_a_int('formula_units',4)
 dimension = get_a_int('dimension',3)
 volume_factor = get_a_float('volume_factor', 1.0)
 nofstages = get_a_int('number_of_stages', 1)
 log_file = get_a_str('output_file','glomos_out.txt')
-
 l_tol,p_tol = get_tolerances(atms_specie)
-
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
 fopen = open(log_file,'w')

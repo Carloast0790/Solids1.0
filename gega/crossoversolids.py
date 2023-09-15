@@ -76,8 +76,7 @@ def parent_cut_bellow(xtal_in, axis, cutting_point):
 	out: xtal_out (Molecule), the structure that contains the atoms under cuttin_point
 	'''
 	cp_xtal = copymol(xtal_in)
-	name = cp_xtal.i + str('_cutB_') + str(cutting_point) + axis 
-	xtal_out = Molecule(name, cp_xtal.e, cp_xtal.m)
+	xtal_out = Molecule(cp_xtal.i, cp_xtal.e, cp_xtal.m)
 	for a in cp_xtal.atoms:
 		x,y,z = cartesian2direct(a.xc,a.yc,a.zc,cp_xtal.m)
 		s = a.s
@@ -119,8 +118,7 @@ def parent_cut_above(xtal_in, axis, cutting_point):
 	'''
 	cp_xtal = copymol(xtal_in)
 	cp_xtal = atms_correction_above_cut(cp_xtal)
-	name = cp_xtal.i + str('_cutA_') + str(cutting_point) + axis 
-	new_xtal = Molecule(name, cp_xtal.e, cp_xtal.m)
+	new_xtal = Molecule(cp_xtal.i, cp_xtal.e, cp_xtal.m)
 	for a in cp_xtal.atoms:
 		x,y,z = cartesian2direct(a.xc,a.yc,a.zc,cp_xtal.m) 
 		s = a.s
@@ -207,7 +205,9 @@ def crossover(base_xtal,complement_xtal,ref_d):
 	comp = copymol(complement_xtal)
 	comp = unit_cell_non_negative_coordinates(comp)
 	# find the averaged unit cell
-	avg_uc = combined_unit_cell(base, comp)
+	rw1 = random.random()
+	rw2 = 1 - rw1
+	avg_uc = combined_unit_cell(base, comp,rw1,rw2)
 	# translate them into this new uc
 	avg_base = translating_to_avg_uc(base,avg_uc)
 	avg_comp = translating_to_avg_uc(comp,avg_uc)
@@ -328,7 +328,7 @@ def popgen_childs(poscarlist, ref_d, index):
 			break
 	poscarout = poscarout[0:number_of_childs]
 	logfile = open(log_file,'a')
-	cont = 1 
+	cont = 1
 	for x in poscarout:
 		aux_name = 'mating_' + str(index).zfill(3) + '_' + str(cont).zfill(3)
 		print('%s ---> %s' %(aux_name,x.i), file=logfile)
@@ -337,6 +337,4 @@ def popgen_childs(poscarlist, ref_d, index):
 	logfile.close()
 	basename = 'mating_' + str(index).zfill(3) + '_'
 	poscarout  = rename_molecule(poscarout, basename, 4)
-	return poscarout   
-
-
+	return poscarout

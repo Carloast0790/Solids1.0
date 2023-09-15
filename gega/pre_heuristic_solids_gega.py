@@ -136,32 +136,32 @@ def build_population_n(poscarlist,ref_d,generation=1):
 #------------------------------------------------------------------------------------------------
 poscar00 = build_population_0()
 poscar01 = run_calculator(poscar00, 'generation000/', 0)
-# poscar01 = sort_by_energy(poscar01,1)
-poscar01 = cutter_energy(poscar01,emax,1)
 poscar01 = discriminate_calculated(poscar01,vol_restriction)
+poscar01 = sort_by_energy(poscar01,1)
 poscarxx = poscar01[0:max_number_inputs]
 # list_ref_distances = get_min_interatomic_distance(poscarxx[0],min_rad,scale_fact)
 display_info(poscarxx, 0)
 poscaryy = sort_by_energy(poscarxx, 0)
+writeposcars(poscaryy,'relaxed_gen_'+str(000)+'.vasp','D')
 writeposcars(poscaryy, 'summary.vasp', 'D')
 emin = poscarxx[0].e
 cont = 0
 for generation in range(1,nmaxgen + 1):
     folder = 'generation' + str(generation).zfill(3) + '/'
-    poscar00 = build_population_n(poscarxx,l_tol,generation)
+    poscar00 = build_population_n(poscaryy,l_tol,generation)
     poscar01 = run_calculator(poscar00, folder, generation)
+    poscar01 = cutter_energy(poscar01,emax,1)
     #discrimination among local structures
     poscar01 = discriminate_calculated(poscar01,vol_restriction)
     #discrimination btwn remaining local vs pool
     poscar02 = discriminate_calculated_vs_pool(poscar01,poscarxx,vol_restriction)
-    poscar02 = cutter_energy(poscar02,emax)
     if len(poscar02) == 0:
         fopen = open(log_file,'a')
         print("-------------------------------------------------------------------", file=fopen)
         print("-------------------------------------------------------------------", file=fopen)
         print('The Process has Stopped, We Were Unable to Build New Structures', file=fopen)
         fopen.close()
-        exit()
+        exit()        
     poscar02 = sort_by_energy(poscar02,1)
     display_info(poscar02,1,generation)
     poscarxx.extend(poscar02)
@@ -169,6 +169,7 @@ for generation in range(1,nmaxgen + 1):
     poscarxx = poscarxx[0:max_number_inputs]
     display_info(poscarxx, 0)
     poscaryy = sort_by_energy(poscarxx, 0)
+    writeposcars(poscaryy,'relaxed_gen_'+str(generation)+'.vasp','D')
     writeposcars(poscaryy, 'summary.vasp', 'D')
     emini = poscarxx[0].e
     if emini < emin:

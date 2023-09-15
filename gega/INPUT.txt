@@ -9,18 +9,19 @@ heuristic      GA
 =======================================
 
 ---COMPOSITION---
-C    8
+Al   2
+O    3
 ---COMPOSITION---
 
-formula_units     1
+formula_units   4
 
 =======================================
 =========== Constrictions ============= 
 =======================================
 
-#max_cell_vol      150 [1.0,1.0,1.0]
+#fixed_vol      123
 #custom_tolerances    Ti,Ti,3.3 Ti,O,1.7 O,O,2.5
-interatom_scale_value  1.02
+interatom_scale_value  0.8
 
 =======================================
 ========= Initial population ==========
@@ -32,19 +33,19 @@ initial_structures 5
 ======== Algorithm parameters =========
 =======================================
 
-number_of_matings  10
-number_of_mutants  5
-max_number_gens    6
-crit_stop_nrep     3
-max_number_inputs  7
+number_of_matings  20
+number_of_mutants  8
+max_number_gens    10
+crit_stop_nrep     5
+max_number_inputs  10
 
 =======================================
 ========== Discrimination =============
 =======================================
 
-min_energy_difference   0.00001
+min_energy_difference   0.001
 min_volume_difference   0.0001
-energy_range            7.0
+energy_range            2.5
 
 =======================================
 ====== Calculation parameters =========
@@ -54,14 +55,22 @@ calculator               gulp
 qsys                     local
 
 ---GULP---
-opti conj conp
-switch_minimiser bfgs gnorm 0.5
-#pressure 200 GPa
+opti prop conp
 vectors
 LATTICEVECTORS
 frac
 COORDINATES
-lib /home/carlos/gulp-6.0/Libraries/edip_marks.lib
+species
+Al core  0.043
+Al shel  2.957
+O  core  0.513
+O  shel -2.513
+buckingham
+Al shel O shel  2409.505 0.2649  0.00 0.0 10.0
+O  shel O shel    25.410 0.6937 32.32 0.0 12.0
+spring
+Al 403.98
+O   20.53
 ---GULP---
 
 ---GULP.CONF---
