@@ -1,0 +1,77 @@
+=======================================
+========= Optimization scheme =========
+=======================================
+
+option      GA
+
+=======================================
+==== Crystal structure information ====
+=======================================
+
+---COMPOSITION---
+Ti   1
+O    2
+---COMPOSITION---
+
+formula_units   4
+=======================================
+=========== Constrictions =============
+=======================================
+
+#max_cell_vol      150 [1.0,1.0,1.0]
+#custom_tolerances    Ti,Ti,3.3 Ti,O,1.7 O,O,2.5
+interatom_scale_value  0.8
+=======================================
+========= Initial population ==========
+=======================================
+
+initial_structures  5
+
+=======================================
+======== Algorithm parameters =========
+=======================================
+
+max_number_inputs 5
+number_of_matings 5
+number_of_mutants 1
+max_number_gens   3
+crit_stop_nrep    3
+
+=======================================
+========== Discrimination =============
+=======================================
+
+min_energy_difference   0.0005
+min_volume_difference   0.0001
+energy_range            5.0
+
+=======================================
+====== Calculation parameters =========
+=======================================
+
+calculator        gulp
+qsys              local
+
+---GULP---
+opti conj conp
+switch_minimiser bfgs gnorm 0.5
+vectors
+LATTICEVECTORS
+frac
+COORDINATES
+species
+Ti  2.196
+O  -1.098
+buck
+Ti Ti 31120.1 0.1540 5.25  15
+O  O  11782.7 0.2340 30.22 15
+Ti O  16957.5 0.1940 12.59 15
+lennard 12 6
+Ti Ti   1   0 15
+O  O    1   0 15
+Ti O    1   0 15
+---GULP---
+
+---GULP.CONF---
+exe_gulp=/home/carlos/bin/gulp
+---GULP.CONF---

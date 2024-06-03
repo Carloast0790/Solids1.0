@@ -1,0 +1,145 @@
+********************************************************************************
+*                       GENERAL UTILITY LATTICE PROGRAM                        *
+*                                 Julian Gale                                  *
+*                       Curtin Institute for Computation                       *
+*                    School of Molecular and Life Sciences                     *
+*                    Curtin University, Western Australia                      *
+********************************************************************************
+* Version = 6.0.0 * Last modified =  12th July 2021                            *
+********************************************************************************
+*  optimise     - perform optimisation run                                     *
+*  conp         - constant pressure calculation                                *
+*  conjugate    - use conjugate gradients minimiser                            *
+********************************************************************************
+
+  Job Started  at 18:44.40 10th April      2024                               
+
+  Number of CPUs =     1
+
+
+  Total number of configurations input =      1
+
+********************************************************************************
+*  Input for Configuration =   1                                               *
+********************************************************************************
+
+  Formula = C4                                                          
+
+  Number of irreducible atoms/shells =       4
+
+
+  Total number atoms/shells =       4
+
+  Dimensionality = 3               :  Bulk   
+
+
+
+  Cartesian lattice vectors (Angstroms) :
+
+        1.431694    0.928086    0.000000
+        0.000000    1.613553    0.000000
+        0.000000    0.000000    3.000000
+
+  Cell parameters (Angstroms/Degrees):
+
+  a =       1.7062    alpha =  90.0000
+  b =       1.6136    beta  =  90.0000
+  c =       3.0000    gamma =  57.0470
+
+  Initial cell volume =           6.930345 Angs**3
+
+  Temperature of configuration =   0.00     K 
+
+  Pressure of configuration =         0.000 GPa 
+
+  Fractional coordinates of asymmetric unit :
+
+--------------------------------------------------------------------------------
+   No.  Atomic       x           y          z         Charge      Occupancy
+        Label      (Frac)      (Frac)     (Frac)        (e)         (Frac)  
+--------------------------------------------------------------------------------
+      1 C     c    0.250000    0.000000    0.500000     0.00000    1.000000    
+      2 C     c    0.750000 *  0.000000 *  0.500000 *   0.00000    1.000000    
+      3 C     c    0.250000 *  0.500000 *  0.500000 *   0.00000    1.000000    
+      4 C     c    0.750000 *  0.500000 *  0.500000 *   0.00000    1.000000    
+--------------------------------------------------------------------------------
+
+
+
+********************************************************************************
+*  General input information                                                   *
+********************************************************************************
+
+  Species output for all configurations : 
+
+--------------------------------------------------------------------------------
+  Species    Type    Atomic    Atomic    Charge       Radii (Angs)     Library
+                     Number     Mass       (e)     Cova   Ionic  VDW   Symbol
+--------------------------------------------------------------------------------
+    C        Core        6      12.01   0.000000   0.770  0.000  1.530          
+--------------------------------------------------------------------------------
+
+
+  Lattice summation method               =    Ewald          (3-D)
+                                         =    Parry          (2-D)
+                                         =    Saunders et al (1-D)
+  Accuracy factor for lattice sums       =   12.000
+
+
+  Analytic derivatives to be used
+
+  Time limit = Infinity
+
+  Maximum range for interatomic potentials =    100000.000000 Angstroms
+
+  EDIP forcefield to be used
+
+  EDIP Coordination Number :
+
+--------------------------------------------------------------------------------
+ Atom Types   Sigma    alpha      f_low      f_high     p_low      p_high       
+               or                 (Ang)      (Ang)      (Ang)      (Ang)        
+  1     2     Pi       Zdih       Zrep       c0                                 
+                                             (Ang)                              
+--------------------------------------------------------------------------------
+C    c C    c pi       1.54400    1.54700    2.27000    1.48100    2.00000
+                       0.30000    0.06000    3.20000
+--------------------------------------------------------------------------------
+
+  EDIP Twobody Energy :
+
+--------------------------------------------------------------------------------
+Atom  Types   Epsilon     p     B       Beta      Sigma       a       a_prime   
+  1     2      (eV)           (Ang)     (Ang)     (Ang)     (Ang)     (Ang)     
+--------------------------------------------------------------------------------
+C    c C    c   20.090004.000    0.9538    0.0490    1.2570    1.8920    0.1700
+--------------------------------------------------------------------------------
+
+  EDIP Threebody Energy (New form) :
+
+--------------------------------------------------------------------------------
+ Atom  Types               Lambda0/          Lambda_prime/       Z0/            
+  1     2     3            Gamma             Gamma_prime         q              
+--------------------------------------------------------------------------------
+C    c C    c C    c       79.340000         0.300000         3.615000
+                            1.354000         0.936000         3.500000
+--------------------------------------------------------------------------------
+
+********************************************************************************
+*  Output for configuration   1                                                *
+********************************************************************************
+
+
+  Components of energy : 
+
+--------------------------------------------------------------------------------
+  Interatomic potentials     =           0.00000000 eV    
+  EDIP force field           =         833.58383727 eV    
+  Monopole - monopole (real) =           0.00000000 eV    
+  Monopole - monopole (recip)=           0.00000000 eV    
+  Monopole - monopole (total)=           0.00000000 eV    
+--------------------------------------------------------------------------------
+  Total lattice energy       =         833.58383727 eV    
+--------------------------------------------------------------------------------
+  Total lattice energy       =           80428.0978 kJ/(mole unit cells)
+--------------------------------------------------------------------------------

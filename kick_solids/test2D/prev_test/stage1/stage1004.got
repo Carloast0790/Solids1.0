@@ -1,0 +1,256 @@
+********************************************************************************
+*                       GENERAL UTILITY LATTICE PROGRAM                        *
+*                                 Julian Gale                                  *
+*                       Curtin Institute for Computation                       *
+*                    School of Molecular and Life Sciences                     *
+*                    Curtin University, Western Australia                      *
+********************************************************************************
+* Version = 6.0.0 * Last modified =  12th July 2021                            *
+********************************************************************************
+*  optimise     - perform optimisation run                                     *
+*  conv         - constant volume calculation                                  *
+*  conjugate    - use conjugate gradients minimiser                            *
+********************************************************************************
+
+  Job Started  at 18:08.49  5th April      2024                               
+
+  Number of CPUs =     1
+
+
+  Total number of configurations input =      1
+
+********************************************************************************
+*  Input for Configuration =   1                                               *
+********************************************************************************
+
+  Formula = C4                                                          
+
+  Number of irreducible atoms/shells =       4
+
+
+  Total number atoms/shells =       4
+
+  Dimensionality = 3               :  Bulk   
+
+
+
+  Cartesian lattice vectors (Angstroms) :
+
+        2.408115    0.451944    0.000000
+        0.000000    2.740808    0.000000
+        0.000000    0.000000    3.000000
+
+  Cell parameters (Angstroms/Degrees):
+
+  a =       2.4502    alpha =  90.0000
+  b =       2.7408    beta  =  90.0000
+  c =       3.0000    gamma =  79.3706
+
+  Initial cell volume =          19.800545 Angs**3
+
+  Temperature of configuration =   0.00     K 
+
+  Pressure of configuration =         0.000 GPa 
+
+  Fractional coordinates of asymmetric unit :
+
+--------------------------------------------------------------------------------
+   No.  Atomic       x           y          z         Charge      Occupancy
+        Label      (Frac)      (Frac)     (Frac)        (e)         (Frac)  
+--------------------------------------------------------------------------------
+      1 C     c    0.844081    0.615566    0.500000     0.00000    1.000000    
+      2 C     c    0.344081 *  0.615566 *  0.500000 *   0.00000    1.000000    
+      3 C     c    0.484077 *  0.172366 *  0.500000 *   0.00000    1.000000    
+      4 C     c    0.984077 *  0.172366 *  0.500000 *   0.00000    1.000000    
+--------------------------------------------------------------------------------
+
+
+
+********************************************************************************
+*  General input information                                                   *
+********************************************************************************
+
+  Species output for all configurations : 
+
+--------------------------------------------------------------------------------
+  Species    Type    Atomic    Atomic    Charge       Radii (Angs)     Library
+                     Number     Mass       (e)     Cova   Ionic  VDW   Symbol
+--------------------------------------------------------------------------------
+    C        Core        6      12.01   0.000000   0.770  0.000  1.530          
+--------------------------------------------------------------------------------
+
+
+  Lattice summation method               =    Ewald          (3-D)
+                                         =    Parry          (2-D)
+                                         =    Saunders et al (1-D)
+  Accuracy factor for lattice sums       =   12.000
+
+
+  Analytic derivatives to be used
+
+  Time limit = Infinity
+
+  Maximum range for interatomic potentials =    100000.000000 Angstroms
+
+  EDIP forcefield to be used
+
+  EDIP Coordination Number :
+
+--------------------------------------------------------------------------------
+ Atom Types   Sigma    alpha      f_low      f_high     p_low      p_high       
+               or                 (Ang)      (Ang)      (Ang)      (Ang)        
+  1     2     Pi       Zdih       Zrep       c0                                 
+                                             (Ang)                              
+--------------------------------------------------------------------------------
+C    c C    c pi       1.54400    1.54700    2.27000    1.48100    2.00000
+                       0.30000    0.06000    3.20000
+--------------------------------------------------------------------------------
+
+  EDIP Twobody Energy :
+
+--------------------------------------------------------------------------------
+Atom  Types   Epsilon     p     B       Beta      Sigma       a       a_prime   
+  1     2      (eV)           (Ang)     (Ang)     (Ang)     (Ang)     (Ang)     
+--------------------------------------------------------------------------------
+C    c C    c   20.090004.000    0.9538    0.0490    1.2570    1.8920    0.1700
+--------------------------------------------------------------------------------
+
+  EDIP Threebody Energy (New form) :
+
+--------------------------------------------------------------------------------
+ Atom  Types               Lambda0/          Lambda_prime/       Z0/            
+  1     2     3            Gamma             Gamma_prime         q              
+--------------------------------------------------------------------------------
+C    c C    c C    c       79.340000         0.300000         3.615000
+                            1.354000         0.936000         3.500000
+--------------------------------------------------------------------------------
+
+********************************************************************************
+*  Output for configuration   1                                                *
+********************************************************************************
+
+
+  Components of energy : 
+
+--------------------------------------------------------------------------------
+  Interatomic potentials     =           0.00000000 eV    
+  EDIP force field           =          43.91292464 eV    
+  Monopole - monopole (real) =           0.00000000 eV    
+  Monopole - monopole (recip)=           0.00000000 eV    
+  Monopole - monopole (total)=           0.00000000 eV    
+--------------------------------------------------------------------------------
+  Total lattice energy       =          43.91292464 eV    
+--------------------------------------------------------------------------------
+  Total lattice energy       =            4236.9260 kJ/(mole unit cells)
+--------------------------------------------------------------------------------
+
+
+  Number of variables =        9
+
+  Maximum number of calculations  =          1000
+  Maximum Hessian update interval =            10
+  Maximum step size               =   1.000000000
+  Maximum parameter tolerance     =   0.000010000
+  Maximum function  tolerance     =   0.000010000
+  Maximum gradient  tolerance     =   0.001000000
+  Maximum gradient  component     =   0.010000000
+
+  Symmetry not applied to optimisation
+
+  Conjugate gradient optimiser to be used
+
+  Lower half triangular hessian to be used
+
+  Minimiser to switch to BFGS with exact hessian
+  When gradient norm is less than     0.500000
+
+  Start of bulk optimisation :
+
+  Cycle:      0 Energy:        43.912925  Gnorm:     12.886856  CPU:    0.144
+  Cycle:      1 Energy:        40.104195  Gnorm:      1.630164  CPU:    0.256
+  Cycle:      2 Energy:        40.029692  Gnorm:      1.063969  CPU:    0.367
+  Cycle:      3 Energy:        39.988175  Gnorm:      0.817161  CPU:    0.478
+  Cycle:      4 Energy:        39.954892  Gnorm:      0.471819  CPU:    0.589
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! WARNING : ill conditioned Hessian - using diagonal elements only
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  ** Hessian calculated **
+  Cycle:      5 Energy:        39.945124  Gnorm:      0.465948  CPU:    0.810
+  Cycle:      6 Energy:        39.930748  Gnorm:      0.521309  CPU:    0.886
+  Cycle:      7 Energy:        39.922005  Gnorm:      0.333599  CPU:    0.961
+  Cycle:      8 Energy:        39.911636  Gnorm:      0.358149  CPU:    1.037
+  Cycle:      9 Energy:        39.908375  Gnorm:      0.237350  CPU:    1.113
+  Cycle:     10 Energy:        39.905826  Gnorm:      0.276240  CPU:    1.189
+  Cycle:     11 Energy:        39.903194  Gnorm:      0.020044  CPU:    1.264
+  Cycle:     12 Energy:        39.903173  Gnorm:      0.002699  CPU:    1.340
+
+
+  **** Optimisation achieved ****
+
+
+  Final energy =      39.90317213 eV      
+  Final Gnorm  =       0.00024568
+
+  Components of energy : 
+
+--------------------------------------------------------------------------------
+  Interatomic potentials     =           0.00000000 eV    
+  EDIP force field           =          39.90317213 eV    
+  Monopole - monopole (real) =           0.00000000 eV    
+  Monopole - monopole (recip)=           0.00000000 eV    
+  Monopole - monopole (total)=           0.00000000 eV    
+--------------------------------------------------------------------------------
+  Total lattice energy       =          39.90317213 eV    
+--------------------------------------------------------------------------------
+  Total lattice energy       =            3850.0461 kJ/(mole unit cells)
+--------------------------------------------------------------------------------
+
+  Final fractional coordinates of atoms :
+
+--------------------------------------------------------------------------------
+   No.  Atomic        x           y          z          Radius
+        Label       (Frac)      (Frac)     (Frac)       (Angs) 
+--------------------------------------------------------------------------------
+     1  C     c     0.844081    0.615566    0.500000    0.000000
+     2  C     c     0.344082    0.615564    0.500000    0.000000
+     3  C     c     0.500383    0.112441    0.500000    0.000000
+     4  C     c     0.000383    0.112440    0.500000    0.000000
+--------------------------------------------------------------------------------
+
+  Final internal derivatives :
+
+--------------------------------------------------------------------------------
+   No.  Atomic          a             b             c           Radius
+        Label          (eV)          (eV)          (eV)        (eV/Angs)
+--------------------------------------------------------------------------------
+      1 C     c       0.000000      0.000000      0.000000      0.000000
+      2 C     c       0.000662      0.000823      0.000000      0.000000
+      3 C     c       0.000388     -0.000899      0.000000      0.000000
+      4 C     c       0.000429     -0.001622      0.000000      0.000000
+--------------------------------------------------------------------------------
+  Maximum abs         0.000662      0.001622      0.000000      0.000000
+--------------------------------------------------------------------------------
+
+
+  Time to end of optimisation =       1.4926 seconds
+
+
+  Peak dynamic memory used =       1.79 MB 
+
+
+  Timing analysis for GULP :
+
+--------------------------------------------------------------------------------
+  Task / Subroutine                                          Time (Seconds)
+--------------------------------------------------------------------------------
+  Calculation of EDIP energy and derivatives                      1.4815
+--------------------------------------------------------------------------------
+  Total CPU time                                                  1.4927
+--------------------------------------------------------------------------------
+
+
+  Job Finished at 18:08.50  5th April      2024                               
+

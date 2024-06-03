@@ -1,0 +1,1310 @@
+# Solids 1.0
+#
+# Authors:
+# (1) Carlos López-Castro, (2) Filiberto Ortiz-Chi, and (1) Gabriel Merino
+#
+# (1) Departamento de Fisica Aplicada,
+#     Centro de Investigacion y de Estudios Avanzados, Unidad Merida,
+#     Km 6 Antigua Carretera a Progreso, A.P. 73, Cordemex, 97310 Merida, Yucatan, Mexico
+# (2) CONACYT-Universidad Juarez Autonoma de Tabasco,
+#     Centro de Investigacion de Ciencia y Tecnologia Aplicada de Tabasco,
+#     Cunduacan 86690, Tabasco, Mexico.
+
+-------------------------------------------------------------------
+Current PID          = 5512
+Chemical Formula     = Ti1 O2
+Formula Units        = 4
+Making initial file = initial000.vasp
+-------------------------------------------------------------------
+-----------------------POPULATION  GENERATOR-----------------------
+rand002_sym_002
+rand003_sym_003
+rand004_sym_004
+rand005_sym_005
+rand006_sym_006
+rand007_sym_007
+rand008_sym_008
+rand009_sym_009
+rand010_sym_010
+rand011_sym_011
+rand012_sym_012
+rand013_sym_013
+rand014_sym_014
+rand015_sym_015
+rand016_sym_016
+rand017_sym_017
+rand018_sym_018
+rand019_sym_019
+rand020_sym_020
+rand021_sym_021
+rand022_sym_022
+rand023_sym_023
+rand024_sym_024
+rand025_sym_025
+rand026_sym_026
+rand027_sym_027
+rand028_sym_028
+rand029_sym_029
+rand030_sym_030
+rand031_sym_031
+Created: initial000.vasp
+-------------------------------------------------------------------
+---------------- LOCAL OPTIMIZATION: GENERATION 0   ----------------
+Making input file = generation000/random_000_001.gin
+Making input file = generation000/random_000_002.gin
+Making input file = generation000/random_000_003.gin
+Making input file = generation000/random_000_004.gin
+Making input file = generation000/random_000_005.gin
+Making input file = generation000/random_000_006.gin
+Making input file = generation000/random_000_007.gin
+Making input file = generation000/random_000_008.gin
+Making input file = generation000/random_000_009.gin
+Making input file = generation000/random_000_010.gin
+Making input file = generation000/random_000_011.gin
+Making input file = generation000/random_000_012.gin
+Making input file = generation000/random_000_013.gin
+Making input file = generation000/random_000_014.gin
+Making input file = generation000/random_000_015.gin
+Making input file = generation000/random_000_016.gin
+Making input file = generation000/random_000_017.gin
+Making input file = generation000/random_000_018.gin
+Making input file = generation000/random_000_019.gin
+Making input file = generation000/random_000_020.gin
+Making input file = generation000/random_000_021.gin
+Making input file = generation000/random_000_022.gin
+Making input file = generation000/random_000_023.gin
+Making input file = generation000/random_000_024.gin
+Making input file = generation000/random_000_025.gin
+Making input file = generation000/random_000_026.gin
+Making input file = generation000/random_000_027.gin
+Making input file = generation000/random_000_028.gin
+Making input file = generation000/random_000_029.gin
+Making input file = generation000/random_000_030.gin
+Enter to local submit: random_000_001.sh --> Wed May 29 11:03:38 2024
+Enter to local submit: random_000_002.sh --> Wed May 29 11:03:41 2024
+Enter to local submit: random_000_003.sh --> Wed May 29 11:03:42 2024
+Enter to local submit: random_000_004.sh --> Wed May 29 11:03:44 2024
+Enter to local submit: random_000_005.sh --> Wed May 29 11:03:45 2024
+Enter to local submit: random_000_006.sh --> Wed May 29 11:03:48 2024
+Enter to local submit: random_000_007.sh --> Wed May 29 11:03:51 2024
+Enter to local submit: random_000_008.sh --> Wed May 29 11:03:52 2024
+Enter to local submit: random_000_009.sh --> Wed May 29 11:03:53 2024
+Enter to local submit: random_000_010.sh --> Wed May 29 11:03:54 2024
+Enter to local submit: random_000_011.sh --> Wed May 29 11:03:54 2024
+Enter to local submit: random_000_012.sh --> Wed May 29 11:03:56 2024
+Enter to local submit: random_000_013.sh --> Wed May 29 11:03:57 2024
+Enter to local submit: random_000_014.sh --> Wed May 29 11:03:58 2024
+Enter to local submit: random_000_015.sh --> Wed May 29 11:03:58 2024
+Enter to local submit: random_000_016.sh --> Wed May 29 11:04:00 2024
+Enter to local submit: random_000_017.sh --> Wed May 29 11:04:02 2024
+Enter to local submit: random_000_018.sh --> Wed May 29 11:04:02 2024
+Enter to local submit: random_000_019.sh --> Wed May 29 11:04:04 2024
+Enter to local submit: random_000_020.sh --> Wed May 29 11:04:04 2024
+Enter to local submit: random_000_021.sh --> Wed May 29 11:04:05 2024
+Enter to local submit: random_000_022.sh --> Wed May 29 11:04:06 2024
+Enter to local submit: random_000_023.sh --> Wed May 29 11:04:06 2024
+Enter to local submit: random_000_024.sh --> Wed May 29 11:04:07 2024
+Enter to local submit: random_000_025.sh --> Wed May 29 11:04:09 2024
+Enter to local submit: random_000_026.sh --> Wed May 29 11:04:10 2024
+Enter to local submit: random_000_027.sh --> Wed May 29 11:04:14 2024
+Enter to local submit: random_000_028.sh --> Wed May 29 11:04:15 2024
+Enter to local submit: random_000_029.sh --> Wed May 29 11:04:18 2024
+Enter to local submit: random_000_030.sh --> Wed May 29 11:04:18 2024
+Calculations with N.T. = 29 (96 percent)
+Calculations with A.T. = 1 (3 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+random_000_007 sym C2/m (12) discriminated, too similar to random_000_002 sym Pm (6), dE = 0.00000 dV = 0.00006
+random_000_020 sym Cmmm (65) discriminated, too similar to random_000_002 sym Pm (6), dE = 0.00000 dV = 0.00004
+random_000_029 sym Pmm2 (25) discriminated, too similar to random_000_002 sym Pm (6), dE = 0.00000 dV = 0.00009
+random_000_024 sym P1 (1) discriminated, too similar to random_000_003 sym P1 (1), dE = 0.00000 dV = 0.00018
+random_000_008 sym P1 (1) discriminated, too similar to random_000_004 sym Pm (6), dE = 0.00000 dV = 0.00000
+random_000_011 sym P4/nmm (129) discriminated, too similar to random_000_004 sym Pm (6), dE = 0.00000 dV = 0.00004
+random_000_014 sym Pm (6) discriminated, too similar to random_000_004 sym Pm (6), dE = 0.00000 dV = 0.00001
+random_000_027 sym P2/m (10) discriminated, too similar to random_000_004 sym Pm (6), dE = 0.00000 dV = 0.00004
+random_000_028 sym P1 (1) discriminated, too similar to random_000_005 sym P1 (1), dE = 0.00000 dV = 0.00004
+random_000_019 sym Pnc2 (30) discriminated, too similar to random_000_016 sym P1 (1), dE = 0.00000 dV = 0.00011
+
+--------------------------GLOBAL  SUMMARY--------------------------
+energy_range = 2.000000
+max_number_inputs = 10
+Number    File-Name        Energy (eV)    Delta-E   NT
+#00001   random_000_002  -159.20142964   0.000000   1
+#00002   random_000_006  -158.06936024   1.132069   1
+#00003   random_000_003  -157.98431796   1.217112   1
+#00004   random_000_005  -157.51019790   1.691232   1
+#00005   random_000_015  -157.01725914   2.184170   1
+#00006   random_000_004  -156.88478768   2.316642   1
+#00007   random_000_001  -156.21581939   2.985610   1
+#00008   random_000_012  -154.97633117   4.225098   1
+#00009   random_000_013  -154.57736058   4.624069   1
+#00010   random_000_009  -149.45958254   9.741847   1
+Created: summary.vasp
+-------------------------------------------------------------------
+------------------------ MATING: CROSSOVER ------------------------
+CONSTRUCTION OF THE PARENT LIST THROUGH ROULETTE
+mating_001_001 ---> random_000_012_x_random_000_005
+mating_001_002 ---> random_000_005_x_random_000_009
+mating_001_003 ---> random_000_005_x_random_000_012
+mating_001_004 ---> random_000_001_x_random_000_002
+mating_001_005 ---> random_000_005_x_random_000_009
+mating_001_006 ---> random_000_006_x_random_000_005
+mating_001_007 ---> random_000_005_x_random_000_002
+mating_001_008 ---> random_000_005_x_random_000_012
+mating_001_009 ---> random_000_002_x_random_000_006
+mating_001_010 ---> random_000_013_x_random_000_004
+mating_001_011 ---> random_000_012_x_random_000_002
+mating_001_012 ---> random_000_002_x_random_000_001
+mating_001_013 ---> random_000_004_x_random_000_012
+mating_001_014 ---> random_000_009_x_random_000_004
+mating_001_015 ---> random_000_004_x_random_000_001
+mating_001_016 ---> random_000_005_x_random_000_009
+mating_001_017 ---> random_000_006_x_random_000_013
+mating_001_018 ---> random_000_006_x_random_000_002
+mating_001_019 ---> random_000_001_x_random_000_004
+mating_001_020 ---> random_000_003_x_random_000_009
+mating_001_021 ---> random_000_005_x_random_000_002
+mating_001_022 ---> random_000_009_x_random_000_013
+mating_001_023 ---> random_000_009_x_random_000_003
+mating_001_024 ---> random_000_001_x_random_000_001
+mating_001_025 ---> random_000_009_x_random_000_001
+mating_001_026 ---> random_000_005_x_random_000_001
+mating_001_027 ---> random_000_003_x_random_000_004
+mating_001_028 ---> random_000_012_x_random_000_009
+mating_001_029 ---> random_000_012_x_random_000_003
+mating_001_030 ---> random_000_009_x_random_000_009
+We have 30 POSCAR files type MATING from 30 solicited
+-------------------------------------------------------------------
+-----------------------GENERATOR OF MUTANTS------------------------
+mutant_001_001 ---> random_000_004_lattice_strain
+mutant_001_002 ---> random_000_002_lattice_strain
+mutant_001_003 ---> random_000_001_lattice_strain
+mutant_001_004 ---> random_000_006_atom_exchange
+mutant_001_005 ---> random_000_002_atom_exchange
+mutant_001_006 ---> random_000_006_lattice_strain
+mutant_001_007 ---> random_000_012_atom_exchange
+mutant_001_008 ---> random_000_003_lattice_strain
+mutant_001_009 ---> random_000_006_lattice_strain
+mutant_001_010 ---> random_000_002_atom_exchange
+We have 10 POSCAR type MUTANT from 10 solicited
+Created: initial001.vasp
+-------------------------------------------------------------------
+---------------- LOCAL OPTIMIZATION: GENERATION 1   ----------------
+Making input file = generation001/mating_001_0001.gin
+Making input file = generation001/mating_001_0002.gin
+Making input file = generation001/mating_001_0003.gin
+Making input file = generation001/mating_001_0004.gin
+Making input file = generation001/mating_001_0005.gin
+Making input file = generation001/mating_001_0006.gin
+Making input file = generation001/mating_001_0007.gin
+Making input file = generation001/mating_001_0008.gin
+Making input file = generation001/mating_001_0009.gin
+Making input file = generation001/mating_001_0010.gin
+Making input file = generation001/mating_001_0011.gin
+Making input file = generation001/mating_001_0012.gin
+Making input file = generation001/mating_001_0013.gin
+Making input file = generation001/mating_001_0014.gin
+Making input file = generation001/mating_001_0015.gin
+Making input file = generation001/mating_001_0016.gin
+Making input file = generation001/mating_001_0017.gin
+Making input file = generation001/mating_001_0018.gin
+Making input file = generation001/mating_001_0019.gin
+Making input file = generation001/mating_001_0020.gin
+Making input file = generation001/mating_001_0021.gin
+Making input file = generation001/mating_001_0022.gin
+Making input file = generation001/mating_001_0023.gin
+Making input file = generation001/mating_001_0024.gin
+Making input file = generation001/mating_001_0025.gin
+Making input file = generation001/mating_001_0026.gin
+Making input file = generation001/mating_001_0027.gin
+Making input file = generation001/mating_001_0028.gin
+Making input file = generation001/mating_001_0029.gin
+Making input file = generation001/mating_001_0030.gin
+Making input file = generation001/mutant_001_0001.gin
+Making input file = generation001/mutant_001_0002.gin
+Making input file = generation001/mutant_001_0003.gin
+Making input file = generation001/mutant_001_0004.gin
+Making input file = generation001/mutant_001_0005.gin
+Making input file = generation001/mutant_001_0006.gin
+Making input file = generation001/mutant_001_0007.gin
+Making input file = generation001/mutant_001_0008.gin
+Making input file = generation001/mutant_001_0009.gin
+Making input file = generation001/mutant_001_0010.gin
+Enter to local submit: mating_001_0001.sh --> Wed May 29 11:04:30 2024
+Enter to local submit: mating_001_0002.sh --> Wed May 29 11:04:33 2024
+Enter to local submit: mating_001_0003.sh --> Wed May 29 11:04:34 2024
+Enter to local submit: mating_001_0004.sh --> Wed May 29 11:04:36 2024
+Enter to local submit: mating_001_0005.sh --> Wed May 29 11:04:38 2024
+Enter to local submit: mating_001_0006.sh --> Wed May 29 11:04:40 2024
+Enter to local submit: mating_001_0007.sh --> Wed May 29 11:04:42 2024
+Enter to local submit: mating_001_0008.sh --> Wed May 29 11:04:44 2024
+Enter to local submit: mating_001_0009.sh --> Wed May 29 11:04:46 2024
+Enter to local submit: mating_001_0010.sh --> Wed May 29 11:04:50 2024
+Enter to local submit: mating_001_0011.sh --> Wed May 29 11:04:51 2024
+Enter to local submit: mating_001_0012.sh --> Wed May 29 11:04:54 2024
+Enter to local submit: mating_001_0013.sh --> Wed May 29 11:04:55 2024
+Enter to local submit: mating_001_0014.sh --> Wed May 29 11:04:58 2024
+Enter to local submit: mating_001_0015.sh --> Wed May 29 11:05:01 2024
+Enter to local submit: mating_001_0016.sh --> Wed May 29 11:05:03 2024
+Enter to local submit: mating_001_0017.sh --> Wed May 29 11:05:04 2024
+Enter to local submit: mating_001_0018.sh --> Wed May 29 11:05:05 2024
+Enter to local submit: mating_001_0019.sh --> Wed May 29 11:05:07 2024
+Enter to local submit: mating_001_0020.sh --> Wed May 29 11:05:09 2024
+Enter to local submit: mating_001_0021.sh --> Wed May 29 11:05:12 2024
+Enter to local submit: mating_001_0022.sh --> Wed May 29 11:05:13 2024
+Enter to local submit: mating_001_0023.sh --> Wed May 29 11:05:15 2024
+Enter to local submit: mating_001_0024.sh --> Wed May 29 11:05:19 2024
+Enter to local submit: mating_001_0025.sh --> Wed May 29 11:05:26 2024
+Enter to local submit: mating_001_0026.sh --> Wed May 29 11:05:29 2024
+Enter to local submit: mating_001_0027.sh --> Wed May 29 11:05:33 2024
+Enter to local submit: mating_001_0028.sh --> Wed May 29 11:05:35 2024
+Enter to local submit: mating_001_0029.sh --> Wed May 29 11:05:37 2024
+Enter to local submit: mating_001_0030.sh --> Wed May 29 11:05:40 2024
+Enter to local submit: mutant_001_0001.sh --> Wed May 29 11:05:43 2024
+Enter to local submit: mutant_001_0002.sh --> Wed May 29 11:05:48 2024
+Enter to local submit: mutant_001_0003.sh --> Wed May 29 11:06:10 2024
+Enter to local submit: mutant_001_0004.sh --> Wed May 29 11:06:16 2024
+Enter to local submit: mutant_001_0005.sh --> Wed May 29 11:06:20 2024
+Enter to local submit: mutant_001_0006.sh --> Wed May 29 11:06:21 2024
+Enter to local submit: mutant_001_0007.sh --> Wed May 29 11:07:13 2024
+Enter to local submit: mutant_001_0008.sh --> Wed May 29 11:07:16 2024
+Enter to local submit: mutant_001_0009.sh --> Wed May 29 11:07:16 2024
+Enter to local submit: mutant_001_0010.sh --> Wed May 29 11:07:22 2024
+Calculations with N.T. = 39 (97 percent)
+Calculations with A.T. = 1 (2 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+mating_001_0010 sym P1 (1) discriminated, too similar to mating_001_0002 sym Pm (6), dE = 0.00000 dV = 0.00014
+mating_001_0013 sym P1 (1) discriminated, too similar to mating_001_0002 sym Pm (6), dE = 0.00000 dV = 0.00001
+mating_001_0021 sym P1 (1) discriminated, too similar to mating_001_0002 sym Pm (6), dE = 0.00000 dV = 0.00004
+mating_001_0022 sym P1 (1) discriminated, too similar to mating_001_0002 sym Pm (6), dE = 0.00000 dV = 0.00003
+mating_001_0024 sym P1 (1) discriminated, too similar to mating_001_0002 sym Pm (6), dE = 0.00000 dV = 0.00001
+mutant_001_0005 sym P1 (1) discriminated, too similar to mating_001_0002 sym Pm (6), dE = 0.00000 dV = 0.00001
+mating_001_0011 sym P1 (1) discriminated, too similar to mating_001_0004 sym P1 (1), dE = 0.00000 dV = 0.00002
+mutant_001_0001 sym P1 (1) discriminated, too similar to mating_001_0004 sym P1 (1), dE = 0.00000 dV = 0.00008
+mutant_001_0004 sym P1 (1) discriminated, too similar to mating_001_0005 sym P1 (1), dE = 0.00028 dV = 0.05960
+mutant_001_0009 sym P1 (1) discriminated, too similar to mating_001_0007 sym P1 (1), dE = 0.00000 dV = 0.00007
+mating_001_0009 sym P1 (1) discriminated, too similar to mating_001_0008 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_001_0015 sym Pm (6) discriminated, too similar to mating_001_0008 sym P1 (1), dE = 0.00000 dV = 0.00008
+mating_001_0016 sym P1 (1) discriminated, too similar to mating_001_0008 sym P1 (1), dE = 0.00000 dV = 0.00010
+mating_001_0018 sym P1 (1) discriminated, too similar to mating_001_0008 sym P1 (1), dE = 0.00000 dV = 0.00008
+mutant_001_0002 sym P1 (1) discriminated, too similar to mating_001_0008 sym P1 (1), dE = 0.00000 dV = 0.00008
+mutant_001_0003 sym P1 (1) discriminated, too similar to mating_001_0008 sym P1 (1), dE = 0.00000 dV = 0.00013
+mutant_001_0006 sym P1 (1) discriminated, too similar to mating_001_0012 sym P1 (1), dE = 0.00012 dV = 0.00078
+mutant_001_0007 sym P1 (1) discriminated, too similar to mating_001_0012 sym P1 (1), dE = 0.00000 dV = 0.00006
+-------------------------------------------------------------------
+------------------ DISCRIMINATION Gen vs Pool ---------------------
+mating_001_0002 sym Pm (6) discriminated, too similar to random_000_002 sym P1 (1), dE = 0.00000 dV = 1.04639
+mating_001_0003 sym P1 (1) discriminated, too similar to random_000_003 sym P1 (1), dE = 0.00000 dV = 0.00016
+mating_001_0008 sym P1 (1) discriminated, too similar to random_000_005 sym P1 (1), dE = 0.00000 dV = 0.00006
+mating_001_0014 sym P1 (1) discriminated, too similar to random_000_006 sym P1 (1), dE = 0.00000 dV = 1.35084
+mating_001_0017 sym P1 (1) discriminated, too similar to random_000_004 sym Pm (6), dE = 0.00000 dV = 0.00001
+
+max_energy_allowed = 2.00 kcal/mol
+00001 mating_001_0005 ... DISCRIMINATED: DeltaE = 2.12
+00002 mating_001_0020 ... DISCRIMINATED: DeltaE = 2.90
+
+--------------------- GENERATION 001 SUMMARY ----------------------
+Number    File-Name        Energy (eV)    Delta-E  Fitness
+#00001  mating_001_0007  -157.34341104   0.000000   0.88
+#00002  mating_001_0006  -157.23787459   0.105536   0.86
+#00003  mating_001_0019  -157.09786788   0.245543   0.82
+#00004  mating_001_0012  -156.93952641   0.403885   0.76
+#00005  mating_001_0029  -156.73722624   0.606185   0.67
+#00006  mating_001_0026  -156.48903251   0.854379   0.55
+#00007  mating_001_0030  -156.36368486   0.979726   0.48
+#00008  mating_001_0001  -156.35441779   0.988993   0.48
+#00009  mating_001_0028  -156.07435926   1.269052   0.34
+#00010  mating_001_0027  -155.90513287   1.438278   0.26
+#00011  mating_001_0023  -155.84062324   1.502788   0.24
+#00012  mating_001_0025  -155.81535025   1.528061   0.23
+#00013  mating_001_0004  -155.57719406   1.766217   0.15
+#00014  mutant_001_0010  -155.44405722   1.899354   0.12
+
+--------------------------GLOBAL  SUMMARY--------------------------
+energy_range = 2.000000
+max_number_inputs = 10
+Number    File-Name        Energy (eV)    Delta-E   NT
+#00001   random_000_002  -159.20142964   0.000000   1
+#00002   random_000_006  -158.06936024   1.132069   1
+#00003   random_000_003  -157.98431796   1.217112   1
+#00004   random_000_005  -157.51019790   1.691232   1
+#00005  mating_001_0007  -157.34341104   1.858019   1
+#00006  mating_001_0006  -157.23787459   1.963555   1
+#00007  mating_001_0019  -157.09786788   2.103562   1
+#00008   random_000_015  -157.01725914   2.184170   1
+#00009  mating_001_0012  -156.93952641   2.261903   1
+#00010   random_000_004  -156.88478768   2.316642   1
+Created: summary.vasp
+-------------------------------------------------------------------
+------------------------ MATING: CROSSOVER ------------------------
+CONSTRUCTION OF THE PARENT LIST THROUGH ROULETTE
+mating_002_001 ---> random_000_006_x_random_000_002
+mating_002_002 ---> random_000_003_x_mating_001_0006
+mating_002_003 ---> random_000_006_x_random_000_005
+mating_002_004 ---> random_000_002_x_random_000_006
+mating_002_005 ---> random_000_005_x_random_000_003
+mating_002_006 ---> random_000_005_x_mating_001_0019
+mating_002_007 ---> mating_001_0007_x_random_000_006
+mating_002_008 ---> random_000_006_x_random_000_005
+mating_002_009 ---> random_000_003_x_random_000_002
+mating_002_010 ---> mating_001_0012_x_random_000_015
+mating_002_011 ---> random_000_002_x_random_000_006
+mating_002_012 ---> random_000_005_x_mating_001_0006
+mating_002_013 ---> random_000_015_x_random_000_003
+mating_002_014 ---> random_000_003_x_random_000_006
+mating_002_015 ---> random_000_002_x_random_000_002
+mating_002_016 ---> random_000_003_x_random_000_002
+mating_002_017 ---> random_000_002_x_random_000_004
+mating_002_018 ---> random_000_004_x_mating_001_0006
+mating_002_019 ---> random_000_006_x_random_000_006
+mating_002_020 ---> random_000_015_x_random_000_003
+mating_002_021 ---> random_000_003_x_mating_001_0012
+mating_002_022 ---> random_000_003_x_random_000_002
+mating_002_023 ---> mating_001_0007_x_random_000_015
+mating_002_024 ---> random_000_003_x_random_000_002
+mating_002_025 ---> random_000_002_x_random_000_005
+mating_002_026 ---> random_000_005_x_mating_001_0007
+mating_002_027 ---> random_000_003_x_mating_001_0007
+mating_002_028 ---> random_000_003_x_random_000_006
+mating_002_029 ---> random_000_002_x_random_000_003
+mating_002_030 ---> random_000_006_x_mating_001_0007
+We have 30 POSCAR files type MATING from 30 solicited
+-------------------------------------------------------------------
+-----------------------GENERATOR OF MUTANTS------------------------
+mutant_002_001 ---> mating_001_0012_lattice_strain
+mutant_002_002 ---> random_000_006_atom_exchange
+mutant_002_003 ---> random_000_003_lattice_strain
+mutant_002_004 ---> random_000_004_lattice_strain
+mutant_002_005 ---> random_000_003_lattice_strain
+mutant_002_006 ---> random_000_002_lattice_strain
+mutant_002_007 ---> random_000_005_atom_exchange
+mutant_002_008 ---> random_000_002_atom_exchange
+mutant_002_009 ---> random_000_005_atom_exchange
+mutant_002_010 ---> random_000_004_atom_exchange
+We have 10 POSCAR type MUTANT from 10 solicited
+Created: initial002.vasp
+-------------------------------------------------------------------
+---------------- LOCAL OPTIMIZATION: GENERATION 2   ----------------
+Making input file = generation002/mating_002_0001.gin
+Making input file = generation002/mating_002_0002.gin
+Making input file = generation002/mating_002_0003.gin
+Making input file = generation002/mating_002_0004.gin
+Making input file = generation002/mating_002_0005.gin
+Making input file = generation002/mating_002_0006.gin
+Making input file = generation002/mating_002_0007.gin
+Making input file = generation002/mating_002_0008.gin
+Making input file = generation002/mating_002_0009.gin
+Making input file = generation002/mating_002_0010.gin
+Making input file = generation002/mating_002_0011.gin
+Making input file = generation002/mating_002_0012.gin
+Making input file = generation002/mating_002_0013.gin
+Making input file = generation002/mating_002_0014.gin
+Making input file = generation002/mating_002_0015.gin
+Making input file = generation002/mating_002_0016.gin
+Making input file = generation002/mating_002_0017.gin
+Making input file = generation002/mating_002_0018.gin
+Making input file = generation002/mating_002_0019.gin
+Making input file = generation002/mating_002_0020.gin
+Making input file = generation002/mating_002_0021.gin
+Making input file = generation002/mating_002_0022.gin
+Making input file = generation002/mating_002_0023.gin
+Making input file = generation002/mating_002_0024.gin
+Making input file = generation002/mating_002_0025.gin
+Making input file = generation002/mating_002_0026.gin
+Making input file = generation002/mating_002_0027.gin
+Making input file = generation002/mating_002_0028.gin
+Making input file = generation002/mating_002_0029.gin
+Making input file = generation002/mating_002_0030.gin
+Making input file = generation002/mutant_002_0001.gin
+Making input file = generation002/mutant_002_0002.gin
+Making input file = generation002/mutant_002_0003.gin
+Making input file = generation002/mutant_002_0004.gin
+Making input file = generation002/mutant_002_0005.gin
+Making input file = generation002/mutant_002_0006.gin
+Making input file = generation002/mutant_002_0007.gin
+Making input file = generation002/mutant_002_0008.gin
+Making input file = generation002/mutant_002_0009.gin
+Making input file = generation002/mutant_002_0010.gin
+Enter to local submit: mating_002_0001.sh --> Wed May 29 11:07:42 2024
+Enter to local submit: mating_002_0002.sh --> Wed May 29 11:07:44 2024
+Enter to local submit: mating_002_0003.sh --> Wed May 29 11:07:47 2024
+Enter to local submit: mating_002_0004.sh --> Wed May 29 11:07:50 2024
+Enter to local submit: mating_002_0005.sh --> Wed May 29 11:07:51 2024
+Enter to local submit: mating_002_0006.sh --> Wed May 29 11:07:53 2024
+Enter to local submit: mating_002_0007.sh --> Wed May 29 11:07:55 2024
+Enter to local submit: mating_002_0008.sh --> Wed May 29 11:07:57 2024
+Enter to local submit: mating_002_0009.sh --> Wed May 29 11:07:59 2024
+Enter to local submit: mating_002_0010.sh --> Wed May 29 11:08:02 2024
+Enter to local submit: mating_002_0011.sh --> Wed May 29 11:08:04 2024
+Enter to local submit: mating_002_0012.sh --> Wed May 29 11:08:06 2024
+Enter to local submit: mating_002_0013.sh --> Wed May 29 11:08:10 2024
+Enter to local submit: mating_002_0014.sh --> Wed May 29 11:08:14 2024
+Enter to local submit: mating_002_0015.sh --> Wed May 29 11:08:15 2024
+Enter to local submit: mating_002_0016.sh --> Wed May 29 11:08:20 2024
+Enter to local submit: mating_002_0017.sh --> Wed May 29 11:08:23 2024
+Enter to local submit: mating_002_0018.sh --> Wed May 29 11:08:26 2024
+Enter to local submit: mating_002_0019.sh --> Wed May 29 11:08:30 2024
+Enter to local submit: mating_002_0020.sh --> Wed May 29 11:08:34 2024
+Enter to local submit: mating_002_0021.sh --> Wed May 29 11:08:37 2024
+Enter to local submit: mating_002_0022.sh --> Wed May 29 11:08:39 2024
+Enter to local submit: mating_002_0023.sh --> Wed May 29 11:08:42 2024
+Enter to local submit: mating_002_0024.sh --> Wed May 29 11:08:49 2024
+Enter to local submit: mating_002_0025.sh --> Wed May 29 11:08:52 2024
+Enter to local submit: mating_002_0026.sh --> Wed May 29 11:08:53 2024
+Enter to local submit: mating_002_0027.sh --> Wed May 29 11:08:54 2024
+Enter to local submit: mating_002_0028.sh --> Wed May 29 11:08:57 2024
+Enter to local submit: mating_002_0029.sh --> Wed May 29 11:09:00 2024
+Enter to local submit: mating_002_0030.sh --> Wed May 29 11:09:03 2024
+Enter to local submit: mutant_002_0001.sh --> Wed May 29 11:09:06 2024
+Enter to local submit: mutant_002_0002.sh --> Wed May 29 11:09:15 2024
+Enter to local submit: mutant_002_0003.sh --> Wed May 29 11:09:18 2024
+Enter to local submit: mutant_002_0004.sh --> Wed May 29 11:09:20 2024
+Enter to local submit: mutant_002_0005.sh --> Wed May 29 11:09:22 2024
+Enter to local submit: mutant_002_0006.sh --> Wed May 29 11:10:29 2024
+Enter to local submit: mutant_002_0007.sh --> Wed May 29 11:10:30 2024
+Enter to local submit: mutant_002_0008.sh --> Wed May 29 11:10:31 2024
+Enter to local submit: mutant_002_0009.sh --> Wed May 29 11:10:35 2024
+Enter to local submit: mutant_002_0010.sh --> Wed May 29 11:10:35 2024
+Calculations with N.T. = 38 (95 percent)
+Calculations with A.T. = 2 (5 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+mating_002_0003 sym P1 (1) discriminated, too similar to mating_002_0002 sym P1 (1), dE = 0.00000 dV = 0.00003
+mating_002_0012 sym P1 (1) discriminated, too similar to mating_002_0002 sym P1 (1), dE = 0.00000 dV = 0.00007
+mating_002_0014 sym P1 (1) discriminated, too similar to mating_002_0002 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_002_0015 sym P1 (1) discriminated, too similar to mating_002_0002 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_002_0020 sym P1 (1) discriminated, too similar to mating_002_0002 sym P1 (1), dE = 0.00000 dV = 0.00004
+mating_002_0025 sym P1 (1) discriminated, too similar to mating_002_0002 sym P1 (1), dE = 0.00000 dV = 0.00010
+mutant_002_0004 sym P-1 (2) discriminated, too similar to mating_002_0002 sym P1 (1), dE = 0.00000 dV = 0.00007
+mutant_002_0006 sym P1 (1) discriminated, too similar to mating_002_0002 sym P1 (1), dE = 0.00000 dV = 0.00004
+mutant_002_0007 sym P1 (1) discriminated, too similar to mating_002_0002 sym P1 (1), dE = 0.00000 dV = 0.00020
+mutant_002_0010 sym P1 (1) discriminated, too similar to mating_002_0004 sym P1 (1), dE = 0.00000 dV = 0.00003
+mating_002_0017 sym P1 (1) discriminated, too similar to mating_002_0005 sym P1 (1), dE = 0.00000 dV = 0.00001
+mating_002_0021 sym P1 (1) discriminated, too similar to mating_002_0005 sym P1 (1), dE = 0.00000 dV = 0.00001
+mating_002_0024 sym P1 (1) discriminated, too similar to mating_002_0005 sym P1 (1), dE = 0.00000 dV = 0.00003
+mutant_002_0009 sym P1 (1) discriminated, too similar to mating_002_0005 sym P1 (1), dE = 0.00000 dV = 0.00000
+mating_002_0022 sym P1 (1) discriminated, too similar to mating_002_0019 sym P1 (1), dE = 0.00000 dV = 0.00008
+mutant_002_0002 sym P1 (1) discriminated, too similar to mating_002_0028 sym P1 (1), dE = 0.00000 dV = 0.00003
+mutant_002_0003 sym P-1 (2) discriminated, too similar to mating_002_0028 sym P1 (1), dE = 0.00000 dV = 0.00015
+-------------------------------------------------------------------
+------------------ DISCRIMINATION Gen vs Pool ---------------------
+mating_002_0001 sym P1 (1) discriminated, too similar to random_000_006 sym P1 (1), dE = 0.00000 dV = 1.35104
+mating_002_0002 sym P1 (1) discriminated, too similar to random_000_002 sym P1 (1), dE = 0.00000 dV = 1.04634
+mating_002_0004 sym P1 (1) discriminated, too similar to mating_001_0012 sym P1 (1), dE = 0.00000 dV = 0.00010
+mating_002_0005 sym P1 (1) discriminated, too similar to random_000_005 sym P1 (1), dE = 0.00000 dV = 1.77019
+mating_002_0007 sym P1 (1) discriminated, too similar to random_000_015 sym P2 (3), dE = 0.00038 dV = 1.45600
+mating_002_0009 sym P1 (1) discriminated, too similar to mating_001_0006 sym P1 (1), dE = 0.00000 dV = 0.00013
+mating_002_0011 sym P1 (1) discriminated, too similar to mating_001_0007 sym P1 (1), dE = 0.00000 dV = 0.00010
+mating_002_0028 sym P1 (1) discriminated, too similar to random_000_003 sym P1 (1), dE = 0.00000 dV = 0.00011
+
+max_energy_allowed = 2.00 kcal/mol
+00001 mating_002_0006 ... DISCRIMINATED: DeltaE = 2.77
+00002 mating_002_0010 ... DISCRIMINATED: DeltaE = 2.31
+00003 mating_002_0026 ... DISCRIMINATED: DeltaE = 2.67
+00004 mating_002_0027 ... DISCRIMINATED: DeltaE = 3.78
+00005 mating_002_0030 ... DISCRIMINATED: DeltaE = 3.09
+00006 mutant_002_0001 ... DISCRIMINATED: DeltaE = 2.08
+00007 mutant_002_0008 ... DISCRIMINATED: DeltaE = 3.08
+
+--------------------- GENERATION 002 SUMMARY ----------------------
+Number    File-Name        Energy (eV)    Delta-E  Fitness
+#00001  mating_002_0019  -158.41202342   0.000000   0.88
+#00002  mating_002_0029  -157.32719301   1.084830   0.44
+#00003  mating_002_0018  -157.30132267   1.110701   0.42
+#00004  mating_002_0008  -156.75440337   1.657620   0.19
+#00005  mating_002_0016  -156.54436051   1.867663   0.13
+#00006  mating_002_0013  -156.48903275   1.922991   0.12
+
+--------------------------GLOBAL  SUMMARY--------------------------
+energy_range = 2.000000
+max_number_inputs = 10
+Number    File-Name        Energy (eV)    Delta-E   NT
+#00001   random_000_002  -159.20142964   0.000000   1
+#00002  mating_002_0019  -158.41202342   0.789406   1
+#00003   random_000_006  -158.06936024   1.132069   1
+#00004   random_000_003  -157.98431796   1.217112   1
+#00005   random_000_005  -157.51019790   1.691232   1
+#00006  mating_001_0007  -157.34341104   1.858019   1
+#00007  mating_002_0029  -157.32719301   1.874237   1
+#00008  mating_002_0018  -157.30132267   1.900107   1
+#00009  mating_001_0006  -157.23787459   1.963555   1
+#00010  mating_001_0019  -157.09786788   2.103562   1
+Created: summary.vasp
+-------------------------------------------------------------------
+------------------------ MATING: CROSSOVER ------------------------
+CONSTRUCTION OF THE PARENT LIST THROUGH ROULETTE
+mating_003_001 ---> random_000_002_x_mating_002_0019
+mating_003_002 ---> random_000_006_x_mating_002_0018
+mating_003_003 ---> random_000_003_x_random_000_003
+mating_003_004 ---> random_000_002_x_random_000_005
+mating_003_005 ---> mating_002_0029_x_mating_002_0029
+mating_003_006 ---> random_000_002_x_mating_002_0018
+mating_003_007 ---> random_000_003_x_random_000_006
+mating_003_008 ---> random_000_003_x_random_000_002
+mating_003_009 ---> random_000_002_x_random_000_005
+mating_003_010 ---> random_000_002_x_random_000_005
+mating_003_011 ---> mating_001_0007_x_random_000_002
+mating_003_012 ---> mating_002_0019_x_mating_002_0019
+mating_003_013 ---> mating_002_0019_x_mating_002_0029
+mating_003_014 ---> random_000_002_x_random_000_002
+mating_003_015 ---> mating_001_0006_x_mating_001_0007
+mating_003_016 ---> random_000_002_x_random_000_002
+mating_003_017 ---> random_000_006_x_mating_001_0007
+mating_003_018 ---> mating_002_0019_x_random_000_002
+mating_003_019 ---> mating_001_0007_x_random_000_003
+mating_003_020 ---> random_000_002_x_random_000_006
+mating_003_021 ---> random_000_002_x_random_000_005
+mating_003_022 ---> random_000_006_x_mating_002_0019
+mating_003_023 ---> random_000_002_x_mating_002_0019
+mating_003_024 ---> mating_002_0019_x_mating_002_0019
+mating_003_025 ---> random_000_002_x_mating_002_0019
+mating_003_026 ---> random_000_005_x_random_000_006
+mating_003_027 ---> random_000_003_x_mating_002_0018
+mating_003_028 ---> random_000_003_x_random_000_006
+mating_003_029 ---> random_000_006_x_random_000_006
+mating_003_030 ---> mating_002_0019_x_mating_002_0029
+We have 30 POSCAR files type MATING from 30 solicited
+-------------------------------------------------------------------
+-----------------------GENERATOR OF MUTANTS------------------------
+mutant_003_001 ---> random_000_006_atom_exchange
+mutant_003_002 ---> mating_001_0006_atom_exchange
+mutant_003_003 ---> random_000_002_lattice_strain
+mutant_003_004 ---> random_000_006_lattice_strain
+mutant_003_005 ---> mating_002_0018_lattice_strain
+mutant_003_006 ---> random_000_006_lattice_strain
+mutant_003_007 ---> mating_002_0019_atom_exchange
+mutant_003_008 ---> mating_002_0018_lattice_strain
+mutant_003_009 ---> mating_002_0029_atom_exchange
+mutant_003_010 ---> random_000_006_lattice_strain
+We have 10 POSCAR type MUTANT from 10 solicited
+Created: initial003.vasp
+-------------------------------------------------------------------
+---------------- LOCAL OPTIMIZATION: GENERATION 3   ----------------
+Making input file = generation003/mating_003_0001.gin
+Making input file = generation003/mating_003_0002.gin
+Making input file = generation003/mating_003_0003.gin
+Making input file = generation003/mating_003_0004.gin
+Making input file = generation003/mating_003_0005.gin
+Making input file = generation003/mating_003_0006.gin
+Making input file = generation003/mating_003_0007.gin
+Making input file = generation003/mating_003_0008.gin
+Making input file = generation003/mating_003_0009.gin
+Making input file = generation003/mating_003_0010.gin
+Making input file = generation003/mating_003_0011.gin
+Making input file = generation003/mating_003_0012.gin
+Making input file = generation003/mating_003_0013.gin
+Making input file = generation003/mating_003_0014.gin
+Making input file = generation003/mating_003_0015.gin
+Making input file = generation003/mating_003_0016.gin
+Making input file = generation003/mating_003_0017.gin
+Making input file = generation003/mating_003_0018.gin
+Making input file = generation003/mating_003_0019.gin
+Making input file = generation003/mating_003_0020.gin
+Making input file = generation003/mating_003_0021.gin
+Making input file = generation003/mating_003_0022.gin
+Making input file = generation003/mating_003_0023.gin
+Making input file = generation003/mating_003_0024.gin
+Making input file = generation003/mating_003_0025.gin
+Making input file = generation003/mating_003_0026.gin
+Making input file = generation003/mating_003_0027.gin
+Making input file = generation003/mating_003_0028.gin
+Making input file = generation003/mating_003_0029.gin
+Making input file = generation003/mating_003_0030.gin
+Making input file = generation003/mutant_003_0001.gin
+Making input file = generation003/mutant_003_0002.gin
+Making input file = generation003/mutant_003_0003.gin
+Making input file = generation003/mutant_003_0004.gin
+Making input file = generation003/mutant_003_0005.gin
+Making input file = generation003/mutant_003_0006.gin
+Making input file = generation003/mutant_003_0007.gin
+Making input file = generation003/mutant_003_0008.gin
+Making input file = generation003/mutant_003_0009.gin
+Making input file = generation003/mutant_003_0010.gin
+Enter to local submit: mating_003_0001.sh --> Wed May 29 11:10:55 2024
+Enter to local submit: mating_003_0002.sh --> Wed May 29 11:10:56 2024
+Enter to local submit: mating_003_0003.sh --> Wed May 29 11:10:57 2024
+Enter to local submit: mating_003_0004.sh --> Wed May 29 11:10:59 2024
+Enter to local submit: mating_003_0005.sh --> Wed May 29 11:11:01 2024
+Enter to local submit: mating_003_0006.sh --> Wed May 29 11:11:05 2024
+Enter to local submit: mating_003_0007.sh --> Wed May 29 11:11:08 2024
+Enter to local submit: mating_003_0008.sh --> Wed May 29 11:11:12 2024
+Enter to local submit: mating_003_0009.sh --> Wed May 29 11:11:15 2024
+Enter to local submit: mating_003_0010.sh --> Wed May 29 11:11:17 2024
+Enter to local submit: mating_003_0011.sh --> Wed May 29 11:11:19 2024
+Enter to local submit: mating_003_0012.sh --> Wed May 29 11:11:21 2024
+Enter to local submit: mating_003_0013.sh --> Wed May 29 11:11:23 2024
+Enter to local submit: mating_003_0014.sh --> Wed May 29 11:11:24 2024
+Enter to local submit: mating_003_0015.sh --> Wed May 29 11:11:26 2024
+Enter to local submit: mating_003_0016.sh --> Wed May 29 11:11:28 2024
+Enter to local submit: mating_003_0017.sh --> Wed May 29 11:11:30 2024
+Enter to local submit: mating_003_0018.sh --> Wed May 29 11:11:33 2024
+Enter to local submit: mating_003_0019.sh --> Wed May 29 11:11:34 2024
+Enter to local submit: mating_003_0020.sh --> Wed May 29 11:11:36 2024
+Enter to local submit: mating_003_0021.sh --> Wed May 29 11:11:38 2024
+Enter to local submit: mating_003_0022.sh --> Wed May 29 11:11:46 2024
+Enter to local submit: mating_003_0023.sh --> Wed May 29 11:11:48 2024
+Enter to local submit: mating_003_0024.sh --> Wed May 29 11:11:50 2024
+Enter to local submit: mating_003_0025.sh --> Wed May 29 11:11:51 2024
+Enter to local submit: mating_003_0026.sh --> Wed May 29 11:11:53 2024
+Enter to local submit: mating_003_0027.sh --> Wed May 29 11:11:55 2024
+Enter to local submit: mating_003_0028.sh --> Wed May 29 11:11:57 2024
+Enter to local submit: mating_003_0029.sh --> Wed May 29 11:12:02 2024
+Enter to local submit: mating_003_0030.sh --> Wed May 29 11:12:03 2024
+Enter to local submit: mutant_003_0001.sh --> Wed May 29 11:12:05 2024
+Enter to local submit: mutant_003_0002.sh --> Wed May 29 11:12:08 2024
+Enter to local submit: mutant_003_0003.sh --> Wed May 29 11:12:11 2024
+Enter to local submit: mutant_003_0004.sh --> Wed May 29 11:13:09 2024
+Enter to local submit: mutant_003_0005.sh --> Wed May 29 11:15:02 2024
+Enter to local submit: mutant_003_0006.sh --> Wed May 29 11:15:13 2024
+Enter to local submit: mutant_003_0007.sh --> Wed May 29 11:15:18 2024
+Enter to local submit: mutant_003_0008.sh --> Wed May 29 11:15:19 2024
+Enter to local submit: mutant_003_0009.sh --> Wed May 29 11:15:25 2024
+Enter to local submit: mutant_003_0010.sh --> Wed May 29 11:15:30 2024
+Calculations with N.T. = 38 (95 percent)
+Calculations with A.T. = 2 (5 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+mating_003_0002 sym P1 (1) discriminated, too similar to mating_003_0001 sym P1 (1), dE = 0.00000 dV = 0.00004
+mating_003_0009 sym P1 (1) discriminated, too similar to mating_003_0001 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_003_0013 sym P1 (1) discriminated, too similar to mating_003_0001 sym P1 (1), dE = 0.00000 dV = 0.00003
+mating_003_0014 sym P1 (1) discriminated, too similar to mating_003_0001 sym P1 (1), dE = 0.00000 dV = 0.00001
+mating_003_0019 sym P1 (1) discriminated, too similar to mating_003_0001 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_003_0026 sym Pm (6) discriminated, too similar to mating_003_0001 sym P1 (1), dE = 0.00000 dV = 0.00002
+mutant_003_0002 sym P1 (1) discriminated, too similar to mating_003_0001 sym P1 (1), dE = 0.00000 dV = 0.00004
+mating_003_0010 sym P1 (1) discriminated, too similar to mating_003_0003 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_003_0027 sym P1 (1) discriminated, too similar to mating_003_0003 sym P1 (1), dE = 0.00000 dV = 0.00011
+mutant_003_0006 sym P1 (1) discriminated, too similar to mating_003_0004 sym P1 (1), dE = 0.00000 dV = 0.00009
+mating_003_0011 sym P1 (1) discriminated, too similar to mating_003_0005 sym P1 (1), dE = 0.00000 dV = 0.00001
+mating_003_0025 sym P1 (1) discriminated, too similar to mating_003_0005 sym P1 (1), dE = 0.00000 dV = 0.00002
+mutant_003_0009 sym P1 (1) discriminated, too similar to mating_003_0005 sym P1 (1), dE = 0.00000 dV = 0.00003
+mating_003_0015 sym P1 (1) discriminated, too similar to mating_003_0008 sym P1 (1), dE = 0.00000 dV = 0.00003
+mating_003_0023 sym P1 (1) discriminated, too similar to mating_003_0016 sym P1 (1), dE = 0.00000 dV = 0.00001
+mutant_003_0001 sym P1 (1) discriminated, too similar to mating_003_0029 sym P1 (1), dE = 0.00000 dV = 0.00006
+-------------------------------------------------------------------
+------------------ DISCRIMINATION Gen vs Pool ---------------------
+mating_003_0001 sym P1 (1) discriminated, too similar to random_000_002 sym P1 (1), dE = 0.00000 dV = 1.04639
+mating_003_0003 sym P1 (1) discriminated, too similar to random_000_003 sym P1 (1), dE = 0.00000 dV = 0.00006
+mating_003_0005 sym P1 (1) discriminated, too similar to mating_001_0007 sym P1 (1), dE = 0.00000 dV = 0.00008
+mating_003_0008 sym P1 (1) discriminated, too similar to random_000_005 sym P1 (1), dE = 0.00000 dV = 1.77015
+mating_003_0018 sym P1 (1) discriminated, too similar to mating_002_0019 sym P1 (1), dE = 0.00000 dV = 1.81925
+mating_003_0020 sym P1 (1) discriminated, too similar to random_000_002 sym P1 (1), dE = 0.24880 dV = 0.00033
+mating_003_0028 sym P1 (1) discriminated, too similar to mating_002_0018 sym P1 (1), dE = 0.00000 dV = 0.00000
+mating_003_0029 sym P1 (1) discriminated, too similar to random_000_006 sym P1 (1), dE = 0.00000 dV = 1.35094
+mutant_003_0008 sym P1 (1) discriminated, too similar to mating_001_0006 sym P1 (1), dE = 0.00000 dV = 1.07661
+
+max_energy_allowed = 2.00 kcal/mol
+00001 mating_003_0004 ... DISCRIMINATED: DeltaE = 2.12
+00002 mating_003_0006 ... DISCRIMINATED: DeltaE = 3.84
+00003 mating_003_0007 ... DISCRIMINATED: DeltaE = 2.04
+00004 mating_003_0012 ... DISCRIMINATED: DeltaE = 2.71
+00005 mating_003_0016 ... DISCRIMINATED: DeltaE = 2.05
+00006 mating_003_0017 ... DISCRIMINATED: DeltaE = 3.26
+00007 mating_003_0022 ... DISCRIMINATED: DeltaE = 4.55
+00008 mating_003_0024 ... DISCRIMINATED: DeltaE = 2.92
+00009 mutant_003_0003 ... DISCRIMINATED: DeltaE = 2.68
+00010 mutant_003_0005 ... DISCRIMINATED: DeltaE = 2.18
+00011 mutant_003_0007 ... DISCRIMINATED: DeltaE = 2.57
+00012 mutant_003_0010 ... DISCRIMINATED: DeltaE = 3.47
+
+--------------------- GENERATION 003 SUMMARY ----------------------
+Number    File-Name        Energy (eV)    Delta-E  Fitness
+#00001  mating_003_0030  -159.06090965   0.000000   1.00
+
+--------------------------GLOBAL  SUMMARY--------------------------
+energy_range = 2.000000
+max_number_inputs = 10
+Number    File-Name        Energy (eV)    Delta-E   NT
+#00001   random_000_002  -159.20142964   0.000000   1
+#00002  mating_003_0030  -159.06090965   0.140520   1
+#00003  mating_002_0019  -158.41202342   0.789406   1
+#00004   random_000_006  -158.06936024   1.132069   1
+#00005   random_000_003  -157.98431796   1.217112   1
+#00006   random_000_005  -157.51019790   1.691232   1
+#00007  mating_001_0007  -157.34341104   1.858019   1
+#00008  mating_002_0029  -157.32719301   1.874237   1
+#00009  mating_002_0018  -157.30132267   1.900107   1
+#00010  mating_001_0006  -157.23787459   1.963555   1
+Created: summary.vasp
+-------------------------------------------------------------------
+------------------------ MATING: CROSSOVER ------------------------
+CONSTRUCTION OF THE PARENT LIST THROUGH ROULETTE
+mating_004_001 ---> mating_002_0019_x_random_000_002
+mating_004_002 ---> random_000_006_x_mating_002_0018
+mating_004_003 ---> mating_003_0030_x_mating_003_0030
+mating_004_004 ---> random_000_002_x_random_000_003
+mating_004_005 ---> mating_003_0030_x_mating_003_0030
+mating_004_006 ---> mating_003_0030_x_mating_002_0019
+mating_004_007 ---> random_000_005_x_random_000_003
+mating_004_008 ---> random_000_002_x_mating_001_0007
+mating_004_009 ---> mating_003_0030_x_random_000_002
+mating_004_010 ---> random_000_002_x_mating_002_0019
+mating_004_011 ---> random_000_002_x_random_000_002
+mating_004_012 ---> random_000_003_x_random_000_006
+mating_004_013 ---> mating_002_0029_x_random_000_002
+mating_004_014 ---> random_000_002_x_mating_002_0019
+mating_004_015 ---> random_000_003_x_mating_002_0019
+mating_004_016 ---> mating_003_0030_x_random_000_002
+mating_004_017 ---> mating_003_0030_x_random_000_006
+mating_004_018 ---> mating_001_0007_x_mating_002_0029
+mating_004_019 ---> random_000_002_x_random_000_002
+mating_004_020 ---> random_000_002_x_random_000_006
+mating_004_021 ---> random_000_002_x_mating_003_0030
+mating_004_022 ---> random_000_003_x_mating_002_0019
+mating_004_023 ---> random_000_002_x_random_000_002
+mating_004_024 ---> mating_003_0030_x_mating_003_0030
+mating_004_025 ---> random_000_006_x_random_000_002
+mating_004_026 ---> random_000_003_x_random_000_002
+mating_004_027 ---> mating_002_0019_x_random_000_003
+mating_004_028 ---> mating_002_0019_x_mating_002_0019
+mating_004_029 ---> random_000_003_x_mating_003_0030
+mating_004_030 ---> mating_003_0030_x_random_000_002
+We have 30 POSCAR files type MATING from 30 solicited
+-------------------------------------------------------------------
+-----------------------GENERATOR OF MUTANTS------------------------
+mutant_004_001 ---> mating_003_0030_atom_exchange
+mutant_004_002 ---> mating_003_0030_lattice_strain
+mutant_004_003 ---> random_000_005_atom_exchange
+mutant_004_004 ---> random_000_002_lattice_strain
+mutant_004_005 ---> random_000_006_lattice_strain
+mutant_004_006 ---> random_000_002_lattice_strain
+mutant_004_007 ---> mating_002_0019_atom_exchange
+mutant_004_008 ---> random_000_003_lattice_strain
+mutant_004_009 ---> random_000_006_atom_exchange
+mutant_004_010 ---> mating_002_0019_lattice_strain
+We have 10 POSCAR type MUTANT from 10 solicited
+Created: initial004.vasp
+-------------------------------------------------------------------
+---------------- LOCAL OPTIMIZATION: GENERATION 4   ----------------
+Making input file = generation004/mating_004_0001.gin
+Making input file = generation004/mating_004_0002.gin
+Making input file = generation004/mating_004_0003.gin
+Making input file = generation004/mating_004_0004.gin
+Making input file = generation004/mating_004_0005.gin
+Making input file = generation004/mating_004_0006.gin
+Making input file = generation004/mating_004_0007.gin
+Making input file = generation004/mating_004_0008.gin
+Making input file = generation004/mating_004_0009.gin
+Making input file = generation004/mating_004_0010.gin
+Making input file = generation004/mating_004_0011.gin
+Making input file = generation004/mating_004_0012.gin
+Making input file = generation004/mating_004_0013.gin
+Making input file = generation004/mating_004_0014.gin
+Making input file = generation004/mating_004_0015.gin
+Making input file = generation004/mating_004_0016.gin
+Making input file = generation004/mating_004_0017.gin
+Making input file = generation004/mating_004_0018.gin
+Making input file = generation004/mating_004_0019.gin
+Making input file = generation004/mating_004_0020.gin
+Making input file = generation004/mating_004_0021.gin
+Making input file = generation004/mating_004_0022.gin
+Making input file = generation004/mating_004_0023.gin
+Making input file = generation004/mating_004_0024.gin
+Making input file = generation004/mating_004_0025.gin
+Making input file = generation004/mating_004_0026.gin
+Making input file = generation004/mating_004_0027.gin
+Making input file = generation004/mating_004_0028.gin
+Making input file = generation004/mating_004_0029.gin
+Making input file = generation004/mating_004_0030.gin
+Making input file = generation004/mutant_004_0001.gin
+Making input file = generation004/mutant_004_0002.gin
+Making input file = generation004/mutant_004_0003.gin
+Making input file = generation004/mutant_004_0004.gin
+Making input file = generation004/mutant_004_0005.gin
+Making input file = generation004/mutant_004_0006.gin
+Making input file = generation004/mutant_004_0007.gin
+Making input file = generation004/mutant_004_0008.gin
+Making input file = generation004/mutant_004_0009.gin
+Making input file = generation004/mutant_004_0010.gin
+Enter to local submit: mating_004_0001.sh --> Wed May 29 11:16:30 2024
+Enter to local submit: mating_004_0002.sh --> Wed May 29 11:16:32 2024
+Enter to local submit: mating_004_0003.sh --> Wed May 29 11:16:36 2024
+Enter to local submit: mating_004_0004.sh --> Wed May 29 11:16:37 2024
+Enter to local submit: mating_004_0005.sh --> Wed May 29 11:16:40 2024
+Enter to local submit: mating_004_0006.sh --> Wed May 29 11:16:42 2024
+Enter to local submit: mating_004_0007.sh --> Wed May 29 11:16:43 2024
+Enter to local submit: mating_004_0008.sh --> Wed May 29 11:16:46 2024
+Enter to local submit: mating_004_0009.sh --> Wed May 29 11:16:51 2024
+Enter to local submit: mating_004_0010.sh --> Wed May 29 11:16:53 2024
+Enter to local submit: mating_004_0011.sh --> Wed May 29 11:16:54 2024
+Enter to local submit: mating_004_0012.sh --> Wed May 29 11:16:58 2024
+Enter to local submit: mating_004_0013.sh --> Wed May 29 11:17:01 2024
+Enter to local submit: mating_004_0014.sh --> Wed May 29 11:17:03 2024
+Enter to local submit: mating_004_0015.sh --> Wed May 29 11:17:05 2024
+Enter to local submit: mating_004_0016.sh --> Wed May 29 11:17:09 2024
+Enter to local submit: mating_004_0017.sh --> Wed May 29 11:17:11 2024
+Enter to local submit: mating_004_0018.sh --> Wed May 29 11:17:12 2024
+Enter to local submit: mating_004_0019.sh --> Wed May 29 11:17:15 2024
+Enter to local submit: mating_004_0020.sh --> Wed May 29 11:17:21 2024
+Enter to local submit: mating_004_0021.sh --> Wed May 29 11:17:24 2024
+Enter to local submit: mating_004_0022.sh --> Wed May 29 11:17:26 2024
+Enter to local submit: mating_004_0023.sh --> Wed May 29 11:17:29 2024
+Enter to local submit: mating_004_0024.sh --> Wed May 29 11:17:30 2024
+Enter to local submit: mating_004_0025.sh --> Wed May 29 11:17:31 2024
+Enter to local submit: mating_004_0026.sh --> Wed May 29 11:17:34 2024
+Enter to local submit: mating_004_0027.sh --> Wed May 29 11:17:38 2024
+Enter to local submit: mating_004_0028.sh --> Wed May 29 11:17:41 2024
+Enter to local submit: mating_004_0029.sh --> Wed May 29 11:17:43 2024
+Enter to local submit: mating_004_0030.sh --> Wed May 29 11:17:45 2024
+Enter to local submit: mutant_004_0001.sh --> Wed May 29 11:17:46 2024
+Enter to local submit: mutant_004_0002.sh --> Wed May 29 11:17:48 2024
+Enter to local submit: mutant_004_0003.sh --> Wed May 29 11:17:48 2024
+Enter to local submit: mutant_004_0004.sh --> Wed May 29 11:17:50 2024
+Enter to local submit: mutant_004_0005.sh --> Wed May 29 11:17:54 2024
+Enter to local submit: mutant_004_0006.sh --> Wed May 29 11:18:02 2024
+Enter to local submit: mutant_004_0007.sh --> Wed May 29 11:18:17 2024
+Enter to local submit: mutant_004_0008.sh --> Wed May 29 11:18:20 2024
+Enter to local submit: mutant_004_0009.sh --> Wed May 29 11:19:02 2024
+Enter to local submit: mutant_004_0010.sh --> Wed May 29 11:19:05 2024
+Calculations with N.T. = 40 (100 percent)
+Calculations with A.T. = 0 (0 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+mating_004_0003 sym P1 (1) discriminated, too similar to mating_004_0001 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_004_0005 sym P1 (1) discriminated, too similar to mating_004_0001 sym P1 (1), dE = 0.00000 dV = 0.00004
+mating_004_0006 sym P1 (1) discriminated, too similar to mating_004_0001 sym P1 (1), dE = 0.00000 dV = 0.00001
+mating_004_0017 sym P1 (1) discriminated, too similar to mating_004_0001 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_004_0024 sym P1 (1) discriminated, too similar to mating_004_0001 sym P1 (1), dE = 0.00000 dV = 0.00008
+mating_004_0028 sym P1 (1) discriminated, too similar to mating_004_0001 sym P1 (1), dE = 0.00000 dV = 0.00004
+mating_004_0030 sym P1 (1) discriminated, too similar to mating_004_0001 sym P1 (1), dE = 0.00000 dV = 0.00001
+mutant_004_0002 sym P1 (1) discriminated, too similar to mating_004_0001 sym P1 (1), dE = 0.00000 dV = 0.00000
+mutant_004_0004 sym P1 (1) discriminated, too similar to mating_004_0008 sym P1 (1), dE = 0.00000 dV = 0.00005
+mating_004_0021 sym P1 (1) discriminated, too similar to mating_004_0010 sym P1 (1), dE = 0.00000 dV = 0.00001
+mating_004_0023 sym P1 (1) discriminated, too similar to mating_004_0010 sym P1 (1), dE = 0.00000 dV = 0.00013
+mutant_004_0001 sym P1 (1) discriminated, too similar to mating_004_0014 sym P1 (1), dE = 0.00000 dV = 0.00000
+mating_004_0022 sym P1 (1) discriminated, too similar to mating_004_0019 sym P1 (1), dE = 0.00000 dV = 0.00007
+mating_004_0029 sym P1 (1) discriminated, too similar to mating_004_0025 sym P1 (1), dE = 0.00000 dV = 0.00009
+-------------------------------------------------------------------
+------------------ DISCRIMINATION Gen vs Pool ---------------------
+mating_004_0001 sym P1 (1) discriminated, too similar to mating_003_0030 sym P1 (1), dE = 0.00000 dV = 1.16332
+mating_004_0008 sym P1 (1) discriminated, too similar to random_000_005 sym P1 (1), dE = 0.00000 dV = 1.77018
+mating_004_0010 sym P1 (1) discriminated, too similar to random_000_002 sym P1 (1), dE = 0.00000 dV = 1.04631
+mating_004_0011 sym P1 (1) discriminated, too similar to random_000_002 sym P1 (1), dE = 0.24880 dV = 0.00006
+mating_004_0014 sym P1 (1) discriminated, too similar to random_000_006 sym P1 (1), dE = 0.00000 dV = 1.35097
+mating_004_0019 sym P1 (1) discriminated, too similar to mating_001_0007 sym P1 (1), dE = 0.00000 dV = 0.00005
+mating_004_0025 sym P1 (1) discriminated, too similar to random_000_003 sym P1 (1), dE = 0.00000 dV = 0.00014
+mutant_004_0007 sym P1 (1) discriminated, too similar to mating_002_0029 sym P1 (1), dE = 0.00018 dV = 0.72918
+
+max_energy_allowed = 2.00 kcal/mol
+00001 mating_004_0002 ... DISCRIMINATED: DeltaE = 3.51
+00002 mating_004_0026 ... DISCRIMINATED: DeltaE = 2.06
+00003 mutant_004_0009 ... DISCRIMINATED: DeltaE = 2.04
+00004 mutant_004_0010 ... DISCRIMINATED: DeltaE = 2.60
+
+--------------------- GENERATION 004 SUMMARY ----------------------
+Number    File-Name        Energy (eV)    Delta-E  Fitness
+#00001  mutant_004_0005  -156.90059019   0.000000   0.88
+#00002  mating_004_0013  -156.88478768   0.015803   0.88
+#00003  mating_004_0007  -156.69855717   0.202033   0.83
+#00004  mutant_004_0008  -156.67035114   0.230239   0.82
+#00005  mating_004_0009  -156.51067905   0.389911   0.77
+#00006  mating_004_0020  -156.38297405   0.517616   0.72
+#00007  mating_004_0004  -156.31686021   0.583730   0.70
+#00008  mutant_004_0006  -156.14378437   0.756806   0.62
+#00009  mating_004_0015  -156.10153539   0.799055   0.60
+#00010  mating_004_0027  -156.00170833   0.898882   0.55
+#00011  mating_004_0016  -155.74883662   1.151754   0.42
+#00012  mating_004_0018  -155.64189405   1.258696   0.37
+#00013  mutant_004_0003  -155.36045907   1.540131   0.25
+#00014  mating_004_0012  -154.91372593   1.986864   0.12
+
+--------------------------GLOBAL  SUMMARY--------------------------
+energy_range = 2.000000
+max_number_inputs = 10
+Number    File-Name        Energy (eV)    Delta-E   NT
+#00001   random_000_002  -159.20142964   0.000000   1
+#00002  mating_003_0030  -159.06090965   0.140520   1
+#00003  mating_002_0019  -158.41202342   0.789406   1
+#00004   random_000_006  -158.06936024   1.132069   1
+#00005   random_000_003  -157.98431796   1.217112   1
+#00006   random_000_005  -157.51019790   1.691232   1
+#00007  mating_001_0007  -157.34341104   1.858019   1
+#00008  mating_002_0029  -157.32719301   1.874237   1
+#00009  mating_002_0018  -157.30132267   1.900107   1
+#00010  mating_001_0006  -157.23787459   1.963555   1
+Created: summary.vasp
+-------------------------------------------------------------------
+------------------------ MATING: CROSSOVER ------------------------
+CONSTRUCTION OF THE PARENT LIST THROUGH ROULETTE
+mating_005_001 ---> mating_001_0006_x_mating_003_0030
+mating_005_002 ---> mating_002_0019_x_mating_002_0019
+mating_005_003 ---> mating_003_0030_x_mating_002_0018
+mating_005_004 ---> random_000_006_x_mating_002_0018
+mating_005_005 ---> random_000_003_x_mating_003_0030
+mating_005_006 ---> random_000_006_x_random_000_002
+mating_005_007 ---> mating_002_0019_x_mating_003_0030
+mating_005_008 ---> random_000_006_x_random_000_002
+mating_005_009 ---> random_000_003_x_mating_003_0030
+mating_005_010 ---> mating_002_0019_x_mating_003_0030
+mating_005_011 ---> random_000_005_x_mating_003_0030
+mating_005_012 ---> mating_001_0006_x_mating_001_0007
+mating_005_013 ---> mating_001_0007_x_mating_002_0029
+mating_005_014 ---> mating_003_0030_x_mating_003_0030
+mating_005_015 ---> mating_002_0018_x_mating_003_0030
+mating_005_016 ---> random_000_003_x_mating_003_0030
+mating_005_017 ---> mating_003_0030_x_random_000_006
+mating_005_018 ---> random_000_003_x_mating_002_0019
+mating_005_019 ---> mating_002_0019_x_mating_002_0029
+mating_005_020 ---> random_000_003_x_random_000_006
+mating_005_021 ---> random_000_002_x_random_000_002
+mating_005_022 ---> mating_002_0018_x_mating_002_0019
+mating_005_023 ---> mating_002_0019_x_mating_001_0007
+mating_005_024 ---> mating_003_0030_x_random_000_003
+mating_005_025 ---> mating_002_0018_x_random_000_002
+mating_005_026 ---> random_000_002_x_mating_003_0030
+mating_005_027 ---> mating_001_0007_x_random_000_002
+mating_005_028 ---> mating_002_0019_x_random_000_006
+mating_005_029 ---> random_000_003_x_mating_002_0018
+We have 29 POSCAR files type MATING from 30 solicited
+-------------------------------------------------------------------
+-----------------------GENERATOR OF MUTANTS------------------------
+mutant_005_001 ---> mating_002_0029_lattice_strain
+mutant_005_002 ---> random_000_003_lattice_strain
+mutant_005_003 ---> mating_003_0030_atom_exchange
+mutant_005_004 ---> random_000_003_lattice_strain
+mutant_005_005 ---> random_000_002_lattice_strain
+mutant_005_006 ---> mating_002_0019_lattice_strain
+mutant_005_007 ---> mating_003_0030_atom_exchange
+mutant_005_008 ---> random_000_003_lattice_strain
+mutant_005_009 ---> random_000_003_atom_exchange
+mutant_005_010 ---> random_000_002_atom_exchange
+We have 10 POSCAR type MUTANT from 10 solicited
+Created: initial005.vasp
+-------------------------------------------------------------------
+---------------- LOCAL OPTIMIZATION: GENERATION 5   ----------------
+Making input file = generation005/mating_005_0001.gin
+Making input file = generation005/mating_005_0002.gin
+Making input file = generation005/mating_005_0003.gin
+Making input file = generation005/mating_005_0004.gin
+Making input file = generation005/mating_005_0005.gin
+Making input file = generation005/mating_005_0006.gin
+Making input file = generation005/mating_005_0007.gin
+Making input file = generation005/mating_005_0008.gin
+Making input file = generation005/mating_005_0009.gin
+Making input file = generation005/mating_005_0010.gin
+Making input file = generation005/mating_005_0011.gin
+Making input file = generation005/mating_005_0012.gin
+Making input file = generation005/mating_005_0013.gin
+Making input file = generation005/mating_005_0014.gin
+Making input file = generation005/mating_005_0015.gin
+Making input file = generation005/mating_005_0016.gin
+Making input file = generation005/mating_005_0017.gin
+Making input file = generation005/mating_005_0018.gin
+Making input file = generation005/mating_005_0019.gin
+Making input file = generation005/mating_005_0020.gin
+Making input file = generation005/mating_005_0021.gin
+Making input file = generation005/mating_005_0022.gin
+Making input file = generation005/mating_005_0023.gin
+Making input file = generation005/mating_005_0024.gin
+Making input file = generation005/mating_005_0025.gin
+Making input file = generation005/mating_005_0026.gin
+Making input file = generation005/mating_005_0027.gin
+Making input file = generation005/mating_005_0028.gin
+Making input file = generation005/mating_005_0029.gin
+Making input file = generation005/mutant_005_0001.gin
+Making input file = generation005/mutant_005_0002.gin
+Making input file = generation005/mutant_005_0003.gin
+Making input file = generation005/mutant_005_0004.gin
+Making input file = generation005/mutant_005_0005.gin
+Making input file = generation005/mutant_005_0006.gin
+Making input file = generation005/mutant_005_0007.gin
+Making input file = generation005/mutant_005_0008.gin
+Making input file = generation005/mutant_005_0009.gin
+Making input file = generation005/mutant_005_0010.gin
+Enter to local submit: mating_005_0001.sh --> Wed May 29 11:19:39 2024
+Enter to local submit: mating_005_0002.sh --> Wed May 29 11:19:41 2024
+Enter to local submit: mating_005_0003.sh --> Wed May 29 11:19:43 2024
+Enter to local submit: mating_005_0004.sh --> Wed May 29 11:19:45 2024
+Enter to local submit: mating_005_0005.sh --> Wed May 29 11:19:49 2024
+Enter to local submit: mating_005_0006.sh --> Wed May 29 11:19:52 2024
+Enter to local submit: mating_005_0007.sh --> Wed May 29 11:19:54 2024
+Enter to local submit: mating_005_0008.sh --> Wed May 29 11:19:54 2024
+Enter to local submit: mating_005_0009.sh --> Wed May 29 11:19:56 2024
+Enter to local submit: mating_005_0010.sh --> Wed May 29 11:19:59 2024
+Enter to local submit: mating_005_0011.sh --> Wed May 29 11:20:06 2024
+Enter to local submit: mating_005_0012.sh --> Wed May 29 11:20:08 2024
+Enter to local submit: mating_005_0013.sh --> Wed May 29 11:20:09 2024
+Enter to local submit: mating_005_0014.sh --> Wed May 29 11:20:11 2024
+Enter to local submit: mating_005_0015.sh --> Wed May 29 11:20:13 2024
+Enter to local submit: mating_005_0016.sh --> Wed May 29 11:20:16 2024
+Enter to local submit: mating_005_0017.sh --> Wed May 29 11:20:20 2024
+Enter to local submit: mating_005_0018.sh --> Wed May 29 11:20:21 2024
+Enter to local submit: mating_005_0019.sh --> Wed May 29 11:20:29 2024
+Enter to local submit: mating_005_0020.sh --> Wed May 29 11:20:31 2024
+Enter to local submit: mating_005_0021.sh --> Wed May 29 11:20:33 2024
+Enter to local submit: mating_005_0022.sh --> Wed May 29 11:20:35 2024
+Enter to local submit: mating_005_0023.sh --> Wed May 29 11:20:37 2024
+Enter to local submit: mating_005_0024.sh --> Wed May 29 11:20:40 2024
+Enter to local submit: mating_005_0025.sh --> Wed May 29 11:20:42 2024
+Enter to local submit: mating_005_0026.sh --> Wed May 29 11:20:45 2024
+Enter to local submit: mating_005_0027.sh --> Wed May 29 11:20:47 2024
+Enter to local submit: mating_005_0028.sh --> Wed May 29 11:20:49 2024
+Enter to local submit: mating_005_0029.sh --> Wed May 29 11:20:51 2024
+Enter to local submit: mutant_005_0001.sh --> Wed May 29 11:20:56 2024
+Enter to local submit: mutant_005_0002.sh --> Wed May 29 11:21:04 2024
+Enter to local submit: mutant_005_0003.sh --> Wed May 29 11:21:16 2024
+Enter to local submit: mutant_005_0004.sh --> Wed May 29 11:21:17 2024
+Enter to local submit: mutant_005_0005.sh --> Wed May 29 11:21:26 2024
+Enter to local submit: mutant_005_0006.sh --> Wed May 29 11:23:03 2024
+Enter to local submit: mutant_005_0007.sh --> Wed May 29 11:23:08 2024
+Enter to local submit: mutant_005_0008.sh --> Wed May 29 11:23:09 2024
+Enter to local submit: mutant_005_0009.sh --> Wed May 29 11:23:21 2024
+Enter to local submit: mutant_005_0010.sh --> Wed May 29 11:23:30 2024
+Calculations with N.T. = 37 (94 percent)
+Calculations with A.T. = 2 (5 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+mating_005_0014 sym P2_1 (4) discriminated, too similar to mating_005_0002 sym P1 (1), dE = 0.00000 dV = 0.00008
+mating_005_0018 sym P1 (1) discriminated, too similar to mating_005_0002 sym P1 (1), dE = 0.00000 dV = 0.00005
+mating_005_0021 sym P1 (1) discriminated, too similar to mating_005_0002 sym P1 (1), dE = 0.00000 dV = 0.00000
+mating_005_0022 sym P1 (1) discriminated, too similar to mating_005_0002 sym P1 (1), dE = 0.00000 dV = 0.00003
+mating_005_0026 sym P1 (1) discriminated, too similar to mating_005_0002 sym P1 (1), dE = 0.00000 dV = 0.00008
+mating_005_0007 sym P1 (1) discriminated, too similar to mating_005_0005 sym P1 (1), dE = 0.00000 dV = 0.00003
+mating_005_0009 sym P1 (1) discriminated, too similar to mating_005_0005 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_005_0017 sym P1 (1) discriminated, too similar to mating_005_0005 sym P1 (1), dE = 0.00000 dV = 0.00004
+mating_005_0024 sym P1 (1) discriminated, too similar to mating_005_0005 sym P1 (1), dE = 0.00000 dV = 0.00005
+mutant_005_0003 sym P1 (1) discriminated, too similar to mating_005_0005 sym P1 (1), dE = 0.00000 dV = 0.00005
+mutant_005_0007 sym P1 (1) discriminated, too similar to mating_005_0005 sym P1 (1), dE = 0.00000 dV = 0.00002
+mutant_005_0001 sym P1 (1) discriminated, too similar to mating_005_0006 sym P1 (1), dE = 0.00000 dV = 22.67163
+mating_005_0016 sym P1 (1) discriminated, too similar to mating_005_0011 sym P1 (1), dE = 0.00000 dV = 0.00014
+mutant_005_0006 sym P1 (1) discriminated, too similar to mating_005_0012 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_005_0029 sym P1 (1) discriminated, too similar to mating_005_0013 sym P1 (1), dE = 0.00034 dV = 0.07128
+mutant_005_0004 sym P1 (1) discriminated, too similar to mating_005_0015 sym P1 (1), dE = 0.00000 dV = 0.00004
+-------------------------------------------------------------------
+------------------ DISCRIMINATION Gen vs Pool ---------------------
+mating_005_0002 sym P1 (1) discriminated, too similar to random_000_002 sym P1 (1), dE = 0.00000 dV = 1.04631
+mating_005_0005 sym P1 (1) discriminated, too similar to mating_003_0030 sym P1 (1), dE = 0.00000 dV = 1.16335
+mating_005_0006 sym P1 (1) discriminated, too similar to random_000_003 sym P1 (1), dE = 0.00000 dV = 0.16710
+mating_005_0012 sym P1 (1) discriminated, too similar to mating_002_0019 sym P1 (1), dE = 0.00000 dV = 1.81926
+mating_005_0025 sym P1 (1) discriminated, too similar to random_000_005 sym P1 (1), dE = 0.00000 dV = 1.77026
+mutant_005_0009 sym P1 (1) discriminated, too similar to mating_001_0007 sym P1 (1), dE = 0.00000 dV = 0.00007
+
+max_energy_allowed = 2.00 kcal/mol
+00001 mating_005_0001 ... DISCRIMINATED: DeltaE = 2.09
+00002 mating_005_0019 ... DISCRIMINATED: DeltaE = 3.74
+00003 mating_005_0027 ... DISCRIMINATED: DeltaE = 2.15
+
+--------------------- GENERATION 005 SUMMARY ----------------------
+Number    File-Name        Energy (eV)    Delta-E  Fitness
+#00001  mutant_005_0008  -157.41664158   0.000000   0.88
+#00002  mating_005_0004  -157.11741806   0.299224   0.80
+#00003  mating_005_0011  -157.07396858   0.342673   0.78
+#00004  mating_005_0003  -157.01725912   0.399382   0.76
+#00005  mating_005_0020  -156.72898120   0.687660   0.63
+#00006  mating_005_0023  -156.67282649   0.743815   0.60
+#00007  mating_005_0013  -156.38705133   1.029590   0.45
+#00008  mating_005_0008  -156.27600199   1.140640   0.40
+#00009  mating_005_0015  -156.14542734   1.271214   0.33
+#00010  mating_005_0028  -155.90513303   1.511509   0.23
+#00011  mutant_005_0002  -155.85569143   1.560950   0.21
+#00012  mutant_005_0010  -155.52965189   1.886990   0.12
+
+--------------------------GLOBAL  SUMMARY--------------------------
+energy_range = 2.000000
+max_number_inputs = 10
+Number    File-Name        Energy (eV)    Delta-E   NT
+#00001   random_000_002  -159.20142964   0.000000   1
+#00002  mating_003_0030  -159.06090965   0.140520   1
+#00003  mating_002_0019  -158.41202342   0.789406   1
+#00004   random_000_006  -158.06936024   1.132069   1
+#00005   random_000_003  -157.98431796   1.217112   1
+#00006   random_000_005  -157.51019790   1.691232   1
+#00007  mutant_005_0008  -157.41664158   1.784788   1
+#00008  mating_001_0007  -157.34341104   1.858019   1
+#00009  mating_002_0029  -157.32719301   1.874237   1
+#00010  mating_002_0018  -157.30132267   1.900107   1
+Created: summary.vasp
+-------------------------------------------------------------------
+------------------------ MATING: CROSSOVER ------------------------
+CONSTRUCTION OF THE PARENT LIST THROUGH ROULETTE
+mating_006_001 ---> mating_003_0030_x_mutant_005_0008
+mating_006_002 ---> random_000_003_x_random_000_002
+mating_006_003 ---> mating_003_0030_x_mating_002_0019
+mating_006_004 ---> mating_002_0018_x_mating_003_0030
+mating_006_005 ---> mating_002_0019_x_mutant_005_0008
+mating_006_006 ---> mating_002_0019_x_mating_003_0030
+mating_006_007 ---> random_000_002_x_mating_002_0019
+mating_006_008 ---> random_000_002_x_random_000_002
+mating_006_009 ---> random_000_003_x_random_000_005
+mating_006_010 ---> random_000_003_x_mating_003_0030
+mating_006_011 ---> random_000_002_x_mating_002_0029
+mating_006_012 ---> random_000_003_x_mating_002_0019
+mating_006_013 ---> mating_002_0019_x_mating_003_0030
+mating_006_014 ---> random_000_002_x_random_000_003
+mating_006_015 ---> random_000_002_x_mating_003_0030
+mating_006_016 ---> mutant_005_0008_x_random_000_002
+mating_006_017 ---> mating_002_0019_x_mutant_005_0008
+mating_006_018 ---> random_000_005_x_random_000_003
+mating_006_019 ---> mating_003_0030_x_mating_002_0019
+mating_006_020 ---> random_000_006_x_mating_002_0019
+mating_006_021 ---> mating_001_0007_x_random_000_006
+mating_006_022 ---> mating_002_0029_x_mutant_005_0008
+mating_006_023 ---> random_000_002_x_mating_002_0019
+mating_006_024 ---> mating_003_0030_x_mating_002_0019
+mating_006_025 ---> random_000_006_x_random_000_003
+mating_006_026 ---> random_000_002_x_mutant_005_0008
+mating_006_027 ---> mating_003_0030_x_mating_003_0030
+mating_006_028 ---> mating_003_0030_x_mutant_005_0008
+mating_006_029 ---> mating_003_0030_x_random_000_006
+mating_006_030 ---> random_000_002_x_mating_003_0030
+We have 30 POSCAR files type MATING from 30 solicited
+-------------------------------------------------------------------
+-----------------------GENERATOR OF MUTANTS------------------------
+mutant_006_001 ---> mating_003_0030_lattice_strain
+mutant_006_002 ---> random_000_002_atom_exchange
+mutant_006_003 ---> random_000_005_atom_exchange
+mutant_006_004 ---> random_000_003_atom_exchange
+mutant_006_005 ---> mutant_005_0008_atom_exchange
+mutant_006_006 ---> random_000_003_lattice_strain
+mutant_006_007 ---> mating_003_0030_atom_exchange
+mutant_006_008 ---> mating_003_0030_lattice_strain
+mutant_006_009 ---> random_000_003_atom_exchange
+mutant_006_010 ---> random_000_002_lattice_strain
+We have 10 POSCAR type MUTANT from 10 solicited
+Created: initial006.vasp
+-------------------------------------------------------------------
+---------------- LOCAL OPTIMIZATION: GENERATION 6   ----------------
+Making input file = generation006/mating_006_0001.gin
+Making input file = generation006/mating_006_0002.gin
+Making input file = generation006/mating_006_0003.gin
+Making input file = generation006/mating_006_0004.gin
+Making input file = generation006/mating_006_0005.gin
+Making input file = generation006/mating_006_0006.gin
+Making input file = generation006/mating_006_0007.gin
+Making input file = generation006/mating_006_0008.gin
+Making input file = generation006/mating_006_0009.gin
+Making input file = generation006/mating_006_0010.gin
+Making input file = generation006/mating_006_0011.gin
+Making input file = generation006/mating_006_0012.gin
+Making input file = generation006/mating_006_0013.gin
+Making input file = generation006/mating_006_0014.gin
+Making input file = generation006/mating_006_0015.gin
+Making input file = generation006/mating_006_0016.gin
+Making input file = generation006/mating_006_0017.gin
+Making input file = generation006/mating_006_0018.gin
+Making input file = generation006/mating_006_0019.gin
+Making input file = generation006/mating_006_0020.gin
+Making input file = generation006/mating_006_0021.gin
+Making input file = generation006/mating_006_0022.gin
+Making input file = generation006/mating_006_0023.gin
+Making input file = generation006/mating_006_0024.gin
+Making input file = generation006/mating_006_0025.gin
+Making input file = generation006/mating_006_0026.gin
+Making input file = generation006/mating_006_0027.gin
+Making input file = generation006/mating_006_0028.gin
+Making input file = generation006/mating_006_0029.gin
+Making input file = generation006/mating_006_0030.gin
+Making input file = generation006/mutant_006_0001.gin
+Making input file = generation006/mutant_006_0002.gin
+Making input file = generation006/mutant_006_0003.gin
+Making input file = generation006/mutant_006_0004.gin
+Making input file = generation006/mutant_006_0005.gin
+Making input file = generation006/mutant_006_0006.gin
+Making input file = generation006/mutant_006_0007.gin
+Making input file = generation006/mutant_006_0008.gin
+Making input file = generation006/mutant_006_0009.gin
+Making input file = generation006/mutant_006_0010.gin
+Enter to local submit: mating_006_0001.sh --> Wed May 29 11:23:51 2024
+Enter to local submit: mating_006_0002.sh --> Wed May 29 11:23:55 2024
+Enter to local submit: mating_006_0003.sh --> Wed May 29 11:23:56 2024
+Enter to local submit: mating_006_0004.sh --> Wed May 29 11:23:57 2024
+Enter to local submit: mating_006_0005.sh --> Wed May 29 11:23:59 2024
+Enter to local submit: mating_006_0006.sh --> Wed May 29 11:24:07 2024
+Enter to local submit: mating_006_0007.sh --> Wed May 29 11:24:09 2024
+Enter to local submit: mating_006_0008.sh --> Wed May 29 11:24:11 2024
+Enter to local submit: mating_006_0009.sh --> Wed May 29 11:24:14 2024
+Enter to local submit: mating_006_0010.sh --> Wed May 29 11:24:17 2024
+Enter to local submit: mating_006_0011.sh --> Wed May 29 11:24:21 2024
+Enter to local submit: mating_006_0012.sh --> Wed May 29 11:24:24 2024
+Enter to local submit: mating_006_0013.sh --> Wed May 29 11:24:26 2024
+Enter to local submit: mating_006_0014.sh --> Wed May 29 11:24:27 2024
+Enter to local submit: mating_006_0015.sh --> Wed May 29 11:24:29 2024
+Enter to local submit: mating_006_0016.sh --> Wed May 29 11:24:29 2024
+Enter to local submit: mating_006_0017.sh --> Wed May 29 11:24:37 2024
+Enter to local submit: mating_006_0018.sh --> Wed May 29 11:24:39 2024
+Enter to local submit: mating_006_0019.sh --> Wed May 29 11:24:42 2024
+Enter to local submit: mating_006_0020.sh --> Wed May 29 11:24:44 2024
+Enter to local submit: mating_006_0021.sh --> Wed May 29 11:24:45 2024
+Enter to local submit: mating_006_0022.sh --> Wed May 29 11:24:50 2024
+Enter to local submit: mating_006_0023.sh --> Wed May 29 11:25:04 2024
+Enter to local submit: mating_006_0024.sh --> Wed May 29 11:25:07 2024
+Enter to local submit: mating_006_0025.sh --> Wed May 29 11:25:09 2024
+Enter to local submit: mating_006_0026.sh --> Wed May 29 11:25:11 2024
+Enter to local submit: mating_006_0027.sh --> Wed May 29 11:25:16 2024
+Enter to local submit: mating_006_0028.sh --> Wed May 29 11:25:17 2024
+Enter to local submit: mating_006_0029.sh --> Wed May 29 11:25:47 2024
+Enter to local submit: mating_006_0030.sh --> Wed May 29 11:25:48 2024
+Enter to local submit: mutant_006_0001.sh --> Wed May 29 11:25:54 2024
+Enter to local submit: mutant_006_0002.sh --> Wed May 29 11:25:56 2024
+Enter to local submit: mutant_006_0003.sh --> Wed May 29 11:25:57 2024
+Enter to local submit: mutant_006_0004.sh --> Wed May 29 11:25:59 2024
+Enter to local submit: mutant_006_0005.sh --> Wed May 29 11:26:02 2024
+Enter to local submit: mutant_006_0006.sh --> Wed May 29 11:26:10 2024
+Enter to local submit: mutant_006_0007.sh --> Wed May 29 11:26:15 2024
+Enter to local submit: mutant_006_0008.sh --> Wed May 29 11:26:17 2024
+Enter to local submit: mutant_006_0009.sh --> Wed May 29 11:26:47 2024
+Enter to local submit: mutant_006_0010.sh --> Wed May 29 11:26:58 2024
+Calculations with N.T. = 34 (85 percent)
+Calculations with A.T. = 6 (15 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+mating_006_0010 sym P1 (1) discriminated, too similar to mating_006_0002 sym P1 (1), dE = 0.00000 dV = 0.00016
+mating_006_0018 sym Pm (6) discriminated, too similar to mating_006_0002 sym P1 (1), dE = 0.00000 dV = 0.00024
+mating_006_0029 sym P1 (1) discriminated, too similar to mating_006_0002 sym P1 (1), dE = 0.00000 dV = 0.00037
+mutant_006_0004 sym P-1 (2) discriminated, too similar to mating_006_0002 sym P1 (1), dE = 0.00000 dV = 0.00030
+mating_006_0017 sym P1 (1) discriminated, too similar to mating_006_0003 sym P1 (1), dE = 0.00000 dV = 0.00009
+mutant_006_0006 sym P1 (1) discriminated, too similar to mating_006_0003 sym P1 (1), dE = 0.00000 dV = 0.00007
+mating_006_0005 sym P1 (1) discriminated, too similar to mating_006_0004 sym P1 (1), dE = 0.00000 dV = 0.00003
+mating_006_0025 sym P1 (1) discriminated, too similar to mating_006_0004 sym P1 (1), dE = 0.00000 dV = 0.00002
+mating_006_0027 sym Pm (6) discriminated, too similar to mating_006_0015 sym P1 (1), dE = 0.00000 dV = 0.00005
+mating_006_0028 sym P1 (1) discriminated, too similar to mating_006_0015 sym P1 (1), dE = 0.00000 dV = 0.00007
+mutant_006_0002 sym P1 (1) discriminated, too similar to mating_006_0015 sym P1 (1), dE = 0.00000 dV = 0.00002
+mutant_006_0003 sym P1 (1) discriminated, too similar to mating_006_0015 sym P1 (1), dE = 0.00000 dV = 0.00006
+-------------------------------------------------------------------
+------------------ DISCRIMINATION Gen vs Pool ---------------------
+mating_006_0002 sym P1 (1) discriminated, too similar to random_000_003 sym P1 (1), dE = 0.00000 dV = 0.16730
+mating_006_0003 sym P1 (1) discriminated, too similar to mating_003_0030 sym P1 (1), dE = 0.00000 dV = 1.16344
+mating_006_0004 sym P1 (1) discriminated, too similar to random_000_006 sym P1 (1), dE = 0.00000 dV = 1.35099
+mating_006_0006 sym Pc (7) discriminated, too similar to mating_002_0019 sym P1 (1), dE = 0.00000 dV = 1.81926
+mating_006_0015 sym P1 (1) discriminated, too similar to random_000_002 sym P1 (1), dE = 0.00000 dV = 1.04644
+mating_006_0021 sym P1 (1) discriminated, too similar to mating_002_0029 sym P1 (1), dE = 0.00018 dV = 0.72917
+
+max_energy_allowed = 2.00 kcal/mol
+00001 mating_006_0020 ... DISCRIMINATED: DeltaE = 2.06
+00002 mutant_006_0005 ... DISCRIMINATED: DeltaE = 3.29
+
+--------------------- GENERATION 006 SUMMARY ----------------------
+Number    File-Name        Energy (eV)    Delta-E  Fitness
+#00001  mutant_006_0001  -157.04003191   0.000000   0.88
+#00002  mating_006_0008  -156.75069694   0.289335   0.79
+#00003  mutant_006_0009  -156.73722591   0.302806   0.79
+#00004  mating_006_0013  -156.48903185   0.551000   0.67
+#00005  mating_006_0009  -156.38297320   0.657059   0.62
+#00006  mating_006_0022  -156.36809577   0.671936   0.61
+#00007  mutant_006_0007  -156.27600189   0.764030   0.56
+#00008  mating_006_0012  -156.13204062   0.907991   0.47
+#00009  mating_006_0016  -155.92847985   1.111552   0.36
+#00010  mating_006_0007  -155.90513061   1.134901   0.35
+#00011  mutant_006_0010  -155.74041557   1.299616   0.26
+#00012  mating_006_0024  -155.53632709   1.503705   0.18
+#00013  mating_006_0019  -155.35262594   1.687406   0.13
+#00014  mating_006_0011  -155.32075611   1.719276   0.12
+
+--------------------------GLOBAL  SUMMARY--------------------------
+energy_range = 2.000000
+max_number_inputs = 10
+Number    File-Name        Energy (eV)    Delta-E   NT
+#00001   random_000_002  -159.20142964   0.000000   1
+#00002  mating_003_0030  -159.06090965   0.140520   1
+#00003  mating_002_0019  -158.41202342   0.789406   1
+#00004   random_000_006  -158.06936024   1.132069   1
+#00005   random_000_003  -157.98431796   1.217112   1
+#00006   random_000_005  -157.51019790   1.691232   1
+#00007  mutant_005_0008  -157.41664158   1.784788   1
+#00008  mating_001_0007  -157.34341104   1.858019   1
+#00009  mating_002_0029  -157.32719301   1.874237   1
+#00010  mating_002_0018  -157.30132267   1.900107   1
+Created: summary.vasp
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+STOP criterion satisfied (crit_stop_nrep = 5). Solids has finished

@@ -1,0 +1,22 @@
+-------------------------------------------------------------------
+Current PID          = 7579
+Chemical Formula     = C4
+Formula Units        = 1
+initial.vasp exists... we take it
+-------------------------------------------------------------------
+------------------- LOCAL OPTIMIZATION: STAGE 1 -------------------
+Making input file = stage1/stage1001.gin
+Enter to local submit: stage1001.sh --> Mon Apr  8 14:21:25 2024
+Calculations with N.T. = 1 (100 percent)
+Calculations with A.T. = 0 (0 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+No similar structures found!
+-------------------------------------------------------------------
+------------------------- SUMMARY STAGE 1 -------------------------
+Number  File-Name   Energy (ev)    Delta-E  NT
+00001   stage1001   -29.48088608   0.000000 1
+Created: stage1.vasp
+-------------------------------------------------------------
+SOLIDS HAS FINISHED SUCCESSFULLY
+-------------------------------------------------------------

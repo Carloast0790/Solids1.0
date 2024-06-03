@@ -1,0 +1,63 @@
+=======================================
+========= Optimization scheme =========
+=======================================
+
+heuristic      MH
+
+=======================================
+==== Crystal structure information ====
+=======================================
+
+---COMPOSITION---
+C   6
+---COMPOSITION---
+
+formula_units   1
+=======================================
+=========== Constrictions =============
+=======================================
+
+#max_cell_vol      150 [1.0,1.0,1.0]
+#custom_tolerances    Ti,Ti,3.3 Ti,O,1.7 O,O,2.5
+interatom_scale_value  0.8
+=======================================
+========= Initial population ==========
+=======================================
+
+initial_structures  10
+
+=======================================
+======== Algorithm parameters =========
+=======================================
+
+number_of_stages    1
+
+=======================================
+========== Discrimination =============
+=======================================
+
+min_energy_difference   0.0005
+min_volume_difference   0.0001
+energy_range            5.0
+zero_energy_difference  0
+
+=======================================
+====== Calculation parameters =========
+=======================================
+
+calculator        gulp
+qsys              local
+
+---GULP1---
+opti conj conv
+switch_minimiser bfgs gnorm 0.5
+vectors
+LATTICEVECTORS
+frac
+COORDINATES
+lib /home/carlos/gulp-6.0/Libraries/edip_marks.lib
+---GULP1---
+
+---GULP.CONF---
+exe_gulp=/home/carlos/bin/gulp
+---GULP.CONF---

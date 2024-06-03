@@ -1,0 +1,54 @@
+-------------------------------------------------------------------
+Current PID          = 19503
+Chemical Formula     = C4
+Formula Units        = 1
+Making initial file  = initial.vasp
+-------------------------------------------------------------------
+-----------------------POPULATION  GENERATOR-----------------------
+random002_sym_002
+random003_sym_003
+random004_sym_004
+random005_sym_005
+random006_sym_006
+random007_sym_007
+random008_sym_008
+random009_sym_009
+random010_sym_010
+random011_sym_011
+Created: initial.vasp
+-------------------------------------------------------------------
+------------------- LOCAL OPTIMIZATION: STAGE 1 -------------------
+Making input file = stage1/stage1001.gin
+Making input file = stage1/stage1002.gin
+Making input file = stage1/stage1003.gin
+Making input file = stage1/stage1004.gin
+Making input file = stage1/stage1005.gin
+Making input file = stage1/stage1006.gin
+Making input file = stage1/stage1007.gin
+Making input file = stage1/stage1008.gin
+Making input file = stage1/stage1009.gin
+Making input file = stage1/stage1010.gin
+Enter to local submit: stage1001.sh --> Fri Apr  5 18:06:10 2024
+Enter to local submit: stage1002.sh --> Fri Apr  5 18:08:49 2024
+Enter to local submit: stage1003.sh --> Fri Apr  5 18:08:49 2024
+Enter to local submit: stage1004.sh --> Fri Apr  5 18:08:49 2024
+Enter to local submit: stage1005.sh --> Fri Apr  5 18:08:50 2024
+Enter to local submit: stage1006.sh --> Fri Apr  5 18:11:03 2024
+Enter to local submit: stage1007.sh --> Fri Apr  5 18:18:24 2024
+Enter to local submit: stage1008.sh --> Fri Apr  5 18:18:26 2024
+Enter to local submit: stage1009.sh --> Fri Apr  5 18:19:41 2024
+Enter to local submit: stage1010.sh --> Fri Apr  5 18:19:41 2024
+Calculations with N.T. = 6 (60 percent)
+Calculations with A.T. = 4 (40 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+No similar structures found!
+-------------------------------------------------------------------
+------------------------- SUMMARY STAGE 1 -------------------------
+Number  File-Name   Energy (ev)    Delta-E  NT
+00001   stage1007   -28.72116771   0.000000 1
+00002   stage1009   -24.98067202   3.740496 1
+Created: stage1.vasp
+-------------------------------------------------------------
+SOLIDS HAS FINISHED SUCCESSFULLY
+-------------------------------------------------------------

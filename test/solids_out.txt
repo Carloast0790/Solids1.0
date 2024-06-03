@@ -1,0 +1,46 @@
+# Solids 1.0
+#
+# Authors:
+# (1) Carlos López-Castro, (2) Filiberto Ortiz-Chi, and (1) Gabriel Merino
+#
+# (1) Departamento de Fisica Aplicada,
+#     Centro de Investigacion y de Estudios Avanzados, Unidad Merida,
+#     Km 6 Antigua Carretera a Progreso, A.P. 73, Cordemex, 97310 Merida, Yucatan, Mexico
+# (2) CONACYT-Universidad Juarez Autonoma de Tabasco,
+#     Centro de Investigacion de Ciencia y Tecnologia Aplicada de Tabasco,
+#     Cunduacan 86690, Tabasco, Mexico.
+
+-------------------------------------------------------------------
+Current PID          = 28533
+Chemical Formula     = C6
+Formula Units        = 1
+initial.vasp exists... we take it
+-------------------------------------------------------------------
+------------------- LOCAL OPTIMIZATION: STAGE 1 -------------------
+Making input file = stage1/stage1001.gin
+Making input file = stage1/stage1002.gin
+Making input file = stage1/stage1003.gin
+Making input file = stage1/stage1004.gin
+Making input file = stage1/stage1005.gin
+Making input file = stage1/stage1006.gin
+Making input file = stage1/stage1007.gin
+Enter to local submit: stage1001.sh --> Mon Jun  3 16:04:57 2024
+Enter to local submit: stage1002.sh --> Mon Jun  3 16:04:59 2024
+Enter to local submit: stage1003.sh --> Mon Jun  3 16:04:59 2024
+Enter to local submit: stage1004.sh --> Mon Jun  3 16:04:59 2024
+Enter to local submit: stage1005.sh --> Mon Jun  3 16:04:59 2024
+Enter to local submit: stage1006.sh --> Mon Jun  3 16:04:59 2024
+Enter to local submit: stage1007.sh --> Mon Jun  3 16:04:59 2024
+Calculations with N.T. = 5 (71 percent)
+Calculations with A.T. = 2 (28 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+No similar structures found!
+-------------------------------------------------------------------
+------------------------- SUMMARY STAGE 1 -------------------------
+Number  File-Name   Energy (ev)    Delta-E  NT
+00001   stage1001   -27.28988919   0.000000 1
+Created: stage1.vasp
+-------------------------------------------------------------
+SOLIDS HAS FINISHED SUCCESSFULLY
+-------------------------------------------------------------

@@ -1,0 +1,167 @@
+# Solids 1.0
+#
+# Authors:
+# (1) Carlos López-Castro, (2) Filiberto Ortiz-Chi, and (1) Gabriel Merino
+#
+# (1) Departamento de Fisica Aplicada,
+#     Centro de Investigacion y de Estudios Avanzados, Unidad Merida,
+#     Km 6 Antigua Carretera a Progreso, A.P. 73, Cordemex, 97310 Merida, Yucatan, Mexico
+# (2) CONACYT-Universidad Juarez Autonoma de Tabasco,
+#     Centro de Investigacion de Ciencia y Tecnologia Aplicada de Tabasco,
+#     Cunduacan 86690, Tabasco, Mexico.
+
+-------------------------------------------------------------------
+Current PID          = 5127
+Chemical Formula     = Ti1 O2
+Formula Units        = 4
+Making initial file  = initial.vasp
+-------------------------------------------------------------------
+-----------------------POPULATION  GENERATOR-----------------------
+rand002_sym_002
+rand003_sym_003
+rand004_sym_004
+rand005_sym_005
+rand006_sym_006
+rand007_sym_007
+rand008_sym_008
+rand009_sym_009
+rand010_sym_010
+rand011_sym_011
+rand012_sym_012
+rand013_sym_013
+rand014_sym_014
+rand015_sym_015
+rand016_sym_016
+rand017_sym_017
+rand018_sym_018
+rand019_sym_019
+rand020_sym_020
+rand021_sym_021
+rand022_sym_022
+rand023_sym_023
+rand024_sym_024
+rand025_sym_025
+rand026_sym_026
+rand027_sym_027
+rand028_sym_028
+rand029_sym_029
+rand030_sym_030
+rand031_sym_031
+Created: initial.vasp
+-------------------------------------------------------------------
+------------------- LOCAL OPTIMIZATION: STAGE 1 -------------------
+Making input file = stage1/stage1001.gin
+Making input file = stage1/stage1002.gin
+Making input file = stage1/stage1003.gin
+Making input file = stage1/stage1004.gin
+Making input file = stage1/stage1005.gin
+Making input file = stage1/stage1006.gin
+Making input file = stage1/stage1007.gin
+Making input file = stage1/stage1008.gin
+Making input file = stage1/stage1009.gin
+Making input file = stage1/stage1010.gin
+Making input file = stage1/stage1011.gin
+Making input file = stage1/stage1012.gin
+Making input file = stage1/stage1013.gin
+Making input file = stage1/stage1014.gin
+Making input file = stage1/stage1015.gin
+Making input file = stage1/stage1016.gin
+Making input file = stage1/stage1017.gin
+Making input file = stage1/stage1018.gin
+Making input file = stage1/stage1019.gin
+Making input file = stage1/stage1020.gin
+Making input file = stage1/stage1021.gin
+Making input file = stage1/stage1022.gin
+Making input file = stage1/stage1023.gin
+Making input file = stage1/stage1024.gin
+Making input file = stage1/stage1025.gin
+Making input file = stage1/stage1026.gin
+Making input file = stage1/stage1027.gin
+Making input file = stage1/stage1028.gin
+Making input file = stage1/stage1029.gin
+Making input file = stage1/stage1030.gin
+Enter to local submit: stage1001.sh --> Wed May 29 10:53:16 2024
+Enter to local submit: stage1002.sh --> Wed May 29 10:53:21 2024
+Enter to local submit: stage1003.sh --> Wed May 29 10:53:22 2024
+Enter to local submit: stage1004.sh --> Wed May 29 10:53:23 2024
+Enter to local submit: stage1005.sh --> Wed May 29 10:53:25 2024
+Enter to local submit: stage1006.sh --> Wed May 29 10:53:26 2024
+Enter to local submit: stage1007.sh --> Wed May 29 10:53:33 2024
+Enter to local submit: stage1008.sh --> Wed May 29 10:53:35 2024
+Enter to local submit: stage1009.sh --> Wed May 29 10:53:37 2024
+Enter to local submit: stage1010.sh --> Wed May 29 10:53:38 2024
+Enter to local submit: stage1011.sh --> Wed May 29 10:53:40 2024
+Enter to local submit: stage1012.sh --> Wed May 29 10:53:41 2024
+Enter to local submit: stage1013.sh --> Wed May 29 10:53:42 2024
+Enter to local submit: stage1014.sh --> Wed May 29 10:53:45 2024
+Enter to local submit: stage1015.sh --> Wed May 29 10:53:46 2024
+Enter to local submit: stage1016.sh --> Wed May 29 10:53:47 2024
+Enter to local submit: stage1017.sh --> Wed May 29 10:53:48 2024
+Enter to local submit: stage1018.sh --> Wed May 29 10:53:49 2024
+Enter to local submit: stage1019.sh --> Wed May 29 10:53:50 2024
+Enter to local submit: stage1020.sh --> Wed May 29 10:53:52 2024
+Enter to local submit: stage1021.sh --> Wed May 29 10:53:52 2024
+Enter to local submit: stage1022.sh --> Wed May 29 10:53:53 2024
+Enter to local submit: stage1023.sh --> Wed May 29 10:53:53 2024
+Enter to local submit: stage1024.sh --> Wed May 29 10:53:54 2024
+Enter to local submit: stage1025.sh --> Wed May 29 10:53:56 2024
+Enter to local submit: stage1026.sh --> Wed May 29 10:53:57 2024
+Enter to local submit: stage1027.sh --> Wed May 29 10:54:07 2024
+Enter to local submit: stage1028.sh --> Wed May 29 10:54:10 2024
+Enter to local submit: stage1029.sh --> Wed May 29 10:54:11 2024
+Enter to local submit: stage1030.sh --> Wed May 29 10:54:13 2024
+Calculations with N.T. = 29 (96 percent)
+Calculations with A.T. = 1 (3 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+stage1013 sym P1 (1) discriminated, too similar to stage1028 sym P1 (1), dE = 0.00000 dV = 0.00001
+stage1004 sym P-1 (2) discriminated, too similar to stage1028 sym P1 (1), dE = 0.00000 dV = 0.00021
+stage1010 sym P1 (1) discriminated, too similar to stage1018 sym P-1 (2), dE = 0.00000 dV = 0.00009
+stage1019 sym P2/c (13) discriminated, too similar to stage1018 sym P-1 (2), dE = 0.00000 dV = 0.00031
+stage1005 sym P1 (1) discriminated, too similar to stage1007 sym P-1 (2), dE = 0.00000 dV = 0.00009
+-------------------------------------------------------------------
+------------------------- SUMMARY STAGE 1 -------------------------
+Number  File-Name   Energy (ev)    Delta-E  NT
+00001   stage1028  -159.20142957   0.000000 1
+00002   stage1017  -159.06090981   0.140520 1
+00003   stage1018  -157.98431796   1.217112 1
+00004   stage1003  -157.51019808   1.691231 1
+00005   stage1001  -157.34341109   1.858018 1
+00006   stage1007  -157.27604908   1.925380 1
+00007   stage1026  -157.22183147   1.979598 1
+Created: stage1.vasp
+-------------------------------------------------------------------
+------------------- LOCAL OPTIMIZATION: STAGE 2 -------------------
+Making input file = stage2/stage2001.gin
+Making input file = stage2/stage2002.gin
+Making input file = stage2/stage2003.gin
+Making input file = stage2/stage2004.gin
+Making input file = stage2/stage2005.gin
+Making input file = stage2/stage2006.gin
+Making input file = stage2/stage2007.gin
+Enter to local submit: stage2001.sh --> Wed May 29 10:54:15 2024
+Enter to local submit: stage2002.sh --> Wed May 29 10:54:15 2024
+Enter to local submit: stage2003.sh --> Wed May 29 10:54:15 2024
+Enter to local submit: stage2004.sh --> Wed May 29 10:54:15 2024
+Enter to local submit: stage2005.sh --> Wed May 29 10:54:15 2024
+Enter to local submit: stage2006.sh --> Wed May 29 10:54:15 2024
+Enter to local submit: stage2007.sh --> Wed May 29 10:54:15 2024
+Calculations with N.T. = 7 (100 percent)
+Calculations with A.T. = 0 (0 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+No similar structures found!
+-------------------------------------------------------------------
+------------------------- SUMMARY STAGE 2 -------------------------
+Number  File-Name   Energy (ev)    Delta-E  NT
+00001   stage2001  -159.20142957   0.000000 1
+00002   stage2002  -159.06090981   0.140520 1
+00003   stage2003  -157.98431796   1.217112 1
+00004   stage2004  -157.51019808   1.691231 1
+00005   stage2005  -157.34341109   1.858018 1
+00006   stage2006  -157.27604908   1.925380 1
+00007   stage2007  -157.22183147   1.979598 1
+Created: stage2.vasp
+-------------------------------------------------------------
+SOLIDS HAS FINISHED SUCCESSFULLY
+-------------------------------------------------------------
