@@ -2,9 +2,11 @@ from pyxtal import pyxtal
 from utils_solids.libmoleculas import sort_by_stoichiometry
 from inout_solids.getbilparam import get_a_str, get_a_int
 from utils_solids.miscellaneous import pyxtal2xyz, rescale_str, unit_cell_non_negative_coordinates
+
+# import warnings
+# warnings.filterwarnings("ignore")
 #------------------------------------------------------------------------------------------------
 # Variables
-
 log_file = get_a_str('output_file','solids_out.txt')
 #------------------------------------------------------------------------------------------------
 def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_units=1,dimension=3,volume_factor=1.1,vol_restr=False):
@@ -25,40 +27,42 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_un
     out:
     xtal_list (list); This list will contain all crystal structures as Molecule object
     '''
+    import random
     xtal_list = []
-    z = len(atoms_per_specie)
-    for i in range(z):
-        atoms_per_specie[i] = atoms_per_specie[i] * formula_units
-    xc = 1
+    # z = len(atoms_per_specie)
+    # for i in range(z):
+    #     atoms_per_specie[i] = atoms_per_specie[i] * formula_units
+    xc = 0
     if dimension == 2:
         topsym = 80
     else:
         topsym = 230
-    for sym in range (2,topsym):
-        if xc <= total_of_xtals:
-            if dimension == 2:
-                xtal = pyxtal()
-                xtal.from_random(dimension,sym,species,atoms_per_specie,thickness=0.0,force_pass=True)#, factor=0.8
-            else:
-                xtal = pyxtal()
-                xtal.from_random(dimension,sym,species,atoms_per_specie,volume_factor,p_list,force_pass=True)
-            if xtal.valid:
-                glomos_xtal = pyxtal2xyz(xtal)
-                glomos_xtal = unit_cell_non_negative_coordinates(glomos_xtal)
-                if vol_restr:
-                    glomos_xtal = rescale_str(glomos_xtal,vol_restr)
-                glomos_xtal.i = 'rand'+str(xc+1).zfill(3)+'_sym_'+str(sym).zfill(3)
-                glomos_xtal.c.append(0)
-                fopen = open(log_file,'a')
-                print('rand'+str(xc+1).zfill(3)+'_sym_'+str(sym).zfill(3),file=fopen)
-                fopen.close()
-                xtal_list.append(glomos_xtal)
-                xc = xc + 1
-        else:
+    while xc <= total_of_xtals:
+        if dimension == 2:
+            sym = random.randint(2,80)
+            xtal = pyxtal()
+            xtal.from_random(dimension,sym,species,atoms_per_specie,thickness=0.0, force_pass=True)
+        elif dimension == 3:
+            sym = random.randint(2,230)
+            xtal = pyxtal()
+            xtal.from_random(dimension, sym, species, atoms_per_specie,volume_factor,p_list,force_pass=True)        
+        if xtal.valid:
+            xc = xc + 1
+            glomos_xtal = pyxtal2xyz(xtal)
+            glomos_xtal = unit_cell_non_negative_coordinates(glomos_xtal)
+            if vol_restr:
+                glomos_xtal = rescale_str(glomos_xtal,vol_restr)
+            glomos_xtal.i = 'rand'+str(xc).zfill(3)+'_sym_'+str(sym).zfill(3)
+            glomos_xtal.c.append(0)
+            fopen = open(log_file,'a')
+            print('rand'+str(xc).zfill(3)+'_sym_'+str(sym).zfill(3),file=fopen)
+            fopen.close()
+            xtal_list.append(glomos_xtal)
+            xc = xc + 1
+        if xc == total_of_xtals:
             break
     xtal_list = sort_by_stoichiometry(xtal_list)
     return xtal_list
-
 #------------------------------------------------------------------------------------------------
 def run_sample():
     # from inout.getbilparam import get_a_int, get_a_float

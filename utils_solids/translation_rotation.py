@@ -1,8 +1,7 @@
 import random
 import numpy as np
-from utils.libmoleculas import copymol
-from vasp.libperiodicos import direct2cartesian, cartesian2direct
-
+from utils_solids.libmoleculas import copymol
+from vasp_solids.libperiodicos import direct2cartesian, cartesian2direct
 #----------------------------------------------------------------------------------------------------------
 def translation_x(xtal_in,delta_x):
 	"""

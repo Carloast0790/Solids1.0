@@ -1,6 +1,6 @@
 import os
 import os.path
-from conf.bdata import *
+from conf_solids.bdata import *
 #------------------------------------------------------------------------------------------
 """ HOW TO USE:
     >>> from conf.conf import host_name

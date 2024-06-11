@@ -11,14 +11,22 @@ from gega_solids.mutation_and_heredity import popgen_mutants, make_mutants
 from inout_solids.messag import write_welcome
 from discriminate_solids.fp_discriminator import discriminate_calculated, discriminate_calculated_vs_pool
 from utils_solids.miscellaneous import get_xcomp, uc_restriction, rescale_str,get_tolerances
+
+from utils_solids.fresh_random_gen import popgen_fresh_random_gen
+
 #------------------------------------------------------------------------------------------------
 # Variables
 vol_restriction = uc_restriction()
 flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
 atms_specie,atms_per_specie = get_xcomp(composition)
-total_structures = get_a_int('initial_structures', 4)
 formula_units = get_a_int('formula_units',2)
+#------------------
+z = len(atms_per_specie)
+for i in range(z):
+    atms_per_specie[i] = atms_per_specie[i] * formula_units
+#-----------------
+total_structures = get_a_int('initial_structures', 4)
 dimension = get_a_int('dimension',3)
 volume_factor = get_a_float('volume_factor', 1.0)
 log_file = get_a_str('output_file','solids_out.txt')
@@ -27,7 +35,7 @@ max_number_inputs = get_a_int('max_number_inputs',20)
 emax = get_a_float('energy_range', 3.0)
 nmaxgen = get_a_int('max_number_gens',10)
 nmaxrep = get_a_int('crit_stop_nrep',10)
-#------------------------------------------------------------------------------------------------
+nummber_of_randoms = get_a_int('number_of_randoms',10)
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
 fopen = open(log_file,'w')
@@ -38,7 +46,6 @@ cf=clustername(composition[0])
 print("Chemical Formula     = %s" %(cf), file=fopen)
 print("Formula Units        = %s" %(formula_units), file=fopen)
 fopen.close()
-#------------------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------------------
 def build_population_0():
     '''Creates the initial population of crystalline structures.
@@ -130,6 +137,8 @@ def build_population_n(poscarlist,ref_d,generation=1):
         xtal_out.extend(cross)
         mut = popgen_mutants(poscarlist,generation)
         xtal_out.extend(mut)
+        new_strs = popgen_fresh_random_gen(nummber_of_randoms,atms_specie,atms_per_specie,generation,formula_units,dimension)
+        xtal_out.extend(new_strs)
         if vol_restriction:
             for x in xtal_out:
                 x = rescale_str(x,vol_restriction)

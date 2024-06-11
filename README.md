@@ -4,3 +4,6 @@ explorations: A Metaheuristic (kindly referred to as Kick) designed for a quick 
 throug explorations. The first scheme builds random structures, relaxes them with one of the interfaced codes and presents the results. The 
 second scheme is more thorough in the exploration by applying operators of mutation and hereditary.
 
+# Updates
+- Correction of initial random generation
+- Addition of GULP examples

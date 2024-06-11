@@ -1,0 +1,1205 @@
+********************************************************************************
+*                       GENERAL UTILITY LATTICE PROGRAM                        *
+*                                 Julian Gale                                  *
+*                       Curtin Institute for Computation                       *
+*                    School of Molecular and Life Sciences                     *
+*                    Curtin University, Western Australia                      *
+********************************************************************************
+* Version = 6.0.0 * Last modified =  12th July 2021                            *
+********************************************************************************
+*  optimise     - perform optimisation run                                     *
+*  conp         - constant pressure calculation                                *
+*  nosymmetry   - turn off symmetry after initial structure generation         *
+*  conjugate    - use conjugate gradients minimiser                            *
+********************************************************************************
+
+  Job Started  at 16:12.00 11th June       2024                               
+
+  Number of CPUs =     1
+
+
+  Total number of configurations input =      1
+
+********************************************************************************
+*  Input for Configuration =   1                                               *
+********************************************************************************
+
+  Formula = Al8Mg4O16                                                   
+
+  Number of irreducible atoms/shells =      28
+
+
+  Total number atoms/shells =      28
+
+  Dimensionality = 3               :  Bulk   
+
+
+
+  Cartesian lattice vectors (Angstroms) :
+
+       19.272857   -2.390466   -0.739745
+       -1.221952   10.325516    3.583370
+       -3.092591    5.519070    2.965483
+
+  Cell parameters (Angstroms/Degrees):
+
+  a =      19.4346    alpha =  21.7061
+  b =      10.9977    beta  = 123.5215
+  c =       6.9870    gamma = 103.7726
+
+  Initial cell volume =         208.176407 Angs**3
+
+  Temperature of configuration =   0.00     K 
+
+  Pressure of configuration =       100.000 GPa 
+
+  Fractional coordinates of asymmetric unit :
+
+--------------------------------------------------------------------------------
+   No.  Atomic       x           y          z         Charge      Occupancy
+        Label      (Frac)      (Frac)     (Frac)        (e)         (Frac)  
+--------------------------------------------------------------------------------
+      1 Al    c    0.534922    0.139744    0.096565     3.00000    1.000000    
+      2 Al    c    0.198147 *  0.425498 *  0.465823 *   3.00000    1.000000    
+      3 Al    c    0.415574 *  0.423945 *  0.122810 *   3.00000    1.000000    
+      4 Al    c    0.359467 *  0.139434 *  0.490631 *   3.00000    1.000000    
+      5 Al    c    0.024353 *  0.424720 *  0.294316 *   3.00000    1.000000    
+      6 Al    c    0.254254 *  0.144992 *  0.098003 *   3.00000    1.000000    
+      7 Al    c    0.078799 *  0.144680 *  0.492068 *   3.00000    1.000000    
+      8 Al    c    0.306861 *  0.424720 *  0.294316 *   3.00000    1.000000    
+      9 Mg    c    0.451472 *  0.143732 *  0.301113 *   2.00000    1.000000    
+     10 Mg    c    0.482349 *  0.425214 *  0.469043 *   2.00000    1.000000    
+     11 Mg    c    0.131372 *  0.424228 *  0.119590 *   2.00000    1.000000    
+     12 Mg    c    0.162260 *  0.140692 *  0.287528 *   2.00000    1.000000    
+     13 O     c    0.443575 *  0.537836 *  0.020271 *  -2.00000    1.000000    
+     14 O     c    0.532641 *  0.032620 *  0.214510 *  -2.00000    1.000000    
+     15 O     c    0.309368 *  0.322335 *  0.429697 *  -2.00000    1.000000    
+     16 O     c    0.254172 *  0.253287 *  0.214608 *  -2.00000    1.000000    
+     17 O     c    0.304352 *  0.527105 *  0.158934 *  -2.00000    1.000000    
+     18 O     c    0.043310 *  0.524563 *  0.429942 *  -2.00000    1.000000    
+     19 O     c    0.447454 *  0.368428 *  0.289079 *  -2.00000    1.000000    
+     20 O     c    0.170145 *  0.311606 *  0.003344 *  -2.00000    1.000000    
+     21 O     c    0.081078 *  0.251803 *  0.374121 *  -2.00000    1.000000    
+     22 O     c    0.381577 *  0.231214 *  0.074618 *  -2.00000    1.000000    
+     23 O     c    0.103132 *  0.077559 *  0.080695 *  -2.00000    1.000000    
+     24 O     c    0.359547 *  0.031139 *  0.374024 *  -2.00000    1.000000    
+     25 O     c    0.005394 *  0.324879 *  0.158689 *  -2.00000    1.000000    
+     26 O     c    0.510589 *  0.206865 *  0.507935 *  -2.00000    1.000000    
+     27 O     c    0.166267 *  0.481012 *  0.299554 *  -2.00000    1.000000    
+     28 O     c    0.232143 *  0.053213 *  0.514013 *  -2.00000    1.000000    
+--------------------------------------------------------------------------------
+
+
+
+********************************************************************************
+*  General input information                                                   *
+********************************************************************************
+
+  Species output for all configurations : 
+
+--------------------------------------------------------------------------------
+  Species    Type    Atomic    Atomic    Charge       Radii (Angs)     Library
+                     Number     Mass       (e)     Cova   Ionic  VDW   Symbol
+--------------------------------------------------------------------------------
+    Mg       Core       12      24.31   2.000000   1.100  0.000  1.640          
+    Al       Core       13      26.98   3.000000   1.350  0.000  2.050          
+    O        Core        8      16.00  -2.000000   0.730  0.000  1.360          
+--------------------------------------------------------------------------------
+
+
+  Lattice summation method               =    Ewald          (3-D)
+                                         =    Parry          (2-D)
+                                         =    Saunders et al (1-D)
+  Accuracy factor for lattice sums       =   12.000
+
+
+  Analytic derivatives to be used
+
+  Time limit = Infinity
+
+  Maximum range for interatomic potentials =    100000.000000 Angstroms
+
+  General interatomic potentials :
+
+--------------------------------------------------------------------------------
+Atom  Types   Potential      Parameter       Value         Units   Cutoffs(Ang)
+  1     2                                                            Min /  Max 
+--------------------------------------------------------------------------------
+O    c Mg   c Lennard       Lennard-Jones A  1.5000000    eV*Ang^m  0.000  6.000
+                            Lennard-Jones B  0.0000000    eV*Ang^n  
+                            Exponent m        12          None
+                            Exponent n         6          None
+--------------------------------------------------------------------------------
+O    c Al   c Lennard       Lennard-Jones A  1.5000000    eV*Ang^m  0.000  6.000
+                            Lennard-Jones B  0.0000000    eV*Ang^n  
+                            Exponent m        12          None
+                            Exponent n         6          None
+--------------------------------------------------------------------------------
+O    c O    c Lennard       Lennard-Jones A  1.5000000    eV*Ang^m  0.000  6.000
+                            Lennard-Jones B  0.0000000    eV*Ang^n  
+                            Exponent m        12          None
+                            Exponent n         6          None
+--------------------------------------------------------------------------------
+Mg   c Mg   c Lennard       Lennard-Jones A  1.5000000    eV*Ang^m  0.000  6.000
+                            Lennard-Jones B  0.0000000    eV*Ang^n  
+                            Exponent m        12          None
+                            Exponent n         6          None
+--------------------------------------------------------------------------------
+Mg   c Al   c Lennard       Lennard-Jones A  1.5000000    eV*Ang^m  0.000  6.000
+                            Lennard-Jones B  0.0000000    eV*Ang^n  
+                            Exponent m        12          None
+                            Exponent n         6          None
+--------------------------------------------------------------------------------
+Al   c Al   c Lennard       Lennard-Jones A  1.5000000    eV*Ang^m  0.000  6.000
+                            Lennard-Jones B  0.0000000    eV*Ang^n  
+                            Exponent m        12          None
+                            Exponent n         6          None
+--------------------------------------------------------------------------------
+O    c Mg   c Buckingham    Buckingham A     1428.5000    eV        0.000  7.000
+                            Buckingham rho  0.29450000    Ang       
+                            Buckingham C     0.0000000    eV*Ang^6  
+--------------------------------------------------------------------------------
+O    c Al   c Buckingham    Buckingham A     1114.9000    eV        0.000  7.000
+                            Buckingham rho  0.31180000    Ang       
+                            Buckingham C     0.0000000    eV*Ang^6  
+--------------------------------------------------------------------------------
+O    c O    c Buckingham    Buckingham A     2023.8000    eV        0.000  7.000
+                            Buckingham rho  0.26740000    Ang       
+                            Buckingham C     0.0000000    eV*Ang^6  
+--------------------------------------------------------------------------------
+
+********************************************************************************
+*  Output for configuration   1                                                *
+********************************************************************************
+
+
+  Components of enthalpy : 
+
+--------------------------------------------------------------------------------
+  Interatomic potentials     =      294250.49934910 eV    
+  Monopole - monopole (real) =       -1020.67036304 eV    
+  Monopole - monopole (recip)=        -468.23443337 eV    
+  Monopole - monopole (total)=       -1488.90479640 eV    
+  Pressure*volume            =         129.93249044 eV    
+--------------------------------------------------------------------------------
+  Total lattice enthalpy     =      292891.52704313 eV    
+--------------------------------------------------------------------------------
+  Total lattice enthalpy     =        28259555.1026 kJ/(mole unit cells)
+--------------------------------------------------------------------------------
+
+
+  Number of variables =       87
+
+  Maximum number of calculations  =           850
+  Maximum Hessian update interval =            10
+  Maximum step size               =   1.000000000
+  Maximum parameter tolerance     =   0.000010000
+  Maximum function  tolerance     =   0.000010000
+  Maximum gradient  tolerance     =   0.001000000
+  Maximum gradient  component     =   0.010000000
+
+  Cell parameters to be optimised using strains
+
+  Conjugate gradient optimiser to be used
+
+  Lower half triangular hessian to be used
+
+  Minimiser to switch to RFO
+  When gradient norm is less than     0.010000
+
+  Start of bulk optimisation :
+
+  Cycle:      0 Energy:    292891.527043  Gnorm: 659708.359371  CPU:    0.148
+  Cycle:      1 Energy:     14410.516637  Gnorm:  43899.073906  CPU:    0.740
+  Cycle:      2 Energy:      1208.883813  Gnorm:   2596.274166  CPU:    1.331
+  Cycle:      3 Energy:       234.072330  Gnorm:    135.791175  CPU:    1.919
+  Cycle:      4 Energy:       -73.413206  Gnorm:     52.581835  CPU:    2.250
+  Cycle:      5 Energy:      -150.826877  Gnorm:     38.868015  CPU:    2.516
+  Cycle:      6 Energy:      -234.490231  Gnorm:     36.571195  CPU:    2.847
+  Cycle:      7 Energy:      -287.070503  Gnorm:     32.628737  CPU:    3.240
+  Cycle:      8 Energy:      -402.987248  Gnorm:     26.069070  CPU:    3.632
+  Cycle:      9 Energy:      -450.283803  Gnorm:     15.905570  CPU:    4.022
+  Cycle:     10 Energy:      -474.098956  Gnorm:     12.478914  CPU:    4.412
+  Cycle:     11 Energy:      -492.035432  Gnorm:      9.917442  CPU:    4.739
+  Cycle:     12 Energy:      -514.753315  Gnorm:     10.951247  CPU:    5.067
+  Cycle:     13 Energy:      -526.363988  Gnorm:      8.314773  CPU:    5.332
+  Cycle:     14 Energy:      -533.321952  Gnorm:      6.206438  CPU:    5.661
+  Cycle:     15 Energy:      -537.395742  Gnorm:      5.836689  CPU:    5.992
+  Cycle:     16 Energy:      -542.696947  Gnorm:      6.415571  CPU:    6.320
+  Cycle:     17 Energy:      -547.063967  Gnorm:      6.287452  CPU:    6.585
+  Cycle:     18 Energy:      -552.819705  Gnorm:      7.105575  CPU:    6.917
+  Cycle:     19 Energy:      -558.440879  Gnorm:      6.091063  CPU:    7.254
+  Cycle:     20 Energy:      -561.533525  Gnorm:      4.569650  CPU:    7.522
+  Cycle:     21 Energy:      -565.271203  Gnorm:      4.893070  CPU:    7.856
+  Cycle:     22 Energy:      -567.970766  Gnorm:      3.933719  CPU:    8.125
+  Cycle:     23 Energy:      -570.459883  Gnorm:      4.235919  CPU:    8.459
+  Cycle:     24 Energy:      -575.021504  Gnorm:      4.713752  CPU:    8.794
+  Cycle:     25 Energy:      -578.996425  Gnorm:      3.843722  CPU:    9.064
+  Cycle:     26 Energy:      -581.303838  Gnorm:      3.813234  CPU:    9.337
+  Cycle:     27 Energy:      -584.385306  Gnorm:      3.503617  CPU:    9.682
+  Cycle:     28 Energy:      -585.869238  Gnorm:      1.877123  CPU:    9.961
+  Cycle:     29 Energy:      -586.455628  Gnorm:      1.666048  CPU:   10.310
+  Cycle:     30 Energy:      -586.783061  Gnorm:      1.448765  CPU:   10.590
+  Cycle:     31 Energy:      -587.281315  Gnorm:      1.715544  CPU:   10.939
+  Cycle:     32 Energy:      -587.825794  Gnorm:      1.263204  CPU:   11.219
+  Cycle:     33 Energy:      -588.283290  Gnorm:      1.524217  CPU:   11.569
+  Cycle:     34 Energy:      -588.973303  Gnorm:      2.083276  CPU:   11.919
+  Cycle:     35 Energy:      -589.733269  Gnorm:      1.943832  CPU:   12.200
+  Cycle:     36 Energy:      -590.803646  Gnorm:      2.844502  CPU:   12.551
+  Cycle:     37 Energy:      -591.908176  Gnorm:      3.001689  CPU:   12.833
+  Cycle:     38 Energy:      -593.166730  Gnorm:      2.836078  CPU:   13.115
+  Cycle:     39 Energy:      -594.398927  Gnorm:      2.165574  CPU:   13.397
+  Cycle:     40 Energy:      -594.819573  Gnorm:      1.251605  CPU:   13.680
+  Cycle:     41 Energy:      -595.349355  Gnorm:      1.382369  CPU:   14.032
+  Cycle:     42 Energy:      -595.671019  Gnorm:      1.234929  CPU:   14.315
+  Cycle:     43 Energy:      -595.927668  Gnorm:      1.078168  CPU:   14.666
+  Cycle:     44 Energy:      -596.300555  Gnorm:      1.266770  CPU:   15.018
+  Cycle:     45 Energy:      -596.644016  Gnorm:      1.216881  CPU:   15.301
+  Cycle:     46 Energy:      -597.153497  Gnorm:      1.473933  CPU:   15.653
+  Cycle:     47 Energy:      -597.728132  Gnorm:      1.585873  CPU:   15.936
+  Cycle:     48 Energy:      -598.089740  Gnorm:      1.313881  CPU:   16.219
+  Cycle:     49 Energy:      -598.440147  Gnorm:      1.337496  CPU:   16.571
+  Cycle:     50 Energy:      -598.650253  Gnorm:      1.171384  CPU:   16.854
+  Cycle:     51 Energy:      -599.045540  Gnorm:      1.363921  CPU:   17.205
+  Cycle:     52 Energy:      -599.460980  Gnorm:      1.347217  CPU:   17.488
+  Cycle:     53 Energy:      -599.843965  Gnorm:      1.271910  CPU:   17.771
+  Cycle:     54 Energy:      -600.197049  Gnorm:      1.367619  CPU:   18.123
+  Cycle:     55 Energy:      -600.727174  Gnorm:      1.762610  CPU:   18.476
+  Cycle:     56 Energy:      -601.275499  Gnorm:      1.509627  CPU:   18.758
+  Cycle:     57 Energy:      -601.745208  Gnorm:      1.445176  CPU:   19.111
+  Cycle:     58 Energy:      -602.114618  Gnorm:      1.301565  CPU:   19.394
+  Cycle:     59 Energy:      -602.651262  Gnorm:      1.464854  CPU:   19.746
+  Cycle:     60 Energy:      -602.901565  Gnorm:      1.042119  CPU:   20.029
+  Cycle:     61 Energy:      -603.104268  Gnorm:      1.055493  CPU:   20.381
+  Cycle:     62 Energy:      -603.359259  Gnorm:      0.978166  CPU:   20.733
+  Cycle:     63 Energy:      -603.575860  Gnorm:      0.899849  CPU:   21.085
+  Cycle:     64 Energy:      -603.743807  Gnorm:      0.829784  CPU:   21.437
+  Cycle:     65 Energy:      -603.896244  Gnorm:      0.782928  CPU:   21.720
+  Cycle:     66 Energy:      -604.098712  Gnorm:      0.855149  CPU:   22.072
+  Cycle:     67 Energy:      -604.231624  Gnorm:      0.802671  CPU:   22.355
+  Cycle:     68 Energy:      -604.379507  Gnorm:      0.845744  CPU:   22.707
+  Cycle:     69 Energy:      -604.535021  Gnorm:      0.955902  CPU:   23.058
+  Cycle:     70 Energy:      -604.643889  Gnorm:      0.699974  CPU:   23.340
+  Cycle:     71 Energy:      -604.756152  Gnorm:      0.711051  CPU:   23.691
+  Cycle:     72 Energy:      -604.853787  Gnorm:      0.717644  CPU:   23.972
+  Cycle:     73 Energy:      -605.001763  Gnorm:      0.654231  CPU:   24.324
+  Cycle:     74 Energy:      -605.097908  Gnorm:      0.628657  CPU:   24.605
+  Cycle:     75 Energy:      -605.190945  Gnorm:      0.633431  CPU:   24.955
+  Cycle:     76 Energy:      -605.308565  Gnorm:      0.678883  CPU:   25.304
+  Cycle:     77 Energy:      -605.429827  Gnorm:      0.854187  CPU:   25.585
+  Cycle:     78 Energy:      -605.575616  Gnorm:      0.828764  CPU:   25.865
+  Cycle:     79 Energy:      -605.831283  Gnorm:      1.297800  CPU:   26.213
+  Cycle:     80 Energy:      -606.005054  Gnorm:      0.762752  CPU:   26.560
+  Cycle:     81 Energy:      -606.112997  Gnorm:      0.745538  CPU:   26.907
+  Cycle:     82 Energy:      -606.242824  Gnorm:      0.654138  CPU:   27.256
+  Cycle:     83 Energy:      -606.356355  Gnorm:      0.622801  CPU:   27.603
+  Cycle:     84 Energy:      -606.454454  Gnorm:      0.615410  CPU:   27.954
+  Cycle:     85 Energy:      -606.560611  Gnorm:      0.555601  CPU:   28.308
+  Cycle:     86 Energy:      -606.675986  Gnorm:      0.565235  CPU:   28.658
+  Cycle:     87 Energy:      -606.753140  Gnorm:      0.667746  CPU:   28.936
+  Cycle:     88 Energy:      -606.839447  Gnorm:      0.650900  CPU:   29.214
+  Cycle:     89 Energy:      -607.058006  Gnorm:      1.292914  CPU:   29.562
+  Cycle:     90 Energy:      -607.234238  Gnorm:      0.701308  CPU:   29.905
+  Cycle:     91 Energy:      -607.333834  Gnorm:      0.648704  CPU:   30.249
+  Cycle:     92 Energy:      -607.405046  Gnorm:      0.572230  CPU:   30.525
+  Cycle:     93 Energy:      -607.500100  Gnorm:      0.523267  CPU:   30.868
+  Cycle:     94 Energy:      -607.580490  Gnorm:      0.579470  CPU:   31.214
+  Cycle:     95 Energy:      -607.674297  Gnorm:      0.526870  CPU:   31.558
+  Cycle:     96 Energy:      -607.776570  Gnorm:      0.767488  CPU:   31.899
+  Cycle:     97 Energy:      -607.919280  Gnorm:      0.887216  CPU:   32.245
+  Cycle:     98 Energy:      -608.092947  Gnorm:      0.824088  CPU:   32.519
+  Cycle:     99 Energy:      -608.337116  Gnorm:      1.072662  CPU:   32.860
+  Cycle:    100 Energy:      -608.517434  Gnorm:      0.783349  CPU:   33.134
+  Cycle:    101 Energy:      -608.614975  Gnorm:      0.609720  CPU:   33.475
+  Cycle:    102 Energy:      -608.796653  Gnorm:      0.658382  CPU:   33.815
+  Cycle:    103 Energy:      -608.923184  Gnorm:      0.624718  CPU:   34.087
+  Cycle:    104 Energy:      -609.066296  Gnorm:      0.722477  CPU:   34.427
+  Cycle:    105 Energy:      -609.190069  Gnorm:      0.629171  CPU:   34.699
+  Cycle:    106 Energy:      -609.282139  Gnorm:      0.735199  CPU:   35.038
+  Cycle:    107 Energy:      -609.449294  Gnorm:      0.822480  CPU:   35.377
+  Cycle:    108 Energy:      -609.710413  Gnorm:      1.001178  CPU:   35.715
+  Cycle:    109 Energy:      -610.228985  Gnorm:      1.621280  CPU:   36.051
+  Cycle:    110 Energy:      -610.600544  Gnorm:      1.024082  CPU:   36.386
+  Cycle:    111 Energy:      -610.837101  Gnorm:      0.857290  CPU:   36.720
+  Cycle:    112 Energy:      -611.047464  Gnorm:      0.850093  CPU:   37.055
+  Cycle:    113 Energy:      -611.172315  Gnorm:      0.640861  CPU:   37.323
+  Cycle:    114 Energy:      -611.298667  Gnorm:      0.607802  CPU:   37.658
+  Cycle:    115 Energy:      -611.430888  Gnorm:      0.600963  CPU:   37.991
+  Cycle:    116 Energy:      -611.587805  Gnorm:      0.770597  CPU:   38.326
+  Cycle:    117 Energy:      -611.773373  Gnorm:      0.933626  CPU:   38.594
+  Cycle:    118 Energy:      -611.984009  Gnorm:      0.812326  CPU:   38.861
+  Cycle:    119 Energy:      -612.248469  Gnorm:      1.007103  CPU:   39.194
+  Cycle:    120 Energy:      -612.410439  Gnorm:      0.706310  CPU:   39.462
+  Cycle:    121 Energy:      -612.549082  Gnorm:      0.674945  CPU:   39.794
+  Cycle:    122 Energy:      -612.706787  Gnorm:      0.708910  CPU:   40.127
+  Cycle:    123 Energy:      -612.848622  Gnorm:      0.629052  CPU:   40.394
+  Cycle:    124 Energy:      -612.988098  Gnorm:      0.687426  CPU:   40.727
+  Cycle:    125 Energy:      -613.115727  Gnorm:      0.675095  CPU:   40.994
+  Cycle:    126 Energy:      -613.260090  Gnorm:      0.618952  CPU:   41.328
+  Cycle:    127 Energy:      -613.422175  Gnorm:      0.819805  CPU:   41.663
+  Cycle:    128 Energy:      -613.588037  Gnorm:      0.772694  CPU:   41.931
+  Cycle:    129 Energy:      -613.829449  Gnorm:      1.117092  CPU:   42.266
+  Cycle:    130 Energy:      -613.973317  Gnorm:      0.644872  CPU:   42.600
+  Cycle:    131 Energy:      -614.107482  Gnorm:      0.680556  CPU:   42.934
+  Cycle:    132 Energy:      -614.242318  Gnorm:      0.537477  CPU:   43.202
+  Cycle:    133 Energy:      -614.335661  Gnorm:      0.518249  CPU:   43.537
+  Cycle:    134 Energy:      -614.425245  Gnorm:      0.591165  CPU:   43.870
+  Cycle:    135 Energy:      -614.535901  Gnorm:      0.654780  CPU:   44.204
+  Cycle:    136 Energy:      -614.729163  Gnorm:      0.727848  CPU:   44.538
+  Cycle:    137 Energy:      -614.945662  Gnorm:      0.994901  CPU:   44.807
+  Cycle:    138 Energy:      -615.204420  Gnorm:      0.918267  CPU:   45.075
+  Cycle:    139 Energy:      -615.704985  Gnorm:      1.388515  CPU:   45.410
+  Cycle:    140 Energy:      -616.010295  Gnorm:      0.828633  CPU:   45.680
+  Cycle:    141 Energy:      -616.211995  Gnorm:      0.912236  CPU:   46.016
+  Cycle:    142 Energy:      -616.479577  Gnorm:      0.855817  CPU:   46.352
+  Cycle:    143 Energy:      -616.637993  Gnorm:      0.630122  CPU:   46.622
+  Cycle:    144 Energy:      -616.741831  Gnorm:      0.509359  CPU:   46.959
+  Cycle:    145 Energy:      -616.812170  Gnorm:      0.488338  CPU:   47.295
+  Cycle:    146 Energy:      -616.901091  Gnorm:      0.564647  CPU:   47.632
+  Cycle:    147 Energy:      -617.012317  Gnorm:      0.582765  CPU:   47.969
+  Cycle:    148 Energy:      -617.215871  Gnorm:      0.831132  CPU:   48.307
+  Cycle:    149 Energy:      -617.457628  Gnorm:      1.126988  CPU:   48.579
+  Cycle:    150 Energy:      -617.624169  Gnorm:      0.767671  CPU:   48.918
+  Cycle:    151 Energy:      -617.817475  Gnorm:      0.611586  CPU:   49.257
+  Cycle:    152 Energy:      -617.916450  Gnorm:      0.568959  CPU:   49.530
+  Cycle:    153 Energy:      -618.005478  Gnorm:      0.506284  CPU:   49.869
+  Cycle:    154 Energy:      -618.074500  Gnorm:      0.487572  CPU:   50.208
+  Cycle:    155 Energy:      -618.155841  Gnorm:      0.566418  CPU:   50.548
+  Cycle:    156 Energy:      -618.274535  Gnorm:      0.641250  CPU:   50.888
+  Cycle:    157 Energy:      -618.469840  Gnorm:      0.760456  CPU:   51.228
+  Cycle:    158 Energy:      -618.728240  Gnorm:      0.809028  CPU:   51.569
+  Cycle:    159 Energy:      -619.053680  Gnorm:      1.419053  CPU:   51.912
+  Cycle:    160 Energy:      -619.256515  Gnorm:      0.726979  CPU:   52.254
+  Cycle:    161 Energy:      -619.479898  Gnorm:      0.785911  CPU:   52.597
+  Cycle:    162 Energy:      -619.644233  Gnorm:      0.664943  CPU:   52.871
+  Cycle:    163 Energy:      -619.738061  Gnorm:      0.503587  CPU:   53.146
+  Cycle:    164 Energy:      -619.824488  Gnorm:      0.517189  CPU:   53.488
+  Cycle:    165 Energy:      -619.901529  Gnorm:      0.491491  CPU:   53.763
+  Cycle:    166 Energy:      -619.968717  Gnorm:      0.481865  CPU:   54.105
+  Cycle:    167 Energy:      -620.045795  Gnorm:      0.584214  CPU:   54.448
+  Cycle:    168 Energy:      -620.149788  Gnorm:      0.662147  CPU:   54.791
+  Cycle:    169 Energy:      -620.315064  Gnorm:      0.674681  CPU:   55.134
+  Cycle:    170 Energy:      -620.425488  Gnorm:      0.579254  CPU:   55.411
+  Cycle:    171 Energy:      -620.532387  Gnorm:      0.511381  CPU:   55.756
+  Cycle:    172 Energy:      -620.610660  Gnorm:      0.481287  CPU:   56.032
+  Cycle:    173 Energy:      -620.683543  Gnorm:      0.506485  CPU:   56.376
+  Cycle:    174 Energy:      -620.754386  Gnorm:      0.546505  CPU:   56.652
+  Cycle:    175 Energy:      -620.829007  Gnorm:      0.516332  CPU:   56.998
+  Cycle:    176 Energy:      -620.955978  Gnorm:      0.600732  CPU:   57.344
+  Cycle:    177 Energy:      -621.107444  Gnorm:      0.665055  CPU:   57.621
+  Cycle:    178 Energy:      -621.208858  Gnorm:      0.606550  CPU:   57.899
+  Cycle:    179 Energy:      -621.398590  Gnorm:      1.084891  CPU:   58.245
+  Cycle:    180 Energy:      -621.537407  Gnorm:      0.567745  CPU:   58.594
+  Cycle:    181 Energy:      -621.635722  Gnorm:      0.606175  CPU:   58.944
+  Cycle:    182 Energy:      -621.745890  Gnorm:      0.583049  CPU:   59.295
+  Cycle:    183 Energy:      -621.834321  Gnorm:      0.542179  CPU:   59.575
+  Cycle:    184 Energy:      -621.895563  Gnorm:      0.483425  CPU:   59.855
+  Cycle:    185 Energy:      -621.983585  Gnorm:      0.475475  CPU:   60.204
+  Cycle:    186 Energy:      -622.054028  Gnorm:      0.450002  CPU:   60.484
+  Cycle:    187 Energy:      -622.118469  Gnorm:      0.507106  CPU:   60.833
+  Cycle:    188 Energy:      -622.199125  Gnorm:      0.530865  CPU:   61.182
+  Cycle:    189 Energy:      -622.272052  Gnorm:      0.599539  CPU:   61.463
+  Cycle:    190 Energy:      -622.321709  Gnorm:      0.483870  CPU:   61.743
+  Cycle:    191 Energy:      -622.413258  Gnorm:      0.513387  CPU:   62.093
+  Cycle:    192 Energy:      -622.476786  Gnorm:      0.458703  CPU:   62.376
+  Cycle:    193 Energy:      -622.548178  Gnorm:      0.490461  CPU:   62.727
+  Cycle:    194 Energy:      -622.630781  Gnorm:      0.430103  CPU:   63.079
+  Cycle:    195 Energy:      -622.696853  Gnorm:      0.506747  CPU:   63.429
+  Cycle:    196 Energy:      -622.776565  Gnorm:      0.594765  CPU:   63.711
+  Cycle:    197 Energy:      -622.866388  Gnorm:      0.542691  CPU:   63.992
+  Cycle:    198 Energy:      -622.946644  Gnorm:      0.552835  CPU:   64.344
+  Cycle:    199 Energy:      -623.041408  Gnorm:      0.806678  CPU:   64.695
+  Cycle:    200 Energy:      -623.122549  Gnorm:      0.531426  CPU:   64.977
+  Cycle:    201 Energy:      -623.201443  Gnorm:      0.532548  CPU:   65.329
+  Cycle:    202 Energy:      -623.288322  Gnorm:      0.589221  CPU:   65.681
+  Cycle:    203 Energy:      -623.365928  Gnorm:      0.473636  CPU:   65.963
+  Cycle:    204 Energy:      -623.425658  Gnorm:      0.423111  CPU:   66.245
+  Cycle:    205 Energy:      -623.506580  Gnorm:      0.444595  CPU:   66.597
+  Cycle:    206 Energy:      -623.566005  Gnorm:      0.432710  CPU:   66.879
+  Cycle:    207 Energy:      -623.610043  Gnorm:      0.491707  CPU:   67.161
+  Cycle:    208 Energy:      -623.686662  Gnorm:      0.472909  CPU:   67.512
+  Cycle:    209 Energy:      -623.747775  Gnorm:      0.603849  CPU:   67.795
+  Cycle:    210 Energy:      -623.799647  Gnorm:      0.439419  CPU:   68.076
+  Cycle:    211 Energy:      -623.878143  Gnorm:      0.487544  CPU:   68.427
+  Cycle:    212 Energy:      -623.920033  Gnorm:      0.423551  CPU:   68.709
+  Cycle:    213 Energy:      -623.981214  Gnorm:      0.452535  CPU:   69.060
+  Cycle:    214 Energy:      -624.056956  Gnorm:      0.400838  CPU:   69.417
+  Cycle:    215 Energy:      -624.116730  Gnorm:      0.452283  CPU:   69.774
+  Cycle:    216 Energy:      -624.212626  Gnorm:      0.536254  CPU:   70.132
+  Cycle:    217 Energy:      -624.274320  Gnorm:      0.559704  CPU:   70.420
+  Cycle:    218 Energy:      -624.345813  Gnorm:      0.448042  CPU:   70.779
+  Cycle:    219 Energy:      -624.564333  Gnorm:      1.177822  CPU:   71.138
+  Cycle:    220 Energy:      -624.726147  Gnorm:      0.583663  CPU:   71.498
+  Cycle:    221 Energy:      -624.800597  Gnorm:      0.518518  CPU:   71.857
+  Cycle:    222 Energy:      -624.870651  Gnorm:      0.504275  CPU:   72.216
+  Cycle:    223 Energy:      -624.931101  Gnorm:      0.499755  CPU:   72.576
+  Cycle:    224 Energy:      -624.995716  Gnorm:      0.453480  CPU:   72.935
+  Cycle:    225 Energy:      -625.062784  Gnorm:      0.387976  CPU:   73.224
+  Cycle:    226 Energy:      -625.114456  Gnorm:      0.379531  CPU:   73.513
+  Cycle:    227 Energy:      -625.169920  Gnorm:      0.396935  CPU:   73.872
+  Cycle:    228 Energy:      -625.228477  Gnorm:      0.464323  CPU:   74.232
+  Cycle:    229 Energy:      -625.277882  Gnorm:      0.472615  CPU:   74.522
+  Cycle:    230 Energy:      -625.311052  Gnorm:      0.416401  CPU:   74.812
+  Cycle:    231 Energy:      -625.365035  Gnorm:      0.433505  CPU:   75.172
+  Cycle:    232 Energy:      -625.421939  Gnorm:      0.432349  CPU:   75.531
+  Cycle:    233 Energy:      -625.472792  Gnorm:      0.411085  CPU:   75.820
+  Cycle:    234 Energy:      -625.523147  Gnorm:      0.409657  CPU:   76.179
+  Cycle:    235 Energy:      -625.585051  Gnorm:      0.479691  CPU:   76.539
+  Cycle:    236 Energy:      -625.650500  Gnorm:      0.475933  CPU:   76.829
+  Cycle:    237 Energy:      -625.706987  Gnorm:      0.463546  CPU:   77.120
+  Cycle:    238 Energy:      -625.766577  Gnorm:      0.509542  CPU:   77.481
+  Cycle:    239 Energy:      -625.834711  Gnorm:      0.634420  CPU:   77.842
+  Cycle:    240 Energy:      -625.889367  Gnorm:      0.491284  CPU:   78.133
+  Cycle:    241 Energy:      -625.948571  Gnorm:      0.446570  CPU:   78.496
+  Cycle:    242 Energy:      -626.006549  Gnorm:      0.490217  CPU:   78.858
+  Cycle:    243 Energy:      -626.066562  Gnorm:      0.431909  CPU:   79.149
+  Cycle:    244 Energy:      -626.122939  Gnorm:      0.398915  CPU:   79.440
+  Cycle:    245 Energy:      -626.172080  Gnorm:      0.401508  CPU:   79.802
+  Cycle:    246 Energy:      -626.214940  Gnorm:      0.382844  CPU:   80.093
+  Cycle:    247 Energy:      -626.264362  Gnorm:      0.414163  CPU:   80.455
+  Cycle:    248 Energy:      -626.321607  Gnorm:      0.389547  CPU:   80.817
+  Cycle:    249 Energy:      -626.375978  Gnorm:      0.599042  CPU:   81.179
+  Cycle:    250 Energy:      -626.417779  Gnorm:      0.404085  CPU:   81.471
+  Cycle:    251 Energy:      -626.463547  Gnorm:      0.429175  CPU:   81.834
+  Cycle:    252 Energy:      -626.519793  Gnorm:      0.386072  CPU:   82.197
+  Cycle:    253 Energy:      -626.571247  Gnorm:      0.385735  CPU:   82.561
+  Cycle:    254 Energy:      -626.618053  Gnorm:      0.426021  CPU:   82.925
+  Cycle:    255 Energy:      -626.663361  Gnorm:      0.465299  CPU:   83.218
+  Cycle:    256 Energy:      -626.716160  Gnorm:      0.449231  CPU:   83.583
+  Cycle:    257 Energy:      -626.768106  Gnorm:      0.452909  CPU:   83.948
+  Cycle:    258 Energy:      -626.818517  Gnorm:      0.436590  CPU:   84.353
+  Cycle:    259 Energy:      -626.876086  Gnorm:      0.439570  CPU:   84.719
+  Cycle:    260 Energy:      -626.924083  Gnorm:      0.434070  CPU:   85.014
+  Cycle:    261 Energy:      -626.971736  Gnorm:      0.425568  CPU:   85.309
+  Cycle:    262 Energy:      -627.034532  Gnorm:      0.417492  CPU:   85.675
+  Cycle:    263 Energy:      -627.087597  Gnorm:      0.417895  CPU:   85.969
+  Cycle:    264 Energy:      -627.131650  Gnorm:      0.400399  CPU:   86.263
+  Cycle:    265 Energy:      -627.171905  Gnorm:      0.411726  CPU:   86.629
+  Cycle:    266 Energy:      -627.208671  Gnorm:      0.395453  CPU:   86.925
+  Cycle:    267 Energy:      -627.254189  Gnorm:      0.432634  CPU:   87.291
+  Cycle:    268 Energy:      -627.308833  Gnorm:      0.370314  CPU:   87.657
+  Cycle:    269 Energy:      -627.388144  Gnorm:      0.731745  CPU:   88.031
+  Cycle:    270 Energy:      -627.459939  Gnorm:      0.375267  CPU:   88.402
+  Cycle:    271 Energy:      -627.512973  Gnorm:      0.441161  CPU:   88.770
+  Cycle:    272 Energy:      -627.559167  Gnorm:      0.391583  CPU:   89.063
+  Cycle:    273 Energy:      -627.604273  Gnorm:      0.385473  CPU:   89.431
+  Cycle:    274 Energy:      -627.645716  Gnorm:      0.399935  CPU:   89.796
+  Cycle:    275 Energy:      -627.694003  Gnorm:      0.451004  CPU:   90.161
+  Cycle:    276 Energy:      -627.738800  Gnorm:      0.440158  CPU:   90.454
+  Cycle:    277 Energy:      -627.788499  Gnorm:      0.448600  CPU:   90.822
+  Cycle:    278 Energy:      -627.840205  Gnorm:      0.413422  CPU:   91.194
+  Cycle:    279 Energy:      -627.886149  Gnorm:      0.376784  CPU:   91.559
+  Cycle:    280 Energy:      -627.928404  Gnorm:      0.394716  CPU:   91.924
+  Cycle:    281 Energy:      -627.975543  Gnorm:      0.445175  CPU:   92.293
+  Cycle:    282 Energy:      -628.023062  Gnorm:      0.470716  CPU:   92.586
+  Cycle:    283 Energy:      -628.074105  Gnorm:      0.437919  CPU:   92.953
+  Cycle:    284 Energy:      -628.120398  Gnorm:      0.388389  CPU:   93.319
+  Cycle:    285 Energy:      -628.160455  Gnorm:      0.347487  CPU:   93.684
+  Cycle:    286 Energy:      -628.196232  Gnorm:      0.383638  CPU:   94.049
+  Cycle:    287 Energy:      -628.242476  Gnorm:      0.477139  CPU:   94.343
+  Cycle:    288 Energy:      -628.297063  Gnorm:      0.448176  CPU:   94.637
+  Cycle:    289 Energy:      -628.345860  Gnorm:      0.564267  CPU:   95.003
+  Cycle:    290 Energy:      -628.386447  Gnorm:      0.429543  CPU:   95.297
+  Cycle:    291 Energy:      -628.437047  Gnorm:      0.444045  CPU:   95.663
+  Cycle:    292 Energy:      -628.486399  Gnorm:      0.393083  CPU:   96.029
+  Cycle:    293 Energy:      -628.521463  Gnorm:      0.371366  CPU:   96.396
+  Cycle:    294 Energy:      -628.560916  Gnorm:      0.395062  CPU:   96.763
+  Cycle:    295 Energy:      -628.610859  Gnorm:      0.415624  CPU:   97.130
+  Cycle:    296 Energy:      -628.667717  Gnorm:      0.466593  CPU:   97.425
+  Cycle:    297 Energy:      -628.712322  Gnorm:      0.463822  CPU:   97.721
+  Cycle:    298 Energy:      -628.757778  Gnorm:      0.404830  CPU:   98.089
+  Cycle:    299 Energy:      -628.800499  Gnorm:      0.371112  CPU:   98.460
+  Cycle:    300 Energy:      -628.838288  Gnorm:      0.382250  CPU:   98.829
+  Cycle:    301 Energy:      -628.885831  Gnorm:      0.427577  CPU:   99.199
+  Cycle:    302 Energy:      -628.934442  Gnorm:      0.472656  CPU:   99.496
+  Cycle:    303 Energy:      -628.981918  Gnorm:      0.442710  CPU:   99.792
+  Cycle:    304 Energy:      -629.026056  Gnorm:      0.389425  CPU:  100.161
+  Cycle:    305 Energy:      -629.062227  Gnorm:      0.370047  CPU:  100.531
+  Cycle:    306 Energy:      -629.096369  Gnorm:      0.370474  CPU:  100.901
+  Cycle:    307 Energy:      -629.144794  Gnorm:      0.416844  CPU:  101.270
+  Cycle:    308 Energy:      -629.201321  Gnorm:      0.380365  CPU:  101.639
+  Cycle:    309 Energy:      -629.283900  Gnorm:      0.880140  CPU:  102.010
+  Cycle:    310 Energy:      -629.352747  Gnorm:      0.406407  CPU:  102.381
+  Cycle:    311 Energy:      -629.393430  Gnorm:      0.455565  CPU:  102.752
+  Cycle:    312 Energy:      -629.441603  Gnorm:      0.370774  CPU:  103.124
+  Cycle:    313 Energy:      -629.485237  Gnorm:      0.330656  CPU:  103.423
+  Cycle:    314 Energy:      -629.525161  Gnorm:      0.394868  CPU:  103.795
+  Cycle:    315 Energy:      -629.565522  Gnorm:      0.472147  CPU:  104.094
+  Cycle:    316 Energy:      -629.614165  Gnorm:      0.458111  CPU:  104.395
+  Cycle:    317 Energy:      -629.664106  Gnorm:      0.420370  CPU:  104.772
+  Cycle:    318 Energy:      -629.721372  Gnorm:      0.401116  CPU:  105.156
+  Cycle:    319 Energy:      -629.756862  Gnorm:      0.361875  CPU:  105.458
+  Cycle:    320 Energy:      -629.781652  Gnorm:      0.397811  CPU:  105.761
+  Cycle:    321 Energy:      -629.823555  Gnorm:      0.425750  CPU:  106.144
+  Cycle:    322 Energy:      -629.869184  Gnorm:      0.445620  CPU:  106.446
+  Cycle:    323 Energy:      -629.919467  Gnorm:      0.465893  CPU:  106.821
+  Cycle:    324 Energy:      -629.969369  Gnorm:      0.421474  CPU:  107.126
+  Cycle:    325 Energy:      -630.014718  Gnorm:      0.364653  CPU:  107.433
+  Cycle:    326 Energy:      -630.053544  Gnorm:      0.378291  CPU:  107.813
+  Cycle:    327 Energy:      -630.106672  Gnorm:      0.436907  CPU:  108.189
+  Cycle:    328 Energy:      -630.166711  Gnorm:      0.402102  CPU:  108.492
+  Cycle:    329 Energy:      -630.263999  Gnorm:      0.945355  CPU:  108.870
+  Cycle:    330 Energy:      -630.345656  Gnorm:      0.435874  CPU:  109.174
+  Cycle:    331 Energy:      -630.392038  Gnorm:      0.485144  CPU:  109.553
+  Cycle:    332 Energy:      -630.446237  Gnorm:      0.428750  CPU:  109.931
+  Cycle:    333 Energy:      -630.484343  Gnorm:      0.403241  CPU:  110.236
+  Cycle:    334 Energy:      -630.522042  Gnorm:      0.394172  CPU:  110.615
+  Cycle:    335 Energy:      -630.580691  Gnorm:      0.529735  CPU:  110.995
+  Cycle:    336 Energy:      -630.669430  Gnorm:      0.547770  CPU:  111.377
+  Cycle:    337 Energy:      -630.742782  Gnorm:      0.606552  CPU:  111.682
+  Cycle:    338 Energy:      -630.811636  Gnorm:      0.589958  CPU:  111.989
+  Cycle:    339 Energy:      -630.905641  Gnorm:      0.614480  CPU:  112.375
+  Cycle:    340 Energy:      -630.950869  Gnorm:      0.435644  CPU:  112.687
+  Cycle:    341 Energy:      -631.027361  Gnorm:      0.501336  CPU:  112.997
+  Cycle:    342 Energy:      -631.074365  Gnorm:      0.531586  CPU:  113.310
+  Cycle:    343 Energy:      -631.148697  Gnorm:      0.596528  CPU:  113.699
+  Cycle:    344 Energy:      -631.241596  Gnorm:      0.648684  CPU:  114.087
+  Cycle:    345 Energy:      -631.324877  Gnorm:      0.558231  CPU:  114.402
+  Cycle:    346 Energy:      -631.405700  Gnorm:      0.573925  CPU:  114.794
+  Cycle:    347 Energy:      -631.512649  Gnorm:      0.661972  CPU:  115.187
+  Cycle:    348 Energy:      -631.640417  Gnorm:      0.734706  CPU:  115.504
+  Cycle:    349 Energy:      -631.823193  Gnorm:      0.735572  CPU:  115.898
+  Cycle:    350 Energy:      -631.952956  Gnorm:      0.737068  CPU:  116.220
+  Cycle:    351 Energy:      -632.040567  Gnorm:      0.602311  CPU:  116.533
+  Cycle:    352 Energy:      -632.105932  Gnorm:      0.553506  CPU:  116.934
+  Cycle:    353 Energy:      -632.166289  Gnorm:      0.502206  CPU:  117.257
+  Cycle:    354 Energy:      -632.247588  Gnorm:      0.518195  CPU:  117.649
+  Cycle:    355 Energy:      -632.313701  Gnorm:      0.555205  CPU:  117.963
+  Cycle:    356 Energy:      -632.369280  Gnorm:      0.409681  CPU:  118.278
+  Cycle:    357 Energy:      -632.411314  Gnorm:      0.424965  CPU:  118.671
+  Cycle:    358 Energy:      -632.453641  Gnorm:      0.478142  CPU:  119.066
+  Cycle:    359 Energy:      -632.501663  Gnorm:      0.520902  CPU:  119.388
+  Cycle:    360 Energy:      -632.531107  Gnorm:      0.390439  CPU:  119.713
+  Cycle:    361 Energy:      -632.559784  Gnorm:      0.364787  CPU:  120.117
+  Cycle:    362 Energy:      -632.595994  Gnorm:      0.333784  CPU:  120.515
+  Cycle:    363 Energy:      -632.636445  Gnorm:      0.469844  CPU:  120.908
+  Cycle:    364 Energy:      -632.681825  Gnorm:      0.434411  CPU:  121.225
+  Cycle:    365 Energy:      -632.724576  Gnorm:      0.392973  CPU:  121.541
+  Cycle:    366 Energy:      -632.764371  Gnorm:      0.432356  CPU:  121.939
+  Cycle:    367 Energy:      -632.807845  Gnorm:      0.486345  CPU:  122.264
+  Cycle:    368 Energy:      -632.870306  Gnorm:      0.650631  CPU:  122.669
+  Cycle:    369 Energy:      -632.963208  Gnorm:      0.717631  CPU:  123.074
+  Cycle:    370 Energy:      -633.033978  Gnorm:      0.549719  CPU:  123.399
+  Cycle:    371 Energy:      -633.082501  Gnorm:      0.419922  CPU:  123.719
+  Cycle:    372 Energy:      -633.117924  Gnorm:      0.406528  CPU:  124.115
+  Cycle:    373 Energy:      -633.148653  Gnorm:      0.360832  CPU:  124.433
+  Cycle:    374 Energy:      -633.174467  Gnorm:      0.376091  CPU:  124.829
+  Cycle:    375 Energy:      -633.247715  Gnorm:      0.474441  CPU:  125.226
+  Cycle:    376 Energy:      -633.283711  Gnorm:      0.393108  CPU:  125.544
+  Cycle:    377 Energy:      -633.327907  Gnorm:      0.331323  CPU:  125.940
+  Cycle:    378 Energy:      -633.358893  Gnorm:      0.450413  CPU:  126.342
+  Cycle:    379 Energy:      -633.401880  Gnorm:      0.526989  CPU:  126.738
+  Cycle:    380 Energy:      -633.430314  Gnorm:      0.410668  CPU:  127.056
+  Cycle:    381 Energy:      -633.469726  Gnorm:      0.350395  CPU:  127.452
+  Cycle:    382 Energy:      -633.497239  Gnorm:      0.348478  CPU:  127.774
+  Cycle:    383 Energy:      -633.535143  Gnorm:      0.434187  CPU:  128.180
+  Cycle:    384 Energy:      -633.587944  Gnorm:      0.388620  CPU:  128.586
+  Cycle:    385 Energy:      -633.615311  Gnorm:      0.320558  CPU:  128.912
+  Cycle:    386 Energy:      -633.648269  Gnorm:      0.427448  CPU:  129.308
+  Cycle:    387 Energy:      -633.682562  Gnorm:      0.416537  CPU:  129.626
+  Cycle:    388 Energy:      -633.725059  Gnorm:      0.466311  CPU:  130.022
+  Cycle:    389 Energy:      -633.774388  Gnorm:      0.624027  CPU:  130.418
+  Cycle:    390 Energy:      -633.814076  Gnorm:      0.416386  CPU:  130.736
+  Cycle:    391 Energy:      -633.843521  Gnorm:      0.332534  CPU:  131.053
+  Cycle:    392 Energy:      -633.870252  Gnorm:      0.382828  CPU:  131.450
+  Cycle:    393 Energy:      -633.902659  Gnorm:      0.354108  CPU:  131.767
+  Cycle:    394 Energy:      -633.929660  Gnorm:      0.368628  CPU:  132.163
+  Cycle:    395 Energy:      -633.978905  Gnorm:      0.461057  CPU:  132.558
+  Cycle:    396 Energy:      -634.034209  Gnorm:      0.382917  CPU:  132.875
+  Cycle:    397 Energy:      -634.061668  Gnorm:      0.358664  CPU:  133.193
+  Cycle:    398 Energy:      -634.103805  Gnorm:      0.394990  CPU:  133.588
+  Cycle:    399 Energy:      -634.149864  Gnorm:      0.611888  CPU:  133.905
+  Cycle:    400 Energy:      -634.180054  Gnorm:      0.369221  CPU:  134.223
+  Cycle:    401 Energy:      -634.219185  Gnorm:      0.367635  CPU:  134.618
+  Cycle:    402 Energy:      -634.246158  Gnorm:      0.331536  CPU:  134.935
+  Cycle:    403 Energy:      -634.279273  Gnorm:      0.454572  CPU:  135.332
+  Cycle:    404 Energy:      -634.328752  Gnorm:      0.369616  CPU:  135.727
+  Cycle:    405 Energy:      -634.354542  Gnorm:      0.296498  CPU:  136.046
+  Cycle:    406 Energy:      -634.379777  Gnorm:      0.418948  CPU:  136.368
+  Cycle:    407 Energy:      -634.413680  Gnorm:      0.388281  CPU:  136.776
+  Cycle:    408 Energy:      -634.440991  Gnorm:      0.366587  CPU:  137.096
+  Cycle:    409 Energy:      -634.478807  Gnorm:      0.480516  CPU:  137.499
+  Cycle:    410 Energy:      -634.506663  Gnorm:      0.326951  CPU:  137.824
+  Cycle:    411 Energy:      -634.522624  Gnorm:      0.271506  CPU:  138.144
+  Cycle:    412 Energy:      -634.542181  Gnorm:      0.352288  CPU:  138.540
+  Cycle:    413 Energy:      -634.575953  Gnorm:      0.332586  CPU:  138.936
+  Cycle:    414 Energy:      -634.594827  Gnorm:      0.340001  CPU:  139.253
+  Cycle:    415 Energy:      -634.654252  Gnorm:      0.459708  CPU:  139.649
+  Cycle:    416 Energy:      -634.701151  Gnorm:      0.426543  CPU:  139.974
+  Cycle:    417 Energy:      -634.738007  Gnorm:      0.438811  CPU:  140.299
+  Cycle:    418 Energy:      -634.775319  Gnorm:      0.436148  CPU:  140.705
+  Cycle:    419 Energy:      -634.818233  Gnorm:      0.532946  CPU:  141.100
+  Cycle:    420 Energy:      -634.849999  Gnorm:      0.357192  CPU:  141.418
+  Cycle:    421 Energy:      -634.879432  Gnorm:      0.353361  CPU:  141.813
+  Cycle:    422 Energy:      -634.899009  Gnorm:      0.339561  CPU:  142.131
+  Cycle:    423 Energy:      -634.936862  Gnorm:      0.433064  CPU:  142.529
+  Cycle:    424 Energy:      -634.985924  Gnorm:      0.334368  CPU:  142.949
+  Cycle:    425 Energy:      -635.011217  Gnorm:      0.294529  CPU:  143.267
+  Cycle:    426 Energy:      -635.040179  Gnorm:      0.303362  CPU:  143.663
+  Cycle:    427 Energy:      -635.067878  Gnorm:      0.397369  CPU:  143.980
+  Cycle:    428 Energy:      -635.102342  Gnorm:      0.418067  CPU:  144.297
+  Cycle:    429 Energy:      -635.161569  Gnorm:      0.506908  CPU:  144.693
+  Cycle:    430 Energy:      -635.190855  Gnorm:      0.385052  CPU:  145.010
+  Cycle:    431 Energy:      -635.220616  Gnorm:      0.366172  CPU:  145.406
+  Cycle:    432 Energy:      -635.247332  Gnorm:      0.324822  CPU:  145.724
+  Cycle:    433 Energy:      -635.267579  Gnorm:      0.314852  CPU:  146.042
+  Cycle:    434 Energy:      -635.293574  Gnorm:      0.347228  CPU:  146.444
+  Cycle:    435 Energy:      -635.325411  Gnorm:      0.380789  CPU:  146.842
+  Cycle:    436 Energy:      -635.374122  Gnorm:      0.415743  CPU:  147.238
+  Cycle:    437 Energy:      -635.417596  Gnorm:      0.331777  CPU:  147.555
+  Cycle:    438 Energy:      -635.439328  Gnorm:      0.354296  CPU:  147.879
+  Cycle:    439 Energy:      -635.470908  Gnorm:      0.397796  CPU:  148.200
+  Cycle:    440 Energy:      -635.488075  Gnorm:      0.333353  CPU:  148.557
+  Cycle:    441 Energy:      -635.515127  Gnorm:      0.313060  CPU:  148.874
+  Cycle:    442 Energy:      -635.552834  Gnorm:      0.391981  CPU:  149.272
+  Cycle:    443 Energy:      -635.594089  Gnorm:      0.403827  CPU:  149.593
+  Cycle:    444 Energy:      -635.625443  Gnorm:      0.308355  CPU:  149.911
+  Cycle:    445 Energy:      -635.650379  Gnorm:      0.268006  CPU:  150.229
+  Cycle:    446 Energy:      -635.666673  Gnorm:      0.332541  CPU:  150.547
+  Cycle:    447 Energy:      -635.689620  Gnorm:      0.373375  CPU:  150.954
+  Cycle:    448 Energy:      -635.729643  Gnorm:      0.367193  CPU:  151.350
+  Cycle:    449 Energy:      -635.767484  Gnorm:      0.527200  CPU:  151.746
+  Cycle:    450 Energy:      -635.798276  Gnorm:      0.375183  CPU:  152.067
+  Cycle:    451 Energy:      -635.826114  Gnorm:      0.346884  CPU:  152.392
+  Cycle:    452 Energy:      -635.850915  Gnorm:      0.326621  CPU:  152.717
+  Cycle:    453 Energy:      -635.868919  Gnorm:      0.296176  CPU:  153.035
+  Cycle:    454 Energy:      -635.894803  Gnorm:      0.343067  CPU:  153.435
+  Cycle:    455 Energy:      -635.924277  Gnorm:      0.337680  CPU:  153.751
+  Cycle:    456 Energy:      -635.968363  Gnorm:      0.401970  CPU:  154.150
+  Cycle:    457 Energy:      -636.004108  Gnorm:      0.377644  CPU:  154.467
+  Cycle:    458 Energy:      -636.026063  Gnorm:      0.329653  CPU:  154.784
+  Cycle:    459 Energy:      -636.045423  Gnorm:      0.288183  CPU:  155.180
+  Cycle:    460 Energy:      -636.059016  Gnorm:      0.308309  CPU:  155.496
+  Cycle:    461 Energy:      -636.082727  Gnorm:      0.358955  CPU:  155.892
+  Cycle:    462 Energy:      -636.111737  Gnorm:      0.392703  CPU:  156.208
+  Cycle:    463 Energy:      -636.152718  Gnorm:      0.363741  CPU:  156.604
+  Cycle:    464 Energy:      -636.179523  Gnorm:      0.318403  CPU:  156.920
+  Cycle:    465 Energy:      -636.202288  Gnorm:      0.285658  CPU:  157.237
+  Cycle:    466 Energy:      -636.218258  Gnorm:      0.299412  CPU:  157.555
+  Cycle:    467 Energy:      -636.236117  Gnorm:      0.311385  CPU:  157.872
+  Cycle:    468 Energy:      -636.268876  Gnorm:      0.395843  CPU:  158.278
+  Cycle:    469 Energy:      -636.300015  Gnorm:      0.461026  CPU:  158.594
+  Cycle:    470 Energy:      -636.326753  Gnorm:      0.374908  CPU:  158.916
+  Cycle:    471 Energy:      -636.355907  Gnorm:      0.312059  CPU:  159.323
+  Cycle:    472 Energy:      -636.372538  Gnorm:      0.300635  CPU:  159.639
+  Cycle:    473 Energy:      -636.391390  Gnorm:      0.294895  CPU:  160.034
+  Cycle:    474 Energy:      -636.415693  Gnorm:      0.343551  CPU:  160.437
+  Cycle:    475 Energy:      -636.444764  Gnorm:      0.365924  CPU:  160.755
+  Cycle:    476 Energy:      -636.481864  Gnorm:      0.363843  CPU:  161.150
+  Cycle:    477 Energy:      -636.512689  Gnorm:      0.322953  CPU:  161.467
+  Cycle:    478 Energy:      -636.538232  Gnorm:      0.219011  CPU:  161.791
+  Cycle:    479 Energy:      -636.574336  Gnorm:      0.512124  CPU:  162.187
+  Cycle:    480 Energy:      -636.602584  Gnorm:      0.276809  CPU:  162.505
+  Cycle:    481 Energy:      -636.614815  Gnorm:      0.288197  CPU:  162.821
+  Cycle:    482 Energy:      -636.641385  Gnorm:      0.343753  CPU:  163.217
+  Cycle:    483 Energy:      -636.668287  Gnorm:      0.370706  CPU:  163.543
+  Cycle:    484 Energy:      -636.700490  Gnorm:      0.294883  CPU:  163.938
+  Cycle:    485 Energy:      -636.724045  Gnorm:      0.324375  CPU:  164.341
+  Cycle:    486 Energy:      -636.744847  Gnorm:      0.300832  CPU:  164.661
+  Cycle:    487 Energy:      -636.766103  Gnorm:      0.279976  CPU:  165.056
+  Cycle:    488 Energy:      -636.788717  Gnorm:      0.341493  CPU:  165.451
+  Cycle:    489 Energy:      -636.811335  Gnorm:      0.355085  CPU:  165.771
+  Cycle:    490 Energy:      -636.824514  Gnorm:      0.297534  CPU:  166.089
+  Cycle:    491 Energy:      -636.852634  Gnorm:      0.288676  CPU:  166.484
+  Cycle:    492 Energy:      -636.868958  Gnorm:      0.285250  CPU:  166.803
+  Cycle:    493 Energy:      -636.891860  Gnorm:      0.352326  CPU:  167.120
+  Cycle:    494 Energy:      -636.919491  Gnorm:      0.299107  CPU:  167.439
+  Cycle:    495 Energy:      -636.944942  Gnorm:      0.331004  CPU:  167.756
+  Cycle:    496 Energy:      -636.981329  Gnorm:      0.348288  CPU:  168.150
+  Cycle:    497 Energy:      -637.002032  Gnorm:      0.263475  CPU:  168.473
+  Cycle:    498 Energy:      -637.015849  Gnorm:      0.269525  CPU:  168.872
+  Cycle:    499 Energy:      -637.039054  Gnorm:      0.481221  CPU:  169.281
+  Cycle:    500 Energy:      -637.058424  Gnorm:      0.271485  CPU:  169.603
+  Cycle:    501 Energy:      -637.072821  Gnorm:      0.242377  CPU:  169.923
+  Cycle:    502 Energy:      -637.089900  Gnorm:      0.323290  CPU:  170.245
+  Cycle:    503 Energy:      -637.123022  Gnorm:      0.340851  CPU:  170.643
+  Cycle:    504 Energy:      -637.146260  Gnorm:      0.261659  CPU:  170.967
+  Cycle:    505 Energy:      -637.167844  Gnorm:      0.330952  CPU:  171.369
+  Cycle:    506 Energy:      -637.192844  Gnorm:      0.314328  CPU:  171.685
+  Cycle:    507 Energy:      -637.210860  Gnorm:      0.273999  CPU:  172.002
+  Cycle:    508 Energy:      -637.233309  Gnorm:      0.328165  CPU:  172.318
+  Cycle:    509 Energy:      -637.254003  Gnorm:      0.375127  CPU:  172.635
+  Cycle:    510 Energy:      -637.268412  Gnorm:      0.285285  CPU:  172.951
+  Cycle:    511 Energy:      -637.287128  Gnorm:      0.257394  CPU:  173.268
+  Cycle:    512 Energy:      -637.301855  Gnorm:      0.258802  CPU:  173.663
+  Cycle:    513 Energy:      -637.319477  Gnorm:      0.326854  CPU:  173.979
+  Cycle:    514 Energy:      -637.346524  Gnorm:      0.302029  CPU:  174.374
+  Cycle:    515 Energy:      -637.367320  Gnorm:      0.288079  CPU:  174.690
+  Cycle:    516 Energy:      -637.392480  Gnorm:      0.391539  CPU:  175.084
+  Cycle:    517 Energy:      -637.416643  Gnorm:      0.331806  CPU:  175.399
+  Cycle:    518 Energy:      -637.438822  Gnorm:      0.271625  CPU:  175.793
+  Cycle:    519 Energy:      -637.453946  Gnorm:      0.304611  CPU:  176.188
+  Cycle:    520 Energy:      -637.465781  Gnorm:      0.249303  CPU:  176.503
+  Cycle:    521 Energy:      -637.478495  Gnorm:      0.261478  CPU:  176.819
+  Cycle:    522 Energy:      -637.499756  Gnorm:      0.350003  CPU:  177.214
+  Cycle:    523 Energy:      -637.523781  Gnorm:      0.290123  CPU:  177.531
+  Cycle:    524 Energy:      -637.541730  Gnorm:      0.286623  CPU:  177.847
+  Cycle:    525 Energy:      -637.564264  Gnorm:      0.315040  CPU:  178.240
+  Cycle:    526 Energy:      -637.585939  Gnorm:      0.291849  CPU:  178.557
+  Cycle:    527 Energy:      -637.603453  Gnorm:      0.290066  CPU:  178.872
+  Cycle:    528 Energy:      -637.619760  Gnorm:      0.297575  CPU:  179.278
+  Cycle:    529 Energy:      -637.640237  Gnorm:      0.361596  CPU:  179.672
+  Cycle:    530 Energy:      -637.656413  Gnorm:      0.265695  CPU:  179.987
+  Cycle:    531 Energy:      -637.669690  Gnorm:      0.267853  CPU:  180.303
+  Cycle:    532 Energy:      -637.684418  Gnorm:      0.257104  CPU:  180.624
+  Cycle:    533 Energy:      -637.699379  Gnorm:      0.277433  CPU:  181.032
+  Cycle:    534 Energy:      -637.723324  Gnorm:      0.303407  CPU:  181.360
+  Cycle:    535 Energy:      -637.740920  Gnorm:      0.280425  CPU:  181.684
+  Cycle:    536 Energy:      -637.766576  Gnorm:      0.348892  CPU:  182.088
+  Cycle:    537 Energy:      -637.789963  Gnorm:      0.305303  CPU:  182.411
+  Cycle:    538 Energy:      -637.810451  Gnorm:      0.302351  CPU:  182.815
+  Cycle:    539 Energy:      -637.823363  Gnorm:      0.280001  CPU:  183.139
+  Cycle:    540 Energy:      -637.834124  Gnorm:      0.262558  CPU:  183.463
+  Cycle:    541 Energy:      -637.849991  Gnorm:      0.292733  CPU:  183.786
+  Cycle:    542 Energy:      -637.874277  Gnorm:      0.339549  CPU:  184.109
+  Cycle:    543 Energy:      -637.896375  Gnorm:      0.270355  CPU:  184.425
+  Cycle:    544 Energy:      -637.914362  Gnorm:      0.303958  CPU:  184.740
+  Cycle:    545 Energy:      -637.937876  Gnorm:      0.269898  CPU:  185.133
+  Cycle:    546 Energy:      -637.952766  Gnorm:      0.245069  CPU:  185.449
+  Cycle:    547 Energy:      -637.968316  Gnorm:      0.259505  CPU:  185.842
+  Cycle:    548 Energy:      -637.985622  Gnorm:      0.239775  CPU:  186.236
+  Cycle:    549 Energy:      -638.061279  Gnorm:      0.732341  CPU:  186.630
+  Cycle:    550 Energy:      -638.113835  Gnorm:      0.412533  CPU:  187.023
+  Cycle:    551 Energy:      -638.136620  Gnorm:      0.241996  CPU:  187.339
+  Cycle:    552 Energy:      -638.149391  Gnorm:      0.265619  CPU:  187.655
+  Cycle:    553 Energy:      -638.164544  Gnorm:      0.261681  CPU:  187.971
+  Cycle:    554 Energy:      -638.181577  Gnorm:      0.249455  CPU:  188.368
+  Cycle:    555 Energy:      -638.199253  Gnorm:      0.295419  CPU:  188.692
+  Cycle:    556 Energy:      -638.219719  Gnorm:      0.287256  CPU:  189.016
+  Cycle:    557 Energy:      -638.243609  Gnorm:      0.360657  CPU:  189.333
+  Cycle:    558 Energy:      -638.264255  Gnorm:      0.296420  CPU:  189.648
+  Cycle:    559 Energy:      -638.279481  Gnorm:      0.235266  CPU:  190.040
+  Cycle:    560 Energy:      -638.286136  Gnorm:      0.189007  CPU:  190.355
+  Cycle:    561 Energy:      -638.299426  Gnorm:      0.329864  CPU:  190.749
+  Cycle:    562 Energy:      -638.328771  Gnorm:      0.330562  CPU:  191.142
+  Cycle:    563 Energy:      -638.347867  Gnorm:      0.258071  CPU:  191.458
+  Cycle:    564 Energy:      -638.359344  Gnorm:      0.222154  CPU:  191.774
+  Cycle:    565 Energy:      -638.371509  Gnorm:      0.281414  CPU:  192.091
+  Cycle:    566 Energy:      -638.387816  Gnorm:      0.244275  CPU:  192.407
+  Cycle:    567 Energy:      -638.402524  Gnorm:      0.232610  CPU:  192.722
+  Cycle:    568 Energy:      -638.420747  Gnorm:      0.339949  CPU:  193.116
+  Cycle:    569 Energy:      -638.463458  Gnorm:      0.573119  CPU:  193.510
+  Cycle:    570 Energy:      -638.495903  Gnorm:      0.264819  CPU:  193.903
+  Cycle:    571 Energy:      -638.506656  Gnorm:      0.181084  CPU:  194.218
+  Cycle:    572 Energy:      -638.513202  Gnorm:      0.134959  CPU:  194.534
+  Cycle:    573 Energy:      -638.518312  Gnorm:      0.179890  CPU:  194.850
+  Cycle:    574 Energy:      -638.528687  Gnorm:      0.290475  CPU:  195.165
+  Cycle:    575 Energy:      -638.553792  Gnorm:      0.363034  CPU:  195.558
+  Cycle:    576 Energy:      -638.569246  Gnorm:      0.221217  CPU:  195.873
+  Cycle:    577 Energy:      -638.580198  Gnorm:      0.240526  CPU:  196.191
+  Cycle:    578 Energy:      -638.602680  Gnorm:      0.363130  CPU:  196.584
+  Cycle:    579 Energy:      -638.632081  Gnorm:      0.333279  CPU:  196.898
+  Cycle:    580 Energy:      -638.643383  Gnorm:      0.216509  CPU:  197.212
+  Cycle:    581 Energy:      -638.654969  Gnorm:      0.201817  CPU:  197.527
+  Cycle:    582 Energy:      -638.663004  Gnorm:      0.213764  CPU:  197.841
+  Cycle:    583 Energy:      -638.671608  Gnorm:      0.213710  CPU:  198.156
+  Cycle:    584 Energy:      -638.688238  Gnorm:      0.286139  CPU:  198.548
+  Cycle:    585 Energy:      -638.710648  Gnorm:      0.329945  CPU:  198.940
+  Cycle:    586 Energy:      -638.736528  Gnorm:      0.285057  CPU:  199.255
+  Cycle:    587 Energy:      -638.766247  Gnorm:      0.310969  CPU:  199.724
+  Cycle:    588 Energy:      -638.790264  Gnorm:      0.358410  CPU:  200.039
+  Cycle:    589 Energy:      -638.821038  Gnorm:      0.371349  CPU:  200.431
+  Cycle:    590 Energy:      -638.835402  Gnorm:      0.286669  CPU:  200.746
+  Cycle:    591 Energy:      -638.859460  Gnorm:      0.343137  CPU:  201.060
+  Cycle:    592 Energy:      -638.887204  Gnorm:      0.339056  CPU:  201.452
+  Cycle:    593 Energy:      -638.905815  Gnorm:      0.269031  CPU:  201.772
+  Cycle:    594 Energy:      -638.925690  Gnorm:      0.284584  CPU:  202.254
+  Cycle:    595 Energy:      -638.949280  Gnorm:      0.320824  CPU:  202.657
+  Cycle:    596 Energy:      -638.968141  Gnorm:      0.189509  CPU:  202.975
+  Cycle:    597 Energy:      -638.976581  Gnorm:      0.187434  CPU:  203.299
+  Cycle:    598 Energy:      -638.984275  Gnorm:      0.210361  CPU:  203.621
+  Cycle:    599 Energy:      -638.994683  Gnorm:      0.280158  CPU:  203.944
+  Cycle:    600 Energy:      -639.002509  Gnorm:      0.188054  CPU:  204.262
+  Cycle:    601 Energy:      -639.010035  Gnorm:      0.197558  CPU:  204.576
+  Cycle:    602 Energy:      -639.019407  Gnorm:      0.205136  CPU:  204.891
+  Cycle:    603 Energy:      -639.032633  Gnorm:      0.241734  CPU:  205.283
+  Cycle:    604 Energy:      -639.048830  Gnorm:      0.295202  CPU:  205.597
+  Cycle:    605 Energy:      -639.073791  Gnorm:      0.289964  CPU:  205.989
+  Cycle:    606 Energy:      -639.091715  Gnorm:      0.282025  CPU:  206.304
+  Cycle:    607 Energy:      -639.110063  Gnorm:      0.307652  CPU:  206.696
+  Cycle:    608 Energy:      -639.137058  Gnorm:      0.295325  CPU:  207.089
+  Cycle:    609 Energy:      -639.154708  Gnorm:      0.389793  CPU:  207.404
+  Cycle:    610 Energy:      -639.167702  Gnorm:      0.251673  CPU:  207.722
+  Cycle:    611 Energy:      -639.189699  Gnorm:      0.304306  CPU:  208.041
+  Cycle:    612 Energy:      -639.210509  Gnorm:      0.308204  CPU:  208.360
+  Cycle:    613 Energy:      -639.228280  Gnorm:      0.263241  CPU:  208.689
+  Cycle:    614 Energy:      -639.246956  Gnorm:      0.262138  CPU:  209.080
+  Cycle:    615 Energy:      -639.263840  Gnorm:      0.275530  CPU:  209.476
+  Cycle:    616 Energy:      -639.280383  Gnorm:      0.230169  CPU:  209.790
+  Cycle:    617 Energy:      -639.290408  Gnorm:      0.208795  CPU:  210.104
+  Cycle:    618 Energy:      -639.297184  Gnorm:      0.177781  CPU:  210.418
+  Cycle:    619 Energy:      -639.304321  Gnorm:      0.217245  CPU:  210.810
+  Cycle:    620 Energy:      -639.310662  Gnorm:      0.166820  CPU:  211.128
+  Cycle:    621 Energy:      -639.316957  Gnorm:      0.197389  CPU:  211.442
+  Cycle:    622 Energy:      -639.326182  Gnorm:      0.240106  CPU:  211.834
+  Cycle:    623 Energy:      -639.343011  Gnorm:      0.265163  CPU:  212.228
+  Cycle:    624 Energy:      -639.360399  Gnorm:      0.269087  CPU:  212.542
+  Cycle:    625 Energy:      -639.378737  Gnorm:      0.275711  CPU:  212.934
+  Cycle:    626 Energy:      -639.391374  Gnorm:      0.275180  CPU:  213.248
+  Cycle:    627 Energy:      -639.412052  Gnorm:      0.298932  CPU:  213.640
+  Cycle:    628 Energy:      -639.438104  Gnorm:      0.245581  CPU:  214.032
+  Cycle:    629 Energy:      -639.456376  Gnorm:      0.418089  CPU:  214.423
+  Cycle:    630 Energy:      -639.471945  Gnorm:      0.261531  CPU:  214.738
+  Cycle:    631 Energy:      -639.489460  Gnorm:      0.312513  CPU:  215.130
+  Cycle:    632 Energy:      -639.512665  Gnorm:      0.296026  CPU:  215.447
+  Cycle:    633 Energy:      -639.531547  Gnorm:      0.257763  CPU:  215.769
+  Cycle:    634 Energy:      -639.549007  Gnorm:      0.263341  CPU:  216.082
+  Cycle:    635 Energy:      -639.565458  Gnorm:      0.259795  CPU:  216.397
+  Cycle:    636 Energy:      -639.579295  Gnorm:      0.235830  CPU:  216.710
+  Cycle:    637 Energy:      -639.590459  Gnorm:      0.186502  CPU:  217.101
+  Cycle:    638 Energy:      -639.597966  Gnorm:      0.181107  CPU:  217.416
+  Cycle:    639 Energy:      -639.602731  Gnorm:      0.180958  CPU:  217.739
+  Cycle:    640 Energy:      -639.607211  Gnorm:      0.173657  CPU:  218.060
+  Cycle:    641 Energy:      -639.613934  Gnorm:      0.175050  CPU:  218.393
+  Cycle:    642 Energy:      -639.624409  Gnorm:      0.247910  CPU:  218.792
+  Cycle:    643 Energy:      -639.639218  Gnorm:      0.249074  CPU:  219.182
+  Cycle:    644 Energy:      -639.654051  Gnorm:      0.262995  CPU:  219.495
+  Cycle:    645 Energy:      -639.670085  Gnorm:      0.245909  CPU:  219.885
+  Cycle:    646 Energy:      -639.685986  Gnorm:      0.278636  CPU:  220.276
+  Cycle:    647 Energy:      -639.707191  Gnorm:      0.340184  CPU:  220.589
+  Cycle:    648 Energy:      -639.726580  Gnorm:      0.274938  CPU:  220.902
+  Cycle:    649 Energy:      -639.742460  Gnorm:      0.347601  CPU:  221.215
+  Cycle:    650 Energy:      -639.756448  Gnorm:      0.248768  CPU:  221.528
+  Cycle:    651 Energy:      -639.770047  Gnorm:      0.282361  CPU:  221.841
+  Cycle:    652 Energy:      -639.785200  Gnorm:      0.239318  CPU:  222.154
+  Cycle:    653 Energy:      -639.796581  Gnorm:      0.212324  CPU:  222.467
+  Cycle:    654 Energy:      -639.813257  Gnorm:      0.242140  CPU:  222.857
+  Cycle:    655 Energy:      -639.824924  Gnorm:      0.228143  CPU:  223.170
+  Cycle:    656 Energy:      -639.843265  Gnorm:      0.294446  CPU:  223.560
+  Cycle:    657 Energy:      -639.856577  Gnorm:      0.164457  CPU:  223.873
+  Cycle:    658 Energy:      -639.864542  Gnorm:      0.165998  CPU:  224.263
+  Cycle:    659 Energy:      -639.874389  Gnorm:      0.345132  CPU:  224.654
+  Cycle:    660 Energy:      -639.883222  Gnorm:      0.174898  CPU:  224.972
+  Cycle:    661 Energy:      -639.890225  Gnorm:      0.145667  CPU:  225.293
+  Cycle:    662 Energy:      -639.903460  Gnorm:      0.271558  CPU:  225.694
+  Cycle:    663 Energy:      -639.921616  Gnorm:      0.237899  CPU:  226.084
+  Cycle:    664 Energy:      -639.930832  Gnorm:      0.223258  CPU:  226.397
+  Cycle:    665 Energy:      -639.943132  Gnorm:      0.180161  CPU:  226.786
+  Cycle:    666 Energy:      -639.950578  Gnorm:      0.210648  CPU:  227.099
+  Cycle:    667 Energy:      -639.959904  Gnorm:      0.244377  CPU:  227.411
+  Cycle:    668 Energy:      -639.974229  Gnorm:      0.222845  CPU:  227.801
+  Cycle:    669 Energy:      -639.989966  Gnorm:      0.331475  CPU:  228.113
+  Cycle:    670 Energy:      -640.003343  Gnorm:      0.196963  CPU:  228.425
+  Cycle:    671 Energy:      -640.012368  Gnorm:      0.185666  CPU:  228.738
+  Cycle:    672 Energy:      -640.018816  Gnorm:      0.156474  CPU:  229.050
+  Cycle:    673 Energy:      -640.022960  Gnorm:      0.159730  CPU:  229.362
+  Cycle:    674 Energy:      -640.031327  Gnorm:      0.204431  CPU:  229.674
+  Cycle:    675 Energy:      -640.039402  Gnorm:      0.206447  CPU:  229.987
+  Cycle:    676 Energy:      -640.066043  Gnorm:      0.483644  CPU:  230.376
+  Cycle:    677 Energy:      -640.147562  Gnorm:      0.402016  CPU:  230.765
+  Cycle:    678 Energy:      -640.176424  Gnorm:      0.291842  CPU:  231.077
+  Cycle:    679 Energy:      -640.190210  Gnorm:      0.280765  CPU:  231.389
+  Cycle:    680 Energy:      -640.198255  Gnorm:      0.216208  CPU:  231.701
+  Cycle:    681 Energy:      -640.210379  Gnorm:      0.244296  CPU:  232.013
+  Cycle:    682 Energy:      -640.248499  Gnorm:      0.376889  CPU:  232.402
+  Cycle:    683 Energy:      -640.270960  Gnorm:      0.253443  CPU:  232.714
+  Cycle:    684 Energy:      -640.279573  Gnorm:      0.161401  CPU:  233.029
+  Cycle:    685 Energy:      -640.286079  Gnorm:      0.159209  CPU:  233.341
+  Cycle:    686 Energy:      -640.294210  Gnorm:      0.169922  CPU:  233.653
+  Cycle:    687 Energy:      -640.301383  Gnorm:      0.227616  CPU:  233.965
+  Cycle:    688 Energy:      -640.311265  Gnorm:      0.213800  CPU:  234.355
+  Cycle:    689 Energy:      -640.328759  Gnorm:      0.388763  CPU:  234.671
+  Cycle:    690 Energy:      -640.341831  Gnorm:      0.189712  CPU:  234.985
+  Cycle:    691 Energy:      -640.348812  Gnorm:      0.191995  CPU:  235.297
+  Cycle:    692 Energy:      -640.355137  Gnorm:      0.152022  CPU:  235.609
+  Cycle:    693 Energy:      -640.361128  Gnorm:      0.159529  CPU:  235.922
+  Cycle:    694 Energy:      -640.367097  Gnorm:      0.163545  CPU:  236.234
+  Cycle:    695 Energy:      -640.375321  Gnorm:      0.224387  CPU:  236.546
+  Cycle:    696 Energy:      -640.399301  Gnorm:      0.417447  CPU:  236.935
+  Cycle:    697 Energy:      -640.461199  Gnorm:      0.438918  CPU:  237.326
+  Cycle:    698 Energy:      -640.485267  Gnorm:      0.281037  CPU:  237.714
+  Cycle:    699 Energy:      -640.499607  Gnorm:      0.304349  CPU:  238.103
+  Cycle:    700 Energy:      -640.508127  Gnorm:      0.179783  CPU:  238.414
+  Cycle:    701 Energy:      -640.516373  Gnorm:      0.253059  CPU:  238.726
+  Cycle:    702 Energy:      -640.541630  Gnorm:      0.331837  CPU:  239.114
+  Cycle:    703 Energy:      -640.563649  Gnorm:      0.237675  CPU:  239.433
+  Cycle:    704 Energy:      -640.572509  Gnorm:      0.171476  CPU:  239.752
+  Cycle:    705 Energy:      -640.578796  Gnorm:      0.188703  CPU:  240.071
+  Cycle:    706 Energy:      -640.586678  Gnorm:      0.158923  CPU:  240.391
+  Cycle:    707 Energy:      -640.592938  Gnorm:      0.148733  CPU:  240.707
+  Cycle:    708 Energy:      -640.598802  Gnorm:      0.211701  CPU:  241.018
+  Cycle:    709 Energy:      -640.611470  Gnorm:      0.275881  CPU:  241.406
+  Cycle:    710 Energy:      -640.619582  Gnorm:      0.178428  CPU:  241.717
+  Cycle:    711 Energy:      -640.624986  Gnorm:      0.143922  CPU:  242.028
+  Cycle:    712 Energy:      -640.628226  Gnorm:      0.127433  CPU:  242.340
+  Cycle:    713 Energy:      -640.637987  Gnorm:      0.234749  CPU:  242.727
+  Cycle:    714 Energy:      -640.650753  Gnorm:      0.184543  CPU:  243.039
+  Cycle:    715 Energy:      -640.658576  Gnorm:      0.223484  CPU:  243.350
+  Cycle:    716 Energy:      -640.682511  Gnorm:      0.322717  CPU:  243.661
+  Cycle:    717 Energy:      -640.698197  Gnorm:      0.218666  CPU:  243.972
+  Cycle:    718 Energy:      -640.709244  Gnorm:      0.222361  CPU:  244.285
+  Cycle:    719 Energy:      -640.720484  Gnorm:      0.291309  CPU:  244.596
+  Cycle:    720 Energy:      -640.728369  Gnorm:      0.182724  CPU:  244.908
+  Cycle:    721 Energy:      -640.733792  Gnorm:      0.127032  CPU:  245.219
+  Cycle:    722 Energy:      -640.738692  Gnorm:      0.163377  CPU:  245.531
+  Cycle:    723 Energy:      -640.748233  Gnorm:      0.155913  CPU:  245.842
+  Cycle:    724 Energy:      -640.755409  Gnorm:      0.212657  CPU:  246.154
+  Cycle:    725 Energy:      -640.766021  Gnorm:      0.232009  CPU:  246.466
+  Cycle:    726 Energy:      -640.790617  Gnorm:      0.325587  CPU:  246.854
+  Cycle:    727 Energy:      -640.832720  Gnorm:      0.413475  CPU:  247.242
+  Cycle:    728 Energy:      -640.861364  Gnorm:      0.327361  CPU:  247.630
+  Cycle:    729 Energy:      -640.882718  Gnorm:      0.344660  CPU:  247.942
+  Cycle:    730 Energy:      -640.894289  Gnorm:      0.215874  CPU:  248.254
+  Cycle:    731 Energy:      -640.901811  Gnorm:      0.186096  CPU:  248.566
+  Cycle:    732 Energy:      -640.918222  Gnorm:      0.264202  CPU:  248.954
+  Cycle:    733 Energy:      -640.928923  Gnorm:      0.173983  CPU:  249.266
+  Cycle:    734 Energy:      -640.935939  Gnorm:      0.205206  CPU:  249.578
+  Cycle:    735 Energy:      -640.949165  Gnorm:      0.212192  CPU:  249.966
+  Cycle:    736 Energy:      -640.963134  Gnorm:      0.174537  CPU:  250.278
+  Cycle:    737 Energy:      -640.972363  Gnorm:      0.180824  CPU:  250.743
+  Cycle:    738 Energy:      -640.978777  Gnorm:      0.200824  CPU:  251.055
+  Cycle:    739 Energy:      -640.992809  Gnorm:      0.317139  CPU:  251.443
+  Cycle:    740 Energy:      -641.002296  Gnorm:      0.194033  CPU:  251.755
+  Cycle:    741 Energy:      -641.008409  Gnorm:      0.150364  CPU:  252.068
+  Cycle:    742 Energy:      -641.014224  Gnorm:      0.165861  CPU:  252.379
+  Cycle:    743 Energy:      -641.022639  Gnorm:      0.196901  CPU:  252.768
+  Cycle:    744 Energy:      -641.035239  Gnorm:      0.227464  CPU:  253.079
+  Cycle:    745 Energy:      -641.047956  Gnorm:      0.194696  CPU:  253.390
+  Cycle:    746 Energy:      -641.056673  Gnorm:      0.235093  CPU:  253.701
+  Cycle:    747 Energy:      -641.073046  Gnorm:      0.276169  CPU:  254.089
+  Cycle:    748 Energy:      -641.088888  Gnorm:      0.271611  CPU:  254.401
+  Cycle:    749 Energy:      -641.099508  Gnorm:      0.227645  CPU:  254.712
+  Cycle:    750 Energy:      -641.107169  Gnorm:      0.216925  CPU:  255.023
+  Cycle:    751 Energy:      -641.118766  Gnorm:      0.267925  CPU:  255.411
+  Cycle:    752 Energy:      -641.137321  Gnorm:      0.264366  CPU:  255.798
+  Cycle:    753 Energy:      -641.148683  Gnorm:      0.216155  CPU:  256.109
+  Cycle:    754 Energy:      -641.160906  Gnorm:      0.211810  CPU:  256.420
+  Cycle:    755 Energy:      -641.169640  Gnorm:      0.187204  CPU:  256.730
+  Cycle:    756 Energy:      -641.178925  Gnorm:      0.196815  CPU:  257.042
+  Cycle:    757 Energy:      -641.186263  Gnorm:      0.179724  CPU:  257.359
+  Cycle:    758 Energy:      -641.191578  Gnorm:      0.155987  CPU:  257.677
+  Cycle:    759 Energy:      -641.198637  Gnorm:      0.233857  CPU:  258.074
+  Cycle:    760 Energy:      -641.204736  Gnorm:      0.148129  CPU:  258.391
+  Cycle:    761 Energy:      -641.209305  Gnorm:      0.167509  CPU:  258.709
+  Cycle:    762 Energy:      -641.215804  Gnorm:      0.193971  CPU:  259.027
+  Cycle:    763 Energy:      -641.227180  Gnorm:      0.192220  CPU:  259.338
+  Cycle:    764 Energy:      -641.236614  Gnorm:      0.211093  CPU:  259.649
+  Cycle:    765 Energy:      -641.248882  Gnorm:      0.214719  CPU:  259.959
+  Cycle:    766 Energy:      -641.258221  Gnorm:      0.250084  CPU:  260.269
+  Cycle:    767 Energy:      -641.276081  Gnorm:      0.272661  CPU:  260.656
+  Cycle:    768 Energy:      -641.288277  Gnorm:      0.216089  CPU:  260.966
+  Cycle:    769 Energy:      -641.298024  Gnorm:      0.254096  CPU:  261.353
+  Cycle:    770 Energy:      -641.306658  Gnorm:      0.213500  CPU:  261.671
+  Cycle:    771 Energy:      -641.318875  Gnorm:      0.276816  CPU:  262.068
+  Cycle:    772 Energy:      -641.337291  Gnorm:      0.278772  CPU:  262.386
+  Cycle:    773 Energy:      -641.349246  Gnorm:      0.217738  CPU:  262.704
+  Cycle:    774 Energy:      -641.360755  Gnorm:      0.216364  CPU:  263.022
+  Cycle:    775 Energy:      -641.370175  Gnorm:      0.186394  CPU:  263.339
+  Cycle:    776 Energy:      -641.379088  Gnorm:      0.196412  CPU:  263.658
+  Cycle:    777 Energy:      -641.386017  Gnorm:      0.169786  CPU:  263.975
+  Cycle:    778 Energy:      -641.391394  Gnorm:      0.146257  CPU:  264.287
+  Cycle:    779 Energy:      -641.396831  Gnorm:      0.206518  CPU:  264.676
+  Cycle:    780 Energy:      -641.401551  Gnorm:      0.142375  CPU:  264.985
+  Cycle:    781 Energy:      -641.405762  Gnorm:      0.152999  CPU:  265.294
+  Cycle:    782 Energy:      -641.411535  Gnorm:      0.187556  CPU:  265.605
+  Cycle:    783 Energy:      -641.422644  Gnorm:      0.191485  CPU:  265.914
+  Cycle:    784 Energy:      -641.432096  Gnorm:      0.225268  CPU:  266.224
+  Cycle:    785 Energy:      -641.444841  Gnorm:      0.213080  CPU:  266.610
+  Cycle:    786 Energy:      -641.456799  Gnorm:      0.257209  CPU:  266.920
+  Cycle:    787 Energy:      -641.478576  Gnorm:      0.261427  CPU:  267.306
+  Cycle:    788 Energy:      -641.490778  Gnorm:      0.226834  CPU:  267.616
+  Cycle:    789 Energy:      -641.502028  Gnorm:      0.336417  CPU:  268.013
+  Cycle:    790 Energy:      -641.512563  Gnorm:      0.213703  CPU:  268.328
+  Cycle:    791 Energy:      -641.522756  Gnorm:      0.246546  CPU:  268.718
+  Cycle:    792 Energy:      -641.542079  Gnorm:      0.243745  CPU:  269.104
+  Cycle:    793 Energy:      -641.552836  Gnorm:      0.211485  CPU:  269.417
+  Cycle:    794 Energy:      -641.565808  Gnorm:      0.215644  CPU:  269.727
+  Cycle:    795 Energy:      -641.574358  Gnorm:      0.187792  CPU:  270.036
+  Cycle:    796 Energy:      -641.586117  Gnorm:      0.183503  CPU:  270.422
+  Cycle:    797 Energy:      -641.592490  Gnorm:      0.147850  CPU:  270.731
+  Cycle:    798 Energy:      -641.597704  Gnorm:      0.144991  CPU:  271.045
+  Cycle:    799 Energy:      -641.605202  Gnorm:      0.293696  CPU:  271.431
+  Cycle:    800 Energy:      -641.611713  Gnorm:      0.145183  CPU:  271.744
+  Cycle:    801 Energy:      -641.616520  Gnorm:      0.129904  CPU:  272.057
+  Cycle:    802 Energy:      -641.622370  Gnorm:      0.196002  CPU:  272.370
+  Cycle:    803 Energy:      -641.634021  Gnorm:      0.201542  CPU:  272.760
+  Cycle:    804 Energy:      -641.642494  Gnorm:      0.193842  CPU:  273.073
+  Cycle:    805 Energy:      -641.651731  Gnorm:      0.218791  CPU:  273.462
+  Cycle:    806 Energy:      -641.663283  Gnorm:      0.216663  CPU:  273.851
+  Cycle:    807 Energy:      -641.673513  Gnorm:      0.280333  CPU:  274.164
+  Cycle:    808 Energy:      -641.692676  Gnorm:      0.224916  CPU:  274.477
+  Cycle:    809 Energy:      -641.704813  Gnorm:      0.272251  CPU:  274.790
+  Cycle:    810 Energy:      -641.714147  Gnorm:      0.181926  CPU:  275.103
+  Cycle:    811 Energy:      -641.726296  Gnorm:      0.211404  CPU:  275.416
+  Cycle:    812 Energy:      -641.732662  Gnorm:      0.182044  CPU:  275.729
+  Cycle:    813 Energy:      -641.740416  Gnorm:      0.202188  CPU:  276.041
+  Cycle:    814 Energy:      -641.749794  Gnorm:      0.183442  CPU:  276.355
+  Cycle:    815 Energy:      -641.757683  Gnorm:      0.197007  CPU:  276.668
+  Cycle:    816 Energy:      -641.773087  Gnorm:      0.277718  CPU:  277.057
+  Cycle:    817 Energy:      -641.784112  Gnorm:      0.138457  CPU:  277.370
+  Cycle:    818 Energy:      -641.789280  Gnorm:      0.205611  CPU:  277.682
+  Cycle:    819 Energy:      -641.800565  Gnorm:      0.288953  CPU:  278.071
+  Cycle:    820 Energy:      -641.810190  Gnorm:      0.192123  CPU:  278.473
+  Cycle:    821 Energy:      -641.814783  Gnorm:      0.128841  CPU:  278.788
+  Cycle:    822 Energy:      -641.821718  Gnorm:      0.215508  CPU:  279.101
+  Cycle:    823 Energy:      -641.839943  Gnorm:      0.257716  CPU:  279.414
+  Cycle:    824 Energy:      -641.848959  Gnorm:      0.164625  CPU:  279.727
+  Cycle:    825 Energy:      -641.855037  Gnorm:      0.162205  CPU:  280.116
+  Cycle:    826 Energy:      -641.862717  Gnorm:      0.161347  CPU:  280.505
+  Cycle:    827 Energy:      -641.869552  Gnorm:      0.242495  CPU:  280.894
+  Cycle:    828 Energy:      -641.885822  Gnorm:      0.262000  CPU:  281.284
+  Cycle:    829 Energy:      -641.898024  Gnorm:      0.257666  CPU:  281.597
+  Cycle:    830 Energy:      -641.905182  Gnorm:      0.187479  CPU:  281.910
+  Cycle:    831 Energy:      -641.915193  Gnorm:      0.216287  CPU:  282.298
+  Cycle:    832 Energy:      -641.921237  Gnorm:      0.131716  CPU:  282.608
+  Cycle:    833 Energy:      -641.927104  Gnorm:      0.149029  CPU:  282.918
+  Cycle:    834 Energy:      -641.932187  Gnorm:      0.158740  CPU:  283.227
+  Cycle:    835 Energy:      -641.940639  Gnorm:      0.254994  CPU:  283.613
+  Cycle:    836 Energy:      -641.969351  Gnorm:      0.337161  CPU:  284.073
+  Cycle:    837 Energy:      -641.984286  Gnorm:      0.250220  CPU:  284.456
+  Cycle:    838 Energy:      -641.994059  Gnorm:      0.202308  CPU:  284.763
+  Cycle:    839 Energy:      -642.011256  Gnorm:      0.279671  CPU:  285.143
+  Cycle:    840 Energy:      -642.024301  Gnorm:      0.188734  CPU:  285.449
+  Cycle:    841 Energy:      -642.029939  Gnorm:      0.160951  CPU:  285.754
+  Cycle:    842 Energy:      -642.036674  Gnorm:      0.224147  CPU:  286.059
+  Cycle:    843 Energy:      -642.052700  Gnorm:      0.275135  CPU:  286.439
+  Cycle:    844 Energy:      -642.064550  Gnorm:      0.212312  CPU:  286.744
+  Cycle:    845 Energy:      -642.073985  Gnorm:      0.163296  CPU:  287.124
+  Cycle:    846 Energy:      -642.078470  Gnorm:      0.139622  CPU:  287.430
+  Cycle:    847 Energy:      -642.084103  Gnorm:      0.205980  CPU:  287.810
+  Cycle:    848 Energy:      -642.097956  Gnorm:      0.264187  CPU:  288.190
+  Cycle:    849 Energy:      -642.112792  Gnorm:      0.256278  CPU:  288.495
+  Cycle:    850 Energy:      -642.119950  Gnorm:      0.168615  CPU:  288.800
+
+
+  **** Maximum number of function calls has been reached ****
+
+
+  Final enthalpy =    -642.11995048 eV      
+  Final Gnorm    =       0.16861540
+
+  Components of enthalpy : 
+
+--------------------------------------------------------------------------------
+  Interatomic potentials     =         230.85657002 eV    
+  Monopole - monopole (real) =        -520.95706428 eV    
+  Monopole - monopole (recip)=        -484.37425632 eV    
+  Monopole - monopole (total)=       -1005.33132060 eV    
+  Pressure*volume            =         132.35480010 eV    
+--------------------------------------------------------------------------------
+  Total lattice enthalpy     =        -642.11995048 eV    
+--------------------------------------------------------------------------------
+  Total lattice enthalpy     =          -61954.7595 kJ/(mole unit cells)
+--------------------------------------------------------------------------------
+
+  Final fractional coordinates of atoms :
+
+--------------------------------------------------------------------------------
+   No.  Atomic        x           y          z          Radius
+        Label       (Frac)      (Frac)     (Frac)       (Angs) 
+--------------------------------------------------------------------------------
+     1  Al    c     0.534922    0.139744    0.096565    0.000000
+     2  Al    c     0.333550    0.215771    0.004510    0.000000
+     3  Al    c     0.553924    0.096861    0.842644    0.000000
+     4  Al    c     0.379514    0.078920    0.621307    0.000000
+     5  Al    c     0.841033    0.679535    0.898592    0.000000
+     6  Al    c     0.124647    0.328360    0.854305    0.000000
+     7  Al    c     0.918388    0.465634    0.704908    0.000000
+     8  Al    c     0.263902    0.430338    0.242877    0.000000
+     9  Mg    c     0.569691    0.021064    0.650274    0.000000
+    10  Mg    c     0.755212    0.006128    0.948310    0.000000
+    11  Mg    c     0.053189    0.550798    0.084144    0.000000
+    12  Mg    c     0.059436    0.526225    0.782206    0.000000
+    13  O     c     0.526904    0.872991    0.570277    0.000000
+    14  O     c     0.719826    0.849473    0.548300    0.000000
+    15  O     c     0.213248    0.467041    0.300693    0.000000
+    16  O     c     0.341001    0.296004    0.409638    0.000000
+    17  O     c     0.300107    0.638659    0.308430    0.000000
+    18  O     c     0.914741    0.625058    0.304836    0.000000
+    19  O     c     0.517525    0.147535    0.884846    0.000000
+    20  O     c     0.219666    0.327083    0.035089    0.000000
+    21  O     c     0.955227    0.668792    0.976014    0.000000
+    22  O     c     0.458066    0.119540    0.613315    0.000000
+    23  O     c     0.000989    0.073595    0.866698    0.000000
+    24  O     c     0.421695    0.842817    0.861125    0.000000
+    25  O     c     0.759826    0.648148    0.382422    0.000000
+    26  O     c     0.590646    0.118107    0.707817    0.000000
+    27  O     c     0.098123    0.587305    0.256070    0.000000
+    28  O     c     0.957715    0.599238    0.676363    0.000000
+--------------------------------------------------------------------------------
+
+  Final Cartesian lattice vectors (Angstroms) :
+
+       22.823991   -2.753466   -5.803594
+       -2.043332   14.585995    3.878414
+       -4.241126    7.826559    3.439773
+
+
+  Final cell parameters and derivatives :
+
+--------------------------------------------------------------------------------
+       a           23.710711 Angstrom     dE/de1(xx)     0.927048 eV/strain
+       b           15.230514 Angstrom     dE/de2(yy)    -0.487735 eV/strain
+       c            9.543281 Angstrom     dE/de3(zz)    -1.129941 eV/strain
+       alpha       20.476793 Degrees      dE/de4(yz)    -0.094409 eV/strain
+       beta       127.680008 Degrees      dE/de5(xz)     0.308701 eV/strain
+       gamma      107.618982 Degrees      dE/de6(xy)     0.282258 eV/strain
+--------------------------------------------------------------------------------
+
+  Primitive cell volume =           212.057405 Angs**3
+
+  Density of cell =      4.456315 g/cm**3
+
+  Non-primitive cell volume =           212.057405 Angs**3
+
+
+  Final internal derivatives :
+
+--------------------------------------------------------------------------------
+   No.  Atomic          a             b             c           Radius
+        Label          (eV)          (eV)          (eV)        (eV/Angs)
+--------------------------------------------------------------------------------
+      1 Al    c       0.000000      0.000000      0.000000      0.000000
+      2 Al    c      -3.407098      1.442902      0.334575      0.000000
+      3 Al    c      -2.117413      1.803411      0.456957      0.000000
+      4 Al    c      -0.497806     -1.986890     -0.138761      0.000000
+      5 Al    c       2.674326      3.043924      1.711944      0.000000
+      6 Al    c       4.434905     -2.524315     -0.788099      0.000000
+      7 Al    c      -1.824498      0.632172      3.173149      0.000000
+      8 Al    c       1.424639      0.666343     -1.215486      0.000000
+      9 Mg    c       2.830631      1.041235      0.729550      0.000000
+     10 Mg    c      -1.727265     -0.197345     -1.700518      0.000000
+     11 Mg    c      -3.130315     -0.834387     -0.512182      0.000000
+     12 Mg    c       0.193752     -0.069589     -0.155772      0.000000
+     13 O     c      -2.688571     -0.982378      2.468027      0.000000
+     14 O     c      -1.233968     -0.183137     -0.468341      0.000000
+     15 O     c      -1.339931      1.217038      0.029333      0.000000
+     16 O     c      -0.068184     -2.058769     -0.079331      0.000000
+     17 O     c       0.788624     -0.522884     -0.477342      0.000000
+     18 O     c       2.398613      0.902823      0.486606      0.000000
+     19 O     c       1.797044     -0.216932     -2.301999      0.000000
+     20 O     c       0.238168     -0.060097     -0.478789      0.000000
+     21 O     c      -0.090716      0.427363      1.373051      0.000000
+     22 O     c      -0.543368      0.101404     -0.996987      0.000000
+     23 O     c      -0.185852      0.779479     -0.082215      0.000000
+     24 O     c       3.446014     -2.494007     -2.795947      0.000000
+     25 O     c      -1.780247     -0.877703      1.235040      0.000000
+     26 O     c      -1.288598      0.824199      0.171051      0.000000
+     27 O     c      -0.427009     -2.422102     -0.199087      0.000000
+     28 O     c       0.606161     -3.159772     -1.399554      0.000000
+--------------------------------------------------------------------------------
+  Maximum abs         4.434905      3.159772      3.173149      0.000000
+--------------------------------------------------------------------------------
+
+
+  Time to end of optimisation =     288.8002 seconds
+
+
+  Peak dynamic memory used =       1.90 MB 
+
+
+  Timing analysis for GULP :
+
+--------------------------------------------------------------------------------
+  Task / Subroutine                                          Time (Seconds)
+--------------------------------------------------------------------------------
+  Calculation of reciprocal space energy and derivatives          1.8835
+  Calculation of real space energy and derivatives              286.7007
+  Global summation overhead                                       0.0057
+--------------------------------------------------------------------------------
+  Total CPU time                                                288.8002
+--------------------------------------------------------------------------------
+
+
+  Job Finished at 16:16.49 11th June       2024                               
+

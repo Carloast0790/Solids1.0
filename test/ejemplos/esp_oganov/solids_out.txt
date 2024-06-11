@@ -1,0 +1,174 @@
+# Solids 1.0
+#
+# Authors:
+# (1) Carlos López-Castro, (2) Filiberto Ortiz-Chi, and (1) Gabriel Merino
+#
+# (1) Departamento de Fisica Aplicada,
+#     Centro de Investigacion y de Estudios Avanzados, Unidad Merida,
+#     Km 6 Antigua Carretera a Progreso, A.P. 73, Cordemex, 97310 Merida, Yucatan, Mexico
+# (2) CONACYT-Universidad Juarez Autonoma de Tabasco,
+#     Centro de Investigacion de Ciencia y Tecnologia Aplicada de Tabasco,
+#     Cunduacan 86690, Tabasco, Mexico.
+
+-------------------------------------------------------------------
+Current PID          = 7936
+Chemical Formula     = Mg1 Al2 O4
+Formula Units        = 4
+initial.vasp exists... we take it
+-------------------------------------------------------------------
+------------------- LOCAL OPTIMIZATION: STAGE 1 -------------------
+Making input file = stage1/stage1001.gin
+Making input file = stage1/stage1002.gin
+Making input file = stage1/stage1003.gin
+Making input file = stage1/stage1004.gin
+Making input file = stage1/stage1005.gin
+Making input file = stage1/stage1006.gin
+Making input file = stage1/stage1007.gin
+Making input file = stage1/stage1008.gin
+Making input file = stage1/stage1009.gin
+Making input file = stage1/stage1010.gin
+Making input file = stage1/stage1011.gin
+Making input file = stage1/stage1012.gin
+Making input file = stage1/stage1013.gin
+Making input file = stage1/stage1014.gin
+Making input file = stage1/stage1015.gin
+Making input file = stage1/stage1016.gin
+Making input file = stage1/stage1017.gin
+Making input file = stage1/stage1018.gin
+Making input file = stage1/stage1019.gin
+Making input file = stage1/stage1020.gin
+Making input file = stage1/stage1021.gin
+Making input file = stage1/stage1022.gin
+Making input file = stage1/stage1023.gin
+Making input file = stage1/stage1024.gin
+Making input file = stage1/stage1025.gin
+Making input file = stage1/stage1026.gin
+Making input file = stage1/stage1027.gin
+Making input file = stage1/stage1028.gin
+Making input file = stage1/stage1029.gin
+Making input file = stage1/stage1030.gin
+Making input file = stage1/stage1031.gin
+Making input file = stage1/stage1032.gin
+Making input file = stage1/stage1033.gin
+Making input file = stage1/stage1034.gin
+Making input file = stage1/stage1035.gin
+Making input file = stage1/stage1036.gin
+Making input file = stage1/stage1037.gin
+Making input file = stage1/stage1038.gin
+Making input file = stage1/stage1039.gin
+Making input file = stage1/stage1040.gin
+Making input file = stage1/stage1041.gin
+Making input file = stage1/stage1042.gin
+Making input file = stage1/stage1043.gin
+Making input file = stage1/stage1044.gin
+Making input file = stage1/stage1045.gin
+Making input file = stage1/stage1046.gin
+Making input file = stage1/stage1047.gin
+Making input file = stage1/stage1048.gin
+Enter to local submit: stage1001.sh --> Mon Jun 10 12:51:17 2024
+Enter to local submit: stage1002.sh --> Mon Jun 10 12:51:18 2024
+Enter to local submit: stage1003.sh --> Mon Jun 10 12:51:18 2024
+Enter to local submit: stage1004.sh --> Mon Jun 10 12:51:18 2024
+Enter to local submit: stage1005.sh --> Mon Jun 10 12:51:18 2024
+Enter to local submit: stage1006.sh --> Mon Jun 10 12:51:18 2024
+Enter to local submit: stage1007.sh --> Mon Jun 10 12:51:18 2024
+Enter to local submit: stage1008.sh --> Mon Jun 10 12:51:19 2024
+Enter to local submit: stage1009.sh --> Mon Jun 10 12:51:19 2024
+Enter to local submit: stage1010.sh --> Mon Jun 10 12:51:19 2024
+Enter to local submit: stage1011.sh --> Mon Jun 10 12:51:19 2024
+Enter to local submit: stage1012.sh --> Mon Jun 10 12:51:19 2024
+Enter to local submit: stage1013.sh --> Mon Jun 10 12:51:20 2024
+Enter to local submit: stage1014.sh --> Mon Jun 10 12:51:20 2024
+Enter to local submit: stage1015.sh --> Mon Jun 10 12:51:20 2024
+Enter to local submit: stage1016.sh --> Mon Jun 10 12:51:20 2024
+Enter to local submit: stage1017.sh --> Mon Jun 10 12:51:20 2024
+Enter to local submit: stage1018.sh --> Mon Jun 10 12:51:21 2024
+Enter to local submit: stage1019.sh --> Mon Jun 10 12:51:21 2024
+Enter to local submit: stage1020.sh --> Mon Jun 10 12:51:21 2024
+Enter to local submit: stage1021.sh --> Mon Jun 10 12:51:21 2024
+Enter to local submit: stage1022.sh --> Mon Jun 10 12:51:21 2024
+Enter to local submit: stage1023.sh --> Mon Jun 10 12:51:21 2024
+Enter to local submit: stage1024.sh --> Mon Jun 10 12:51:22 2024
+Enter to local submit: stage1025.sh --> Mon Jun 10 12:51:22 2024
+Enter to local submit: stage1026.sh --> Mon Jun 10 12:51:22 2024
+Enter to local submit: stage1027.sh --> Mon Jun 10 12:51:22 2024
+Enter to local submit: stage1028.sh --> Mon Jun 10 12:51:22 2024
+Enter to local submit: stage1029.sh --> Mon Jun 10 12:51:22 2024
+Enter to local submit: stage1030.sh --> Mon Jun 10 12:51:23 2024
+Enter to local submit: stage1031.sh --> Mon Jun 10 12:51:23 2024
+Enter to local submit: stage1032.sh --> Mon Jun 10 12:51:23 2024
+Enter to local submit: stage1033.sh --> Mon Jun 10 12:51:23 2024
+Enter to local submit: stage1034.sh --> Mon Jun 10 12:51:23 2024
+Enter to local submit: stage1035.sh --> Mon Jun 10 12:51:23 2024
+Enter to local submit: stage1036.sh --> Mon Jun 10 12:51:24 2024
+Enter to local submit: stage1037.sh --> Mon Jun 10 12:51:24 2024
+Enter to local submit: stage1038.sh --> Mon Jun 10 12:51:24 2024
+Enter to local submit: stage1039.sh --> Mon Jun 10 12:51:24 2024
+Enter to local submit: stage1040.sh --> Mon Jun 10 12:51:24 2024
+Enter to local submit: stage1041.sh --> Mon Jun 10 12:51:25 2024
+Enter to local submit: stage1042.sh --> Mon Jun 10 12:51:25 2024
+Enter to local submit: stage1043.sh --> Mon Jun 10 12:51:25 2024
+Enter to local submit: stage1044.sh --> Mon Jun 10 12:51:25 2024
+Enter to local submit: stage1045.sh --> Mon Jun 10 12:51:25 2024
+Enter to local submit: stage1046.sh --> Mon Jun 10 12:51:25 2024
+Enter to local submit: stage1047.sh --> Mon Jun 10 12:51:26 2024
+Enter to local submit: stage1048.sh --> Mon Jun 10 12:51:26 2024
+Calculations with N.T. = 48 (100 percent)
+Calculations with A.T. = 0 (0 percent)
+-------------------------------------------------------------------
+------------------- DISCRIMINATION Generation ---------------------
+stage1034 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1035 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1036 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1026 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1027 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1028 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1029 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1030 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1031 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1032 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1037 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1038 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1039 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1040 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1047 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1023 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1024 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1025 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1041 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1042 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1043 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1044 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1045 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1046 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1048 sym Pm (6) discriminated, too similar to stage1033 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1011 sym P1 (1) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1012 sym P1 (1) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1015 sym Pm (6) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1018 sym Pm (6) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1019 sym Pm (6) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1020 sym Pm (6) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1021 sym Pm (6) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1022 sym Pm (6) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1013 sym P1 (1) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1014 sym P1 (1) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1016 sym P1 (1) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1017 sym P1 (1) discriminated, too similar to stage1010 sym P1 (1), dE = 0.00000 dV = 0.00000
+stage1003 sym Pm (6) discriminated, too similar to stage1002 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1004 sym Pm (6) discriminated, too similar to stage1002 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1005 sym Pm (6) discriminated, too similar to stage1002 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1006 sym Pm (6) discriminated, too similar to stage1002 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1007 sym Pm (6) discriminated, too similar to stage1002 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1008 sym Pm (6) discriminated, too similar to stage1002 sym Pm (6), dE = 0.00000 dV = 0.00000
+stage1009 sym Pm (6) discriminated, too similar to stage1002 sym Pm (6), dE = 0.00000 dV = 0.00000
+-------------------------------------------------------------------
+------------------------- SUMMARY STAGE 1 -------------------------
+Number  File-Name   Energy (ev)    Delta-E  NT
+00001   stage1033  -654.98821915   0.000000 1
+00002   stage1010  -653.48952565   1.498693 1
+00003   stage1002  -652.84642165   2.141797 1
+00004   stage1001  -652.14613364   2.842086 1
+Created: stage1.vasp
+-------------------------------------------------------------
+SOLIDS HAS FINISHED SUCCESSFULLY
+-------------------------------------------------------------

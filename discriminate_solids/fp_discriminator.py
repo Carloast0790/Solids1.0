@@ -7,8 +7,8 @@ from inout_solids.getbilparam import get_a_int, get_a_str, get_a_float
 #----------------------------------------------------------------------------------------------------------
 #Variables
 log_file = get_a_str('output_file','solids_out.txt')
-min_dE = get_a_float('min_energy_difference',0.00004)
-min_dV = get_a_float('min_volume_difference',0.0001) 
+min_dE = get_a_float('min_energy_difference',0.01)
+min_dV = get_a_float('min_volume_difference',0.01) 
 #----------------------------------------------------------------------------------------------------------
 def find_spacegroup(xtal_in):
 	'''Uses spglib to find the space group of the crystal structures
@@ -112,7 +112,7 @@ def discriminate_calculated(xtal_list, vol_restr):
 			if e == True:
 				if str_b in xtalist_out:
 					fopen = open(log_file,'a')
-					print('%s sym %s discriminated, too similar to %s sym %s, dE = %.5f dV = %.5f' %(str_b.i,sym_b,str_a.i,sym_a,dE,dV),file=fopen)
+					print('%s sym %12s discriminated, too similar to %s sym %12s, dE = %.5f dV = %.5f' %(str_b.i,sym_b,str_a.i,sym_a,dE,dV),file=fopen)
 					fopen.close()
 					xtalist_out.remove(str_b)
 	if len(xtalist_out) == len(xtal_list):
@@ -151,7 +151,7 @@ def discriminate_calculated_vs_pool(calulation_list, pool_list,vol_restr):
 				equal, dE, dV, sym_a, sym_b = compare_fingerprints(xtala,xtalb,vol_restr)
 				if equal == True:
 					fopen = open(log_file,'a')
-					print('%s sym %s discriminated, too similar to %s sym %s, dE = %.5f dV = %.5f' %(xtala.i,sym_a,xtalb.i,sym_b,dE,dV),file=fopen)
+					print('%s sym %12s discriminated, too similar to %s sym %12s, dE = %.5f dV = %.5f' %(xtala.i,sym_a,xtalb.i,sym_b,dE,dV),file=fopen)
 					fopen.close()
 					init = False
 					xtalist_out.remove(xtala)

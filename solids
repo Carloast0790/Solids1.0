@@ -3,33 +3,25 @@ from inout_solids.readbil import get_bilfile
 from inout_solids.getbilparam import get_a_int, get_a_str
 #------------------------------------------------------------------------------------------------
 bilfile=get_bilfile()
-option=get_a_str('option','MH')
+option=get_a_str('option','sm')
 option=option.lower()
 #------------------------------------------------------------------------------------------------
-if  option == 'mh':
+if  option == 'sm':
     #print("Choosed option %s: Modified Stochastic Method from chem-formula/mol.xyz" %(option))
     import kick_solids.heuristic_solids_kick
 elif option == 'ga':
     #print("Choosed option %s: Growth pattern Algorithm" %(option))
     import gega_solids.heuristic_solid_gega
 else:
-    write_menu()
-    print("You need to specify a VALID option in the %s (option = MH/GA)\n" %(bilfile))
+    print("You need to specify one VALID option in the %s (option = SM/GA)\n" %(bilfile))
     print("Please, build an valid INPUT.txt file. Try:\n")
-    print("glomos --ex_MH_vasp")
-    print("glomos --ex_MH_gulp")
-    print("glomos --ex_GA_vasp")
-    print("glomos --ex_GA_gulp\n")
+    print("solids --example_SM_vasp_TiO2")
+    print("solids --example_SM_gulp_TiO2")
+    print("solids --example_SM_gulp_C8")
+    print("solids --example_SM_gulp_Si8")
+    print("solids --example_GA_vasp_TiO2")
+    print("solids --example_GA_gulp_TiO2")
+    print("solids --example_GA_gulp_MgAl2O4")
+    print("solids --example_GA_gulp_MgSiO3")
+    print("solids --example_GA_gulp_SrTiO3\n")
 exit()
-
-#####################################################################
-##Solids
-#export PYTHONPATH=$HOME/glomos:$PYTHONPATH
-#export PATH=$HOME/glomos:$PATH
-#!/usr/local/bin/python3 -u
-#!/home/apps/appgnu/python366/bin/python3.6 -u
-#!/LUSTRE/software/intel/python3/python-3.6.6/bin/python3.6 -u
-#!/usr/local/bin/python3 -u
-#!/usr/local/opt/python@3.9/bin/python3 -u
-#!/LUSTRE/software/intel/python3/python-3.6.6/bin/python3.6 -u
-#####################################################################

@@ -12,9 +12,13 @@ number_of_childs = get_a_int('number_of_matings',10)
 log_file = get_a_str('output_file','solids_out.txt')
 #----------------------------------------------------------------------------------------------------------
 def bounded_random_point(r_max,r_min):
-	'''
-	This function returns a random number (random_point) such as r_min < random_point < r_max
-	Note: 0 < r_max & r_min < 1 
+	'''Finds random_point such as r_min < random_point < r_max
+
+	in: 
+	r_max, r_min (float); Top and Lower limits for the random number
+
+	out:
+	random_point (float); r_min < random_point < r_max 
 	'''
 	random_point = 1
 	if r_min > r_max:
@@ -27,40 +31,19 @@ def bounded_random_point(r_max,r_min):
 
 #----------------------------------------------------------------------------------------------------------
 def rot(xtal_in):
+	'''Randomly exchange the unit cell vectors. ------------------Does it really work?
+
+	in:
+	xtal_in (Molecule); The structure whose vectors will be exchanged
+
+	out:
+	xtal_out (Molecule); The new structure
+	'''
 	xtal_out = copymol(xtal_in)
 	org = list(xtal_out.m)
-	# print('org',xtal_out.m)
 	random.shuffle(org)
 	new = np.array(org)
-	# print('shuff',new)
 	return xtal_out
-
-#----------------------------------------------------------------------------------------------------------
-def combined_unit_cell(xtal_a, xtal_b, weight_h=0.6, weight_s=0.4):
-	'''
-	This function averages the matrices that comprise the unit cells of the crystal structures. The weighted
-	averaged unit cell is returned.
-
-	in: xtal_a, xtal_b (Molecule), the two structures whose UC will be averaged
-	    weight_h (float), the higher weight to be given to the vectors
-	    weight_s (float), the lower weigth to be given to the vectors
-	out: new_mtx (Numpy Array), the weighted averaged UC
-	'''
-	mtx_a,mtx_b = xtal_a.m, xtal_b.m
-	new_mtx=[]
-	for i in range(3):
-		ai = mtx_a[i]
-		bi = mtx_b[i]
-		mag_ai = np.linalg.norm(ai)
-		mag_bi = np.linalg.norm(bi)
-		if mag_ai > mag_bi:
-			ci = bi*weight_s + ai*weight_h
-		elif mag_ai < mag_bi:
-			ci = ai*weight_s + bi*weight_h
-		else:
-			ci = ai*0.5 + bi*0.5
-		new_mtx.append(ci)
-	return np.array(new_mtx)
 
 #----------------------------------------------------------------------------------------------------------
 def parent_cut_bellow(xtal_in, axis, cutting_point):
@@ -137,13 +120,43 @@ def parent_cut_above(xtal_in, axis, cutting_point):
 	return new_xtal
 
 #----------------------------------------------------------------------------------------------------------
-def translating_to_avg_uc(xtal_in,avg_uc):
+def combined_unit_cell(xtal_a, xtal_b, weight_h=0.6, weight_s=0.4):
+	'''Averages the unit cells of parent structures, a weighted-averaged unit cell is returned.
+	
+	in: 
+	xtal_a, xtal_b (Molecule); two structures whose UC will be averaged
+	weight_h (float); the higher weight to be given to the vectors
+	weight_s (float); the lower weigth to be given to the vectors
+	
+	out: 
+	new_mtx (Numpy Array); weighted averaged UC
 	'''
-	This function translates xtal_in to the average UC, that is, the same atomic position but in the avg UC
+	mtx_a, mtx_b = xtal_a.m, xtal_b.m
+	new_mtx=[]
+	for i in range(3):
+		ai = mtx_a[i]
+		bi = mtx_b[i]
+		mag_ai = np.linalg.norm(ai)
+		mag_bi = np.linalg.norm(bi)
+		if mag_ai > mag_bi:
+			ci = bi*weight_s + ai*weight_h
+		elif mag_ai < mag_bi:
+			ci = ai*weight_s + bi*weight_h
+		else:
+			ci = ai*0.5 + bi*0.5
+		new_mtx.append(ci)
+	return np.array(new_mtx)
 
-	in: xtal_in (Molecule), the original crystal structure that will be translated
-	    avg_uc (Numpy array), th UC upon wich the translation will be done.
-	out: xtal_out (Molecule), the new translated crystal structure 
+#----------------------------------------------------------------------------------------------------------
+def translating_to_avg_uc(xtal_in,avg_uc):
+	'''Translates a given structure to the corresponding one in the weighted-averaged UC
+
+	in: 
+	xtal_in (Molecule); the original crystal structure that will be translated
+	avg_uc (Numpy array); th UC upon wich the translation will be done.
+	
+	out: 
+	xtal_out (Molecule); the new translated crystal structure 
 	'''
 	cp_xtal = copymol(xtal_in)
 	name = cp_xtal.i + str('_avg_uc') 
@@ -215,8 +228,8 @@ def crossover(base_xtal,complement_xtal,ref_d):
 		r_vect = random.choice(['a','b','c'])
 		r_point = bounded_random_point(0.7,0.4)
 		# rotate the structures 
-		avg_base = rot(avg_base)
-		avg_comp = rot(avg_comp)
+		# avg_base = rot(avg_base)
+		# avg_comp = rot(avg_comp)
 		# translate the structures
 		avg_base = translation_3D(avg_base)
 		avg_comp = translation_3D(avg_comp)
@@ -273,24 +286,6 @@ def crossover(base_xtal,complement_xtal,ref_d):
 			break
 	return xtal_out
 
-# from vasp.libperiodicos import readposcars, writeposcars
-# from miscellaneous import get_tolerances,get_xcomp
-# from inout.readbil import read_var_composition
-# composition = read_var_composition('composition')
-# atms_specie, atms_per_specie = get_xcomp(composition)
-
-# a = readposcars('stage1.vasp')
-# r = get_tolerances(atms_specie)
-# print(r)
-# a1 = a[0]
-# a2 = a[1]
-# a3 = crossover(a1,a2,r)
-# if a3:
-# 	writeposcars([a3],'test_cross.vasp','D')
-# 	print('se pudo hacer la cruzar')
-# else:
-# 	print('fracaso')
-# exit()
 #----------------------------------------------------------------------------------------------------------
 def many_crossovers(m_list,f_list,ref_d):
 	all_cross = []
