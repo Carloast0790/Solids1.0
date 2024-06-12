@@ -4,14 +4,14 @@ solids_short_string="""# Solids 1.0
 welcome_solids = """# Solids 1.0
 #
 # Authors:
-# (1) Carlos López-Castro, (2) Filiberto Ortiz-Chi, and (1) Gabriel Merino
+# (1) Carlos Lopez-Castro, (2) Filiberto Ortiz-Chi, and (1) Gabriel Merino
 #
 # (1) Departamento de Fisica Aplicada,
 #     Centro de Investigacion y de Estudios Avanzados, Unidad Merida,
 #     Km 6 Antigua Carretera a Progreso, A.P. 73, Cordemex, 97310 Merida, Yucatan, Mexico
-# (2) CONACYT-Universidad Juarez Autonoma de Tabasco,
-#     Centro de Investigacion de Ciencia y Tecnologia Aplicada de Tabasco,
-#     Cunduacan 86690, Tabasco, Mexico.
+# (2) CONAHCYT-Centro de Investigacion y de Estudios Avanzados, Unidad Merida,
+#     Km 6 Antigua Carretera a Progreso, A.P. 73, Cordemex, 97310 Merida, Yucatan, Mexico
+
 """
 
 
@@ -19,7 +19,7 @@ menu_long_string = """
 #----------------------------------------------------------------------------
 # SYSTEM  | METHOD                     |    CODE   |  opt  |  NEEDS
 #----------------------------------------------------------------------------
-#Crystal  | Modified Stochastic Method | VASP/GULP | kick  | (COMPOSITION)
+#Crystal  | Modified Stochastic Method | VASP/GULP |  SM   | (COMPOSITION)
 #Crystal  | Modified Genetic Algorithm | VASP/GULP |  GA   | (COMPOSITION)
 #----------------------------------------------------------------------------
 """
