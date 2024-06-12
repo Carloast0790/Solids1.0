@@ -15,8 +15,13 @@ flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
 emax =  get_a_float('energy_range', 99.0)
 atms_specie,atms_per_specie = get_xcomp(composition)
-total_structures = get_a_int('initial_structures', 10)
 formula_units = get_a_int('formula_units',4)
+#------------
+z = len(atms_per_specie)
+for i in range(z):
+    atms_per_specie[i] = atms_per_specie[i] * formula_units
+#------------
+total_structures = get_a_int('initial_structures', 10)
 dimension = get_a_int('dimension',3)
 volume_factor = get_a_float('volume_factor', 1.0)
 nofstages = get_a_int('number_of_stages', 1)
