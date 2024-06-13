@@ -27,27 +27,29 @@ def popgen_fresh_random_gen(number_of_random,species,atoms_per_specie,generation
     print("-------------------------------------------------------------------", file=logfile)
     print("------------------------ RANDOM STRUCTURES ------------------------", file=logfile)
     xtal_list = []
-    # z = len(atoms_per_specie)
-    # for i in range(z):
-    #     atoms_per_specie[i] = atoms_per_specie[i] * formula_units
     xc = 0
     while xc <= number_of_random:
+        xtal = pyxtal()
         if dimension == 2:
-            sym = random.randint(2,80)
-            xtal = pyxtal()
-            xtal.from_random(dimension,sym,species,atoms_per_specie,thickness=0.0, force_pass=True)
+            try:
+                sym = random.randint(2,80)
+                xtal.from_random(dimension,sym,species,atoms_per_specie,thickness=0.0)
+            except:
+                continue
         elif dimension == 3:
-            sym = random.randint(2,230)
-            xtal = pyxtal()
-            xtal.from_random(dimension, sym, species, atoms_per_specie,force_pass=True)        
-        if xtal.valid:
-            xc = xc + 1
-            solids_xtal = pyxtal2xyz(xtal)
-            solids_xtal = unit_cell_non_negative_coordinates(solids_xtal)
-            name = 'RFresh_'+str(generation).zfill(3)+'_'+str(xc).zfill(4)
-            solids_xtal.i = name
-            xtal_list.append(solids_xtal)
-            print('%s' %(name), file=logfile)
+            try:
+                sym = random.randint(2,230)
+                xtal.from_random(dimension, sym, species, atoms_per_specie)
+            except:
+                continue
+            else:
+                xc = xc + 1
+                solids_xtal = pyxtal2xyz(xtal)
+                solids_xtal = unit_cell_non_negative_coordinates(solids_xtal)
+                name = 'RFresh_'+str(generation).zfill(3)+'_'+str(xc).zfill(4)
+                solids_xtal.i = name
+                xtal_list.append(solids_xtal)
+                print('%s' %(name), file=logfile)
         if xc == number_of_random:
             break
     print("We have %d POSCAR type RANDOM from %d solicited" %(len(xtal_list), number_of_random), file=logfile)

@@ -22,7 +22,7 @@ interatom_scale_value 0.8
 
 ========= Initial population ==========
 
-initial_structures  50
+initial_structures  100
 
 ======== Algorithm parameters =========
 
@@ -31,7 +31,7 @@ number_of_stages    2
 ========== Discrimination =============
 
 min_energy_difference   0.01
-min_volume_difference   0.001
+min_volume_difference   0.01
 energy_range            10.0
 
 ====== Calculation parameters =========

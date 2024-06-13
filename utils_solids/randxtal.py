@@ -98,7 +98,6 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_un
             except:
                 continue
             else:
-                xc = xc + 1
                 glomos_xtal = pyxtal2xyz(xtal)
                 glomos_xtal = unit_cell_non_negative_coordinates(glomos_xtal)
                 if vol_restr:

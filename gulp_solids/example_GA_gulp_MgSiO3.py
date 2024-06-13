@@ -23,13 +23,14 @@ interatom_scale_value 0.9
 
 ========= Initial population ==========
 
-initial_structures  100
+initial_structures  40
 
 ======== Algorithm parameters =========
 
-max_number_inputs   40
+max_number_inputs   20
 number_of_matings   60
 number_of_mutants   20
+number_of_randoms   20
 max_number_gens     20
 crit_stop_nrep      10
 
