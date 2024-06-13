@@ -31,18 +31,16 @@ def get_bilfile():
         #====================================================================
         if sys.argv[1] == "--example_SM_vasp_TiO2":
             print("Built INPUT.txt file for TiO2 search using VASP and the Modified Stochastic Method")
-            import vasp_solids.exampleKV
+            import vasp_solids.example_SM_vasp_TiO2
             import vasp_solids.incar_1
             import vasp_solids.incar_2
             import vasp_solids.kpoints
-            sys.exit()
         if sys.argv[1] == "--example_GA_vasp_TiO2":
             print("Built INPUT.txt file for TiO2 search using VASP and the Modified Genetic Algorithm")
-            import vasp_solids.exampleGAV
+            import vasp_solids.example_GA_vasp_TiO2
             import vasp_solids.incar_1
             import vasp_solids.incar_2
             import vasp_solids.kpoints
-            sys.exit()
         #====================================================================
         ##GULP
         #====================================================================

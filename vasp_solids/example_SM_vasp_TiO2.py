@@ -3,15 +3,11 @@ from conf_solids.conf import queue_name
 qname=queue_name()
 
 long_string = """
-=======================================
 ========= Optimization scheme =========
-=======================================
 
 option      SM
 
-=======================================
 ==== Crystal structure information ====
-=======================================
 
 ---COMPOSITION---
 Ti   1
@@ -19,35 +15,26 @@ O    2
 ---COMPOSITION---
 
 formula_units   4
-=======================================
+
 =========== Constrictions =============
-=======================================
 
 interatom_scale_value 0.8
 
-=======================================
 ========= Initial population ==========
-=======================================
 
 initial_structures  50
 
-=======================================
 ======== Algorithm parameters =========
-=======================================
 
 number_of_stages    2
 
-=======================================
 ========== Discrimination =============
-=======================================
 
 min_energy_difference   0.01
 min_volume_difference   0.001
-energy_range            5.0
+energy_range            10.0
 
-=======================================
 ====== Calculation parameters =========
-=======================================
 
 no_attempts_opt         2
 percent_of_convergence  95.0
