@@ -3,7 +3,8 @@ import numpy as np
 from vasp_solids.libperiodicos import readposcars, writeposcars
 from vasp_solids.libperiodicos import direct2cartesian, cartesian2direct
 from utils_solids.atomic import get_atomic_number
-from inout_solids.getbilparam import get_a_int, get_a_str, get_a_float
+from utils_solids.libmoleculas import sort_by_energy
+from inout_solids.getbilparam import get_a_str, get_a_float
 #----------------------------------------------------------------------------------------------------------
 #Variables
 log_file = get_a_str('output_file','solids_out.txt')
@@ -51,9 +52,9 @@ def get_fingerprint(xtal_in):
 	out:
 	fp (list); [energy,spacial_group,volume]   
 	'''
+	e = xtal_in.e
 	sg = find_spacegroup(xtal_in)
 	v = get_volume(xtal_in)
-	e = xtal_in.e
 	fp = [e,sg,v]
 	return fp
 
@@ -81,48 +82,47 @@ def compare_fingerprints(xtal_a,xtal_b,vol_restr):
 	equal = True
 	if edif <= min_dE:
 		return equal, edif, vdif, sym_a, sym_b
-	elif vdif <= min_dV and vol_restr == False:
-		return equal, edif, vdif, sym_a, sym_b
+	elif vdif <= min_dV:
+		if sym_a == sym_b:
+			return equal, edif, vdif, sym_a, sym_b
+		else:
+			equal = False
+			return equal, edif, vdif, sym_a, sym_b
 	else:
 		equal = False
-		return equal, edif, vdif, sym_a, sym_b
+		return equal, edif, vdif, sym_a, sym_b		
 
 #---------------------------------------------------------------------------------------------------------
-def discriminate_calculated(xtal_list, vol_restr):
+def discriminate_calculated(xtalist_in, vol_restr):
 	'''Compares each structure with the remaining fo the list taking into consideration volume restriction
 
 	in: 
-	xtal_list (list); List with all to-be-compared structures 
+	xtalist_in (list); List with all to-be-compared structures 
 	vol_restr; Float if volume restriction, False otherwise
 
 	out:
 	xtalist_out (list); Curated list with only different structures
 	'''
-	xtalist_out = xtal_list.copy()
-	l_list = len(xtal_list)
+	xtalist_out = xtalist_in.copy()
+	l_list = len(xtalist_in)
 	fopen = open(log_file,'a')
 	print('-------------------------------------------------------------------',file=fopen)
 	print('------------------- DISCRIMINATION Generation ---------------------',file=fopen)
-	fopen.close()
-	for i in range(l_list):
-		str_a = xtal_list[i]
+	for i, str_a in enumerate(xtalist_in):
 		for j in range(i+1,l_list):
-			str_b = xtal_list[j]
+			str_b = xtalist_in[j]
 			e, dE, dV, sym_a, sym_b = compare_fingerprints(str_a,str_b,vol_restr)
 			if e == True:
 				if str_b in xtalist_out:
-					fopen = open(log_file,'a')
-					print('%s sym %18s discriminated, too similar to %s sym %18s, dE = %.5f dV = %.5f' %(str_b.i,sym_b,str_a.i,sym_a,dE,dV),file=fopen)
-					fopen.close()
+					print('%s sym: %18s discriminated, too similar to %s sym: %18s, dE = %.5f dV = %.5f' %(str_b.i,sym_b,str_a.i,sym_a,dE,dV),file=fopen)
 					xtalist_out.remove(str_b)
-	if len(xtalist_out) == len(xtal_list):
-		fopen = open(log_file,'a')
+	if len(xtalist_out) == len(xtalist_in):
 		print('No similar structures found!',file=fopen)
-		fopen.close()
+	fopen.close()
 	return xtalist_out
 
 #---------------------------------------------------------------------------------------------------------
-def discriminate_calculated_vs_pool(calulation_list, pool_list,vol_restr):
+def discriminate_calculated_vs_pool(calulation_list, pool_list, vol_restr):
 	'''Compares the list obtained in discriminate_calculated with the general pool of structures to prevent 
 	repeating structures in the final result
 
@@ -137,58 +137,17 @@ def discriminate_calculated_vs_pool(calulation_list, pool_list,vol_restr):
 	fopen = open(log_file,'a')
 	print('-------------------------------------------------------------------',file=fopen)
 	print('------------------ DISCRIMINATION Gen vs Pool ---------------------',file=fopen)
-	fopen.close()
-	lista = calulation_list.copy()
-	listb = pool_list.copy()
 	xtalist_out = calulation_list.copy()
-	for xtala in lista:
-		div = len(listb)//2
-		fh = listb[:div]
-		sh = listb[div:]
-		init = True
-		while init == True:
-			for xtalb in fh:
-				equal, dE, dV, sym_a, sym_b = compare_fingerprints(xtala,xtalb,vol_restr)
-				if equal == True:
-					fopen = open(log_file,'a')
-					print('%s sym %18s discriminated, too similar to %s sym %18s, dE = %.5f dV = %.5f' %(xtala.i,sym_a,xtalb.i,sym_b,dE,dV),file=fopen)
-					fopen.close()
-					init = False
-					xtalist_out.remove(xtala)
-					break
-			if init == True:
-				div = len(sh)//2
-				fh = sh.copy()
-				sh = fh[div:]
-				fh = fh[:div]
-				if len(fh) == 0:
-					init = False
-	if len(xtalist_out) == len(calulation_list):
-		fopen = open(log_file,'a')
-		print('No similar structures found!',file=fopen)
-		fopen.close()
+	for pool_str in pool_list:
+		for calc_str in calulation_list:
+			e, dE, dV, sym_p, sym_c = compare_fingerprints(pool_str,calc_str,vol_restr)
+			if e == True:
+				if calc_str in xtalist_out:
+					print('%s sym: %18s discriminated, too similar to %s sym: %18s, dE = %.5f dV = %.5f' %(calc_str.i,sym_c,pool_str.i,sym_p,dE,dV),file=fopen)
+					xtalist_out.remove(calc_str)
+	if xtalist_out:
+		xtalist_out = sort_by_energy(xtalist_out,1)
+	else:
+		print('All generation structures discriminated!',file=fopen)
+	fopen.close()
 	return xtalist_out
-
-# from vasp.libperiodicos import readposcars
-# a = readposcars('initial000.vasp')
-# b = readposcars('initial001.vasp')
-# discriminate_calculated_vs_pool(a,b)
-
-# def discriminate_list_list(xtal_lista, xtal_listb):
-# 	lista = xtal_lista.copy()
-# 	listb = xtal_listb.copy()
-# 	for ela in lista:
-# 		div = len(listb)//2
-# 		fh = listb[:div]
-# 		sh = listb[div:]
-# 		init = False
-# 		while init = False:
-# 			if ela in fh:
-# 				break
-# 			else:
-# 				div = len(sh)//2
-# 				fh = sh.copy()
-# 				sh = fh[div:]
-# 				fh = fh[:div]
-# 				if len(fh) == 0:
-# 					break

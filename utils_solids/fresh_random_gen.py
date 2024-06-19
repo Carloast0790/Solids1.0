@@ -1,7 +1,9 @@
 import random
 from utils_solids.libmoleculas import sort_by_stoichiometry
-from inout_solids.getbilparam import get_a_str, get_a_int
+from inout_solids.getbilparam import get_a_str
 from utils_solids.miscellaneous import pyxtal2xyz, rescale_str, unit_cell_non_negative_coordinates
+import warnings
+warnings.filterwarnings("ignore")
 #------------------------------------------------------------------------------------------------
 # Variables
 log_file = get_a_str('output_file','solids_out.txt')
@@ -46,10 +48,10 @@ def popgen_fresh_random_gen(number_of_random,species,atoms_per_specie,generation
                 xc = xc + 1
                 solids_xtal = pyxtal2xyz(xtal)
                 solids_xtal = unit_cell_non_negative_coordinates(solids_xtal)
-                name = 'RFresh_'+str(generation).zfill(3)+'_'+str(xc).zfill(4)
+                name = 'random_'+str(generation).zfill(3)+'_'+str(xc).zfill(3)
                 solids_xtal.i = name
                 xtal_list.append(solids_xtal)
-                print('%s' %(name), file=logfile)
+                print(name + ' ---> sym_' + str(sym), file=logfile)
         if xc == number_of_random:
             break
     print("We have %d POSCAR type RANDOM from %d solicited" %(len(xtal_list), number_of_random), file=logfile)

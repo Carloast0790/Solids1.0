@@ -1,6 +1,4 @@
 from inout_solids.messag import *
-from conf_solids.conf import queue_name
-qname=queue_name()
 
 long_string = """
 ========= Optimization scheme =========
@@ -64,7 +62,7 @@ maxcyc 950
 exe_gulp=GULP_Dir/gulp
 ---GULP.CONF---
 
-""".format(queue=qname)
+"""
 
 exfile = open('INPUT.txt', "w")
 exfile.write(welcome_solids)

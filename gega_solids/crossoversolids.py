@@ -2,11 +2,11 @@ import random
 import numpy as np
 from utils_solids.atomic  import get_covalent_radius
 from utils_solids.libmoleculas import copymol, Molecule, Atom, sort_by_stoichiometry, molecular_stoichiometry, rename_molecule
+from utils_solids.miscellaneous import unit_cell_non_negative_coordinates, overlap_check
+from utils_solids.translation_rotation import translation_3D
 from vasp_solids.libperiodicos import direct2cartesian, cartesian2direct
 from gega_solids.solids_roulette import get_roulette_wheel_selection
 from inout_solids.getbilparam import get_a_int, get_a_str
-from utils_solids.miscellaneous import unit_cell_non_negative_coordinates, overlap_check
-from utils_solids.translation_rotation import translation_3D
 #----------------------------------------------------------------------------------------------------------
 number_of_childs = get_a_int('number_of_matings',10)
 log_file = get_a_str('output_file','solids_out.txt')
@@ -159,8 +159,7 @@ def translating_to_avg_uc(xtal_in,avg_uc):
 	xtal_out (Molecule); the new translated crystal structure 
 	'''
 	cp_xtal = copymol(xtal_in)
-	name = cp_xtal.i + str('_avg_uc') 
-	xtal_out = Molecule(name,cp_xtal.e,avg_uc)
+	xtal_out = Molecule(cp_xtal.i,cp_xtal.e,avg_uc)
 	for iatom in cp_xtal.atoms:
 		x,y,z = cartesian2direct(iatom.xc,iatom.yc,iatom.zc,cp_xtal.m)
 		s = iatom.s
@@ -171,13 +170,14 @@ def translating_to_avg_uc(xtal_in,avg_uc):
 
 #----------------------------------------------------------------------------------------------------------
 def missing_atoms_identifier(original_stoich,new_stoich):
-	'''
-	This function compares the original composition of the structure and gets the amount of 
-	missing atoms and their species.
+	'''Compares the original composition of the structure and gets the amount of missing atoms and their species.
 
-	in: original_stoich (list[tuples]), a list that has all tuples with (symbol,#atoms)
-	    new_stoich (list[tuples]), the composition after the cut(symbol,#atoms)
-	out: missing_atoms[list[tuples]], the amount of atoms missing on each symbol (symbol,#atoms) 
+	in: 
+	original_stoich (list[tuples]); a list that has all tuples with (symbol,#atoms)
+	new_stoich (list[tuples]); the composition after the cut(symbol,#atoms)
+	
+	out: 
+	missing_atoms[list[tuples]]; the amount of atoms missing on each symbol (symbol,#atoms) 
 	'''
 	full_stoich = original_stoich + new_stoich
 	cont = 0
@@ -201,86 +201,63 @@ def missing_atoms_identifier(original_stoich,new_stoich):
 
 #----------------------------------------------------------------------------------------------------------
 def crossover(base_xtal,complement_xtal,ref_d):
-	'''
-	This function gets two structures, randomly transfers each unit cell in 3 dimensions, cuts them 
-	in a random point located on a random vector, and unites the halves into one single structure
+	'''Transfer the genetic information of two parent structures to a new one, called child
 
-	in: base_xtal, complement_xtal (Molecule), the two structures that will be attempted to crossed
-	out: xtal_out, (Molecule or False), the crossover between the structures if passible, False otherwise
+	in: 
+	base_xtal, complement_xtal (Molecule); Two parent structures for gene transmition
+
+	out: 
+	xtal_out (Molecule/False); Child structure, False if crossover is not possible
 	'''
-	# copy the original xtals and get their stoichiometry
 	base = copymol(base_xtal)
 	base = unit_cell_non_negative_coordinates(base)
 	org_stoich = molecular_stoichiometry(base,0)
 	comp = copymol(complement_xtal)
 	comp = unit_cell_non_negative_coordinates(comp)
-	# find the averaged unit cell
 	rw1 = random.random()
 	rw2 = 1 - rw1
 	avg_uc = combined_unit_cell(base, comp,rw1,rw2)
-	# translate them into this new uc
 	avg_base = translating_to_avg_uc(base,avg_uc)
 	avg_comp = translating_to_avg_uc(comp,avg_uc)
 	general_stop = 0
 	wflag = False
 	while wflag == False:
-		# find the random vector and point on which the cut will be performed
 		r_vect = random.choice(['a','b','c'])
 		r_point = bounded_random_point(0.7,0.4)
-		# rotate the structures 
-		# avg_base = rot(avg_base)
-		# avg_comp = rot(avg_comp)
-		# translate the structures
 		avg_base = translation_3D(avg_base)
 		avg_comp = translation_3D(avg_comp)
-		# cut the structures
 		xtal_out = parent_cut_bellow(avg_base,r_vect,r_point)
 		cut_comp = parent_cut_above(avg_comp,r_vect,r_point)
-		# writeposcars([xtal_out],'tbase.vasp','D')
-		# writeposcars([cut_comp],'tcomp.vasp','D')
-		# find the stoichiometry of the structures after the cut
 		new_stoich = molecular_stoichiometry(xtal_out,0)
 		comp_stoich = molecular_stoichiometry(cut_comp,0)
-		# find how many atoms of each kind are missing
 		m_atm = missing_atoms_identifier(org_stoich,new_stoich)
-		# find if the available composition has the required atoms in it
 		av_atms, ms_atms = 0,0
 		for ta,tm in zip(comp_stoich,m_atm):
 			av_atms = av_atms + ta[1]
 			ms_atms = ms_atms + tm[1]
-		# if the amount of atoms is enough try to complement
-		# print('----------hay',av_atms,'y faltan',ms_atms,'---------')
 		if av_atms >= ms_atms:
-			# to do that, obtain the symbol and missing number of atoms of each tuple
 			aux_list = cut_comp.atoms.copy()
 			random.shuffle(aux_list)
-			# print('Hay suficientes, el complemento tiene',len(aux_list),'disponibles')
 			for t in m_atm:
 				ms, ma = t[0],t[1]
-				# print('faltan',ma,'de',ms)
 				for i in range(ma):
 					if aux_list:
 						r_atm = random.choice(aux_list)
 						x,y,z = r_atm.xc,r_atm.yc, r_atm.zc 
-						# print('vamos a intentar agregar','el atomo',r_atm.s,'coord ',x,y,z,'con simb',ms)
 						natm = Atom(ms,x,y,z)
 						oc = overlap_check(natm,xtal_out,ref_d)
 						if oc == False:
-							# print('añadido con exito')
 							xtal_out.add_atom(natm)
 							aux_list.remove(r_atm)
 		else:
 			continue
 		xtal_out = sort_by_stoichiometry([xtal_out])[0]
-		# get its stoichiometry and compare it with the original 
 		out_stoich = molecular_stoichiometry(xtal_out,0)
-		# if there was succes,break the cycle, if there weren't try again
 		if out_stoich == org_stoich:
 			wflag = True
 			xtal_out.i = str(base_xtal.i) + '_x_' + str(complement_xtal.i)
 		else:
 			general_stop = general_stop + 1
-		# if after n attempts there were no luck, break the cycle and return False
 		if general_stop == 2:
 			xtal_out = False
 			break
@@ -290,9 +267,7 @@ def crossover(base_xtal,complement_xtal,ref_d):
 def many_crossovers(m_list,f_list,ref_d):
 	all_cross = []
 	for i, ix in enumerate(m_list):
-		n1 = ix.i
 		for j, jx in enumerate(f_list):
-			n2 = jx.i
 			if i == j:
 				child = crossover(ix,jx,ref_d)
 				if child:
@@ -328,5 +303,5 @@ def popgen_childs(poscarlist, ref_d, index):
 	print("We have %d POSCAR files type MATING from %d solicited" %(len(poscarout), number_of_childs), file=logfile)
 	logfile.close()
 	basename = 'mating_' + str(index).zfill(3) + '_'
-	poscarout  = rename_molecule(poscarout, basename, 4)
+	poscarout  = rename_molecule(poscarout, basename, 3)
 	return poscarout

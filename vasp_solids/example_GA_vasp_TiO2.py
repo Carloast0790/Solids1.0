@@ -1,6 +1,4 @@
 from inout_solids.messag import *
-from conf_solids.conf import queue_name
-qname=queue_name()
 
 long_string = """
 ========= Optimization scheme =========
@@ -22,21 +20,21 @@ interatom_scale_value 0.8
 
 ========= Initial population ==========
 
-initial_structures  40
+initial_structures  20
 
 ======== Algorithm parameters =========
 
-max_number_inputs   20
-number_of_matings   60
-number_of_mutants   20
-number_of_randoms   20
-max_number_gens     20
-crit_stop_nrep      10
+max_number_inputs   10
+number_of_matings   30
+number_of_mutants   10
+number_of_randoms   10
+max_number_gens     10
+crit_stop_nrep      5
 
 ========== Discrimination =============
 
-min_energy_difference   0.01
-min_volume_difference   0.01
+min_energy_difference   0.001
+min_volume_difference   0.0001
 energy_range            10.0
 
 ====== Calculation parameters =========
@@ -70,7 +68,7 @@ RUNLINE
 rm -rf $PBS_JOBNAME-$PBS_JOBID
 rm entorno-$PBS_JOBID.txt
 ---VASP.CONF---
-""".format(queue=qname)
+"""
 
 exfile = open('INPUT.txt', "w")
 exfile.write(welcome_solids)

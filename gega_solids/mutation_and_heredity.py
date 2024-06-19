@@ -76,13 +76,6 @@ def lattice_correction(xtal_in):
     xtal_out.m[0],xtal_out.m[1],xtal_out.m[2] = nvs[0],nvs[1],nvs[2]
     return xtal_out
 
-
-# from vasp.libperiodicos import readposcars, writeposcars
-# a = readposcars('initial000.vasp')[0]
-# b = lattice_correction(a)
-# # writeposcars(b,'tmut.vasp','D')
-# exit()
-
 #------------------------------------------------------------------------------------------
 def strained_lattice_unrestricted(original_lattice):
     '''
@@ -125,7 +118,6 @@ def lattice_mutation(xtal_in):
         nxc,nyc,nzc = direct2cartesian(ox,oy,oz,str_lat)
         n_atm = Atom(a.s,nxc,nyc,nzc)
         xtal_out.add_atom(n_atm)
-    ####
     # xtal_out = lattice_correction(xtal_out)
     return xtal_out
 
@@ -169,18 +161,6 @@ def make_mutants(the_chosen_ones_list):
         xtal_out.append(muty)
     return xtal_out
 
-# import sys
-# sys.path.insert(0, '/home/carlos/installdir/solids/GLOMOSolids1.0/')
-# from vasp.libperiodicos import readposcars, writeposcars
-# from miscellaneous import get_min_interatomic_distance
-
-# a = readposcars('initial000.vasp')
-# b = make_mutants(a)
-# writeposcars(b,'tmut.vasp','D')
-# exit()
-
-
-
 #--------------------------------------------------------------------------------------------
 def popgen_mutants(xtal_list, generation):
     if number_of_mutants == 0:
@@ -202,5 +182,5 @@ def popgen_mutants(xtal_list, generation):
     print ("We have %d POSCAR type MUTANT from %d solicited" %(len(xtal_out), number_of_mutants), file=logfile)
     logfile.close()
     name = 'mutant_' + str(generation).zfill(3)
-    xtal_out = rename_molecule(xtal_out, name +'_', 4)
+    xtal_out = rename_molecule(xtal_out, name +'_', 3)
     return xtal_out

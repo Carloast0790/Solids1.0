@@ -1,5 +1,3 @@
-solids_short_string="""# Solids 1.0
-"""
 
 welcome_solids = """# Solids 1.0
 #
@@ -32,12 +30,3 @@ def write_welcome(logfile=''):
 
 def write_menu():
     print(menu_long_string)
-
-def head_gega():
-    print(welcome_glomos)
-
-def head_growpal():
-    print(welcome_growpal)
-
-def head_solids():
-    print(welcome_solids)

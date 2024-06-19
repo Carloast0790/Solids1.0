@@ -1,6 +1,6 @@
 from inout_solids.messag import *
-from conf_solids.conf import queue_name
-qname=queue_name()
+
+qname = 'queue_name'
 
 long_string = """
 ========= Optimization Scheme =========

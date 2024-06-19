@@ -2,7 +2,7 @@ import os
 import time
 import glob
 from inout_solids.getbilparam import get_a_str
-log_file =get_a_str('output_file','solids_out.txt')
+log_file = get_a_str('output_file','solids_out.txt')
 #------------------------------------------------------------------------------------------
 def send_sh_files_to_local():
     jobslist=[]

@@ -9,3 +9,4 @@ of structures, allowing a more thorough exploration of the energy landscape.
 - Correction of initial random generator
 - Addition of GULP examples
 - Addition of fresh random structures in GA
+- Correction to discrimination and output formatting
