@@ -19,7 +19,7 @@ def popgen_fresh_random_gen(number_of_random,species,atoms_per_specie,generation
     dimension (int); Dimension of the structure, right now only 3D
 
     out:
-    xtal_list (list); This list will contain all crystal structures as Molecule object
+    xtalist_out (list); This list will contain all crystal structures as Molecule object
     '''
     if number_of_random==0:
         poscarout=[]
@@ -28,9 +28,9 @@ def popgen_fresh_random_gen(number_of_random,species,atoms_per_specie,generation
     logfile = open(log_file,'a')
     print("-------------------------------------------------------------------", file=logfile)
     print("------------------------ RANDOM STRUCTURES ------------------------", file=logfile)
-    xtal_list = []
+    xtalist_out = []
     xc = 0
-    while xc <= number_of_random:
+    while xc <= total_of_xtals:
         xtal = pyxtal()
         if dimension == 2:
             try:
@@ -38,23 +38,30 @@ def popgen_fresh_random_gen(number_of_random,species,atoms_per_specie,generation
                 xtal.from_random(dimension,sym,species,atoms_per_specie,thickness=0.0)
             except:
                 continue
+            else:
+                xc = xc + 1
+                s_xtal = pyxtal2solids(xtal,dimension)
+                s_xtal = unit_cell_non_negative_coordinates(s_xtal)
+                s_xtal.c.append(0)
+                print('random_000_'+str(xc).zfill(3)+' ---> sym_'+str(sym).zfill(3),file=fopen)
+                xtalist_out.append(s_xtal)
         elif dimension == 3:
             try:
                 sym = random.randint(2,230)
-                xtal.from_random(dimension, sym, species, atoms_per_specie)
+                xtal.from_random(dimension, sym, species, atoms_per_specie,volume_factor,p_list)
             except:
                 continue
             else:
                 xc = xc + 1
-                solids_xtal = pyxtal2xyz(xtal)
-                solids_xtal = unit_cell_non_negative_coordinates(solids_xtal)
-                name = 'random_'+str(generation).zfill(3)+'_'+str(xc).zfill(3)
-                solids_xtal.i = name
-                xtal_list.append(solids_xtal)
-                print(name + ' ---> sym_' + str(sym), file=logfile)
-        if xc == number_of_random:
+                s_xtal = pyxtal2solids(xtal,dimension)
+                s_xtal = unit_cell_non_negative_coordinates(s_xtal)
+                if vol_restr:
+                    s_xtal = rescale_str(s_xtal,vol_restr)
+                s_xtal.c.append(0)
+                print('random_000_'+str(xc).zfill(3)+' ---> sym_'+str(sym).zfill(3),file=fopen)
+                xtalist_out.append(s_xtal)        if xc == number_of_random:
             break
-    print("We have %d POSCAR type RANDOM from %d solicited" %(len(xtal_list), number_of_random), file=logfile)
+    print("We have %d POSCAR type RANDOM from %d solicited" %(len(xtalist_out), number_of_random), file=logfile)
     logfile.close()
-    xtal_list = sort_by_stoichiometry(xtal_list)
-    return xtal_list
+    xtalist_out = sort_by_stoichiometry(xtalist_out)
+    return xtalist_out

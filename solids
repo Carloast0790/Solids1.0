@@ -2,9 +2,9 @@
 from inout_solids.readbil import get_bilfile
 from inout_solids.getbilparam import get_a_int, get_a_str
 #------------------------------------------------------------------------------------------------
-bilfile=get_bilfile()
-option=get_a_str('option','sm')
-option=option.lower()
+bilfile = get_bilfile()
+option = get_a_str('option','sm')
+option = option.lower()
 #------------------------------------------------------------------------------------------------
 if  option == 'sm':
     #print("Choosed option %s: Modified Stochastic Method from chem-formula/mol.xyz" %(option))

@@ -47,6 +47,27 @@ def pyxtal2xyz(xtal_from_pyxtal):
         xtal.add_atom(iatm)
     return xtal
 
+def pyxtal2solids(xtal_from_pyxtal,dimension):
+    from utils_solids.libmoleculas import Molecule, Atom
+    coordinates, species = xtal_from_pyxtal._get_coords_and_species(True)
+    lattice_vectors = xtal_from_pyxtal.lattice.get_matrix()
+    if dimension == 2:
+        lattice_vectors[2] = lattice_vectors[2] * 6
+    xtal = Molecule('pyxtal2molecule', 0.0, lattice_vectors)
+    total_atms = len(species)
+    zavg = sum([coordinates[i][2] for i in range(total_atms)])/total_atms
+    for ii in range(total_atms):
+        si = species[ii]
+        xc = coordinates[ii][0]
+        yc = coordinates[ii][1]
+        if dimension == 2:
+            zc = coordinates[ii][2] - zavg + lattice_vectors[2][2]/2
+        else:
+            zc = coordinates[ii][2]
+        iatm = Atom(si,xc,yc,zc)
+        xtal.add_atom(iatm)
+    return xtal
+
 #------------------------------------------------------------------------------------------------
 #-------------------------------------General Constrains-----------------------------------------
 #------------------------------------------------------------------------------------------------
@@ -66,7 +87,7 @@ def uc_restriction():
         for line in f:
             if '#' in line:
                 continue
-            if 'fixed_UC' in line:
+            if 'fixed_uc' in line:
                 line = line.split()
                 a,b,c = float(line[1]),float(line[2]),float(line[3])
                 restr_v = a*b*c
