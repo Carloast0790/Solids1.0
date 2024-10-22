@@ -169,6 +169,43 @@ def get_default_tolerances(species,scale_value):
         return tolerances,py_tol 
 
 #------------------------------------------------------------------------------------------------
+def get_default_tolerances_solids(species,scale_value):
+    '''Gets the default tolerances for each pair of atoms in the structure, only used
+    to bypass the usage of pyxtal 
+    
+    in: 
+    species (list); List with each species found in the structure
+    scale_value (float); Scaling value for the sum of each species' covalent radius
+    The scaled sum will be used as the minimum interatomic distance.
+    
+    out: 
+    tolerances (list), List containing tuples with each min int dist, [(s1,s2,d1),(s1,s3,d2),...]
+    py_tol (Tol_matrix), PyXtal object used for atomic tolerance in generation of structures
+    '''
+    from utils_solids.libmoleculas import get_covalent_radius
+    tolerances = []
+    if len(species) == 1:
+        s = species[0]
+        r = get_covalent_radius(s)
+        tv = r*scale_value*2
+        tv = round(tv,2)
+        tolerances.append((s,s,tv))
+        return tolerances
+    else:
+        for i,s1 in enumerate(species):
+            r1 = get_covalent_radius(s1)
+            tv = r1*scale_value
+            tv = round(tv,2)
+            tolerances.append((s1,s1,tv))
+            for j in range(i+1,len(species)):
+                s2 = species[j]
+                r2 = get_covalent_radius(s2)
+                tv_mix = (r1+r2)*scale_value
+                tv_mix = round(tv_mix,2)
+                tolerances.append((s1,s2,tv_mix))
+        return tolerances
+
+#------------------------------------------------------------------------------------------------
 def get_custom_tolerances():
     '''Obtains a list of tuples containing each min interatomic distance provided by the user
     
@@ -196,8 +233,32 @@ def get_custom_tolerances():
         bilfile.close()
     return tolerances,py_tol
 
+def get_custom_tolerances_solids():
+    '''Obtains a list of tuples containing each min interatomic distance provided by the user
+    
+    out: 
+    tolerances (list); List containing tuples with each min int dist [(s1,s2,d1),(s1,s3,d2),...]
+    py_tol (Tol_matrix); PyXtal object used for atomic tolerance in generation of structures
+    '''
+    import os.path
+    file = 'INPUT.txt'
+    if os.path.isfile(file):
+        bilfile = open(file,"r")
+        for line in bilfile:
+            if not line.startswith('#') and 'custom_tolerances' in line:
+                tolerances = []
+                line = line.lstrip('\n')
+                readline = line.split()
+                readline = readline[1:]
+                for i in readline:
+                    x = i.split(',')
+                    tupla = (x[0],x[1],float(x[2]))
+                    tolerances.append(tupla)
+        bilfile.close()
+    return tolerances
+
 #------------------------------------------------------------------------------------------------
-def get_tolerances(species):
+def get_tolerances(species,bypass=False):
     '''Builds the tolerance pyxtal object based on the pair of species of each atom. It also returns a 
     list of tuples
 
@@ -210,12 +271,20 @@ def get_tolerances(species):
     '''
     from inout_solids.getbilparam import get_a_float
     tv = get_a_float('interatom_scale_value',False)
-    if tv:
-        dtv,p_dtv = get_default_tolerances(species,tv)
-        return dtv,p_dtv
+    if bypass == False:
+        if tv:
+            dtv,p_dtv = get_default_tolerances(species,tv)
+            return dtv,p_dtv
+        else:
+            ctv, p_ctv = get_custom_tolerances()
+            return ctv,p_ctv
     else:
-        ctv, p_ctv = get_custom_tolerances()
-        return ctv,p_ctv
+        if tv:
+            dtv = get_default_tolerances_solids(species,tv)
+            return dtv
+        else:
+            ctv = get_custom_tolerances_solids()
+            return ctv
 
 #------------------------------------------------------------------------------------------------
 #--------------------------------------General Tools---------------------------------------------
@@ -325,8 +394,8 @@ def unit_cell_non_negative_coordinates(xtal_in):
     out:
     xtal_out (Molecule); Corrected structure
     '''
-    from vasp.libperiodicos import cartesian2direct, direct2cartesian
-    from utils.libmoleculas import copymol
+    from vasp_solids.libperiodicos import cartesian2direct, direct2cartesian
+    from utils_solids.libmoleculas import copymol
     xtal_out = copymol(xtal_in)
     for a in xtal_out.atoms:
         x,y,z = cartesian2direct(a.xc,a.yc,a.zc,xtal_out.m)

@@ -38,9 +38,9 @@ def calculator_gulp_all_check(poscarlist, folder='./', blockname='gulp', stage=0
     list_ne, list_at, list_nt, listall=[],[],[],[]
     n0=len(poscarlist)
     for iposcar in poscarlist:
-        iname=iposcar.i
+        iname = iposcar.i
         listall.append(iname)
-        id=get_normaltermination_gulp(folder, iname+'.got')
+        id = get_normaltermination_gulp(folder, iname+'.got')
         if (id is False): list_ne.append(iname)
         elif (id == 0):   list_at.append(iname)
         else:             list_nt.append(iname)

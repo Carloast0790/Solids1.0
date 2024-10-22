@@ -3,15 +3,17 @@ import os.path
 import numpy as np
 from utils_solids.libmoleculas import Atom, Molecule
 from inout_solids.getbilparam import get_a_str
-log_file =get_a_str('output_file','solids_out.txt')
+log_file = get_a_str('output_file','solids_out.txt')
 #------------------------------------------------------------------------------------------
 def get_normaltermination_vasp(path):
-    filename='OUTCAR'
+    filename = 'OUTCAR'
     if os.path.isfile(path+filename):
-        file=open(path+filename,'r')
-        normal=0
+        file = open(path+filename,'r')
+        normal = 0
         for line in file:
-            if "General timing and accounting informations for this job" in line: normal=normal+1
+            if "General timing and accounting informations for this job" in line: 
+                normal = 1
+                break
         file.close()
         return normal
     else:
@@ -25,17 +27,16 @@ def get_normaltermination_vasp(path):
 ##The total energy will only be correct in the limit sigma->0
 #------------------------------------------------------------------------------------------
 def get_energy_vasp(path):
-    filename='OUTCAR'
-    outcarfile=open(path+filename,'r')
-    eneineV=float(0.0)
+    outcarfile = open(path+'OUTCAR','r')
+    eneineV = 0.0
     for line in outcarfile:
         if "energy  without entropy" in line:
-             eneline=line.split()
-             eneineV=float(eneline[6])
+             eneline = line.split()
+             eneineV = float(eneline[6])
     outcarfile.close()
-    eVtokcalpermol=float(23.0605)
-    eneinkcalpermol=eneineV*eVtokcalpermol
-    return eneinkcalpermol
+    # eVtokcalpermol=float(23.0605)
+    # eneinkcalpermol=eneineV*eVtokcalpermol
+    return eneineV
 #------------------------------------------------------------------------------------------
 def get_geometry_vasp(path):
     filename='CONTCAR'
@@ -118,11 +119,11 @@ def get_geometry_vasp(path):
     return poscarx
 #------------------------------------------------------------------------------------------
 def get_nt_geometry_vasp(path):
-    filename='OUTCAR'
-    r=get_normaltermination_vasp(path)
+    filename = 'OUTCAR'
+    r = get_normaltermination_vasp(path)
     if r is False:
         fopen = open(log_file,'a')
-        print("%s do NOT EXIST!!" %(path+filename), file=fopen)
+        print("%s does NOT EXIST!!" %(path+filename), file=fopen)
         fopen.close()
         return False
     elif r == 0:
@@ -150,18 +151,18 @@ def get_all_nt_geometry_vasp(generationfolder, moleculelist):
     return moleculeout
 #------------------------------------------------------------------------------------------
 def get_at_geometry_vasp(path):
-    r=get_normaltermination_vasp(path)
+    r = get_normaltermination_vasp(path)
     if r is False: return False
     elif r == 0:
-        if get_energy_vasp(path)==float(0.0): return False
+        if get_energy_vasp(path) == float(0.0): return False
         else:
-            moleculeout=get_geometry_vasp(path)
-            moleculeout.c=[r]
+            moleculeout = get_geometry_vasp(path)
+            moleculeout.c = [r]
             return moleculeout
     else: return False
 #------------------------------------------------------------------------------------------
 def get_all_at_geometry_vasp(generationfolder, moleculelist, erase=0):
-    moleculeout=[]
+    moleculeout = []
     for imol in moleculelist:
         foldername=imol.i
         path=generationfolder+foldername+'/'
@@ -179,7 +180,7 @@ def get_all_at_geometry_vasp(generationfolder, moleculelist, erase=0):
     return moleculeout
 #------------------------------------------------------------------------------------------
 def get_xt_geometry_vasp(path):
-    r=get_normaltermination_vasp(path)
+    r = get_normaltermination_vasp(path)
     if r is False: return False
     elif r == 0:
         if get_energy_vasp(path)==float(0.0): return False

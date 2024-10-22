@@ -1,5 +1,6 @@
 import random
 from pyxtal import pyxtal
+from pyxtal.symmetry import Group
 from utils_solids.libmoleculas import sort_by_stoichiometry
 from utils_solids.miscellaneous import pyxtal2solids, rescale_str, unit_cell_non_negative_coordinates
 from inout_solids.getbilparam import get_a_str, get_a_int
@@ -53,12 +54,14 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_un
                 continue
             else:
                 xc = xc + 1
+                sg = Group (sym)
+                sg_symbol = str(sg.symbol)
                 s_xtal = pyxtal2solids(xtal,dimension)
                 s_xtal = unit_cell_non_negative_coordinates(s_xtal)
                 if vol_restr:
                     s_xtal = rescale_str(s_xtal,vol_restr)
                 s_xtal.c.append(0)
-                print('random_000_'+str(xc).zfill(3)+' ---> sym_'+str(sym).zfill(3),file=fopen)
+                print('random_000_'+str(xc).zfill(3)+' ---> sym_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
                 xtalist_out.append(s_xtal)
         if xc == total_of_xtals:
             break

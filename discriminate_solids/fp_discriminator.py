@@ -83,7 +83,7 @@ def compare_fingerprints(xtal_a,xtal_b,vol_restr):
 	if edif <= min_dE:
 		return equal, edif, vdif, sym_a, sym_b
 	elif vdif <= min_dV:
-		if sym_a == sym_b:
+		if sym_a == sym_b and edif <= 0.1:
 			return equal, edif, vdif, sym_a, sym_b
 		else:
 			equal = False

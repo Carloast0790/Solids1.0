@@ -46,7 +46,7 @@ calculator        gulp
 qsys              local
 
 ---GULP---
-opti conjugate nosymmetry conv
+opti conjugate nosymmetry conp
 switch_minimiser bfgs gnorm 0.01
 pressure 100 GPa
 vectors

@@ -26,7 +26,7 @@ for i in range(z):
 #-----------------
 total_structures   = get_a_int('initial_structures', 4)
 max_number_inputs  = get_a_int('max_number_inputs',20)
-nummber_of_randoms = get_a_int('number_of_randoms',10)
+number_of_randoms = get_a_int('number_of_randoms',10)
 volume_factor = get_a_float('volume_factor', 1.0)
 l_tol,p_tol   = get_tolerances(atms_specie)
 dimension = get_a_int('dimension',3)
@@ -49,7 +49,7 @@ def build_population_0():
     '''Creates the initial population of crystalline structures.
 
     out: 
-    poscarlist (list); List with Molecule objects  
+    xtalist_out (list); List with Molecule objects  
     '''
     initialfile = 'initial000.vasp'
     if not os.path.isfile(initialfile):
@@ -59,16 +59,16 @@ def build_population_0():
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        poscarlist = random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
-        poscarlist = rename_molecule(poscarlist, 'random_000_', 3)
-        writeposcars(poscarlist, initialfile, 'D')
+        xtalist_out = random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
+        xtalist_out = rename_molecule(xtalist_out, 'random_000_', 3)
+        writeposcars(xtalist_out, initialfile, 'D')
     else:
-        poscarlist = readposcars(initialfile)
-        poscarlist = rename_molecule(poscarlist, 'restart_000_', 3)
+        xtalist_out = readposcars(initialfile)
+        xtalist_out = rename_molecule(xtalist_out, 'restart_000_', 3)
         fopen = open(log_file,'a')
         print("%s exists... we take it" %(initialfile), file=fopen)
         fopen.close()
-    return poscarlist
+    return xtalist_out
 
 #------------------------------------------------------------------------------------------------
 def run_calculator(poscarlistin, folder, generation=0):
@@ -137,7 +137,7 @@ def build_population_n(poscarlist,ref_d,generation=1):
         xtal_out.extend(cross)
         mut = popgen_mutants(poscarlist,generation)
         xtal_out.extend(mut)
-        new_strs = popgen_fresh_random_gen(nummber_of_randoms,atms_specie,atms_per_specie,generation,formula_units,dimension)
+        new_strs = popgen_fresh_random_gen(number_of_randoms,atms_specie,atms_per_specie,volume_factor,p_tol,dimension,generation)
         xtal_out.extend(new_strs)
         if vol_restriction:
             for x in xtal_out:
@@ -172,12 +172,14 @@ for generation in range(1,nmaxgen + 1):
         print("-------------------------------------------------------------------", file=fopen)
         print('The Process has Stopped, Solids was Unable to Build New Structures', file=fopen)
         fopen.close()
+        display_info(s_ready,0,generation)
         exit()
     s_ready_n = sort_by_energy(s_cleanpool_n,1)
     s_ready_n = cutter_energy(s_ready_n,emax)
     s_ready_n = s_ready_n[0:max_number_inputs]
     display_info(s_ready_n,1,generation)
     s_ready.extend(s_ready_n)
+    
     s_ready = sort_by_energy(s_ready, 1)
     display_info(s_ready, 0)
     writeposcars(s_ready, 'summary.vasp', 'D')

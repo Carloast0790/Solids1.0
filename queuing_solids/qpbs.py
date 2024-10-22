@@ -4,7 +4,7 @@ import time
 import glob
 import os.path
 from inout_solids.getbilparam import get_a_str
-log_file=get_a_str('output_file','solids_out.txt')
+log_file = get_a_str('output_file','solids_out.txt')
 #------------------------------------------------------------------------------------------
 def queued_processes():
     workid=[]
