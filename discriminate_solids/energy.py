@@ -17,8 +17,10 @@ def cutter_energy(xtalist_in, enemax, silence=0):
     moleculesort = sort_by_energy(xtalist_in,1)
     emin0 = moleculesort[0].e
     fopen = open(log_file,'a')
+    print('-------------------------------------------------------------------',file=fopen)
+    print('------------------ Structure Removal by Energy --------------------',file=fopen)
     if silence==0:
-        print("\nMaximum gap allowed = %3.2f eV" %(enemax), file=fopen)
+        print("\nMaximum energy gap allowed = %3.2f eV" %(enemax), file=fopen)
     for imol in xtalist_in:
         de = imol.e - emin0
         if de < enemax:
@@ -27,11 +29,11 @@ def cutter_energy(xtalist_in, enemax, silence=0):
             count = count+1
             jj = str(count).zfill(5)
             if silence == 0:
-                print("%s %15s ... DISCRIMINATED: DeltaE = %3.2f" %(jj, imol.i, de), file=fopen)
+                print("%s %15s ... Removed: DeltaE = %3.2f" %(jj, imol.i, de), file=fopen)
     if count == 0 and silence == 0:
-        print("ZERO elements discriminated by Energy", file=fopen)
+        print("ZERO elements Removed by Energy", file=fopen)
     elif xtalist_out == [] and silence == 0:
-        print("All the elements were discriminated by Energy", file=fopen)
+        print("All the elements were Removed by Energy", file=fopen)
         print("Please choose another value for energy_range", file=fopen)
         fopen.close()
         exit()

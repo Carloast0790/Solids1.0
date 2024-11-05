@@ -44,11 +44,12 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_un
                 s_xtal = pyxtal2solids(xtal,dimension)
                 s_xtal = unit_cell_non_negative_coordinates(s_xtal)
                 s_xtal.c.append(0)
-                print('random_000_'+str(xc).zfill(3)+' ---> sym_'+str(sym).zfill(3),file=fopen)
+                print('random_000_'+str(xc).zfill(3)+' ---> PG_'+str(sym).zfill(3),file=fopen)
                 xtalist_out.append(s_xtal)
         elif dimension == 3:
             try:
                 sym = random.randint(2,230)
+                # sym = random.randint(16,74)
                 xtal.from_random(dimension, sym, species, atoms_per_specie,volume_factor,p_list)
             except:
                 continue
@@ -61,7 +62,7 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_un
                 if vol_restr:
                     s_xtal = rescale_str(s_xtal,vol_restr)
                 s_xtal.c.append(0)
-                print('random_000_'+str(xc).zfill(3)+' ---> sym_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
+                print('random_000_'+str(xc).zfill(3)+' ---> PG_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
                 xtalist_out.append(s_xtal)
         if xc == total_of_xtals:
             break

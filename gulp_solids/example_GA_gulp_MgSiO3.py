@@ -17,25 +17,25 @@ formula_units   4
 
 =========== Constrictions =============
 
-interatom_scale_value 0.9
+interatom_scale_value 0.8
 
 ========= Initial population ==========
 
-initial_structures  40
+initial_structures  30
 
 ======== Algorithm parameters =========
 
-max_number_inputs   20
-number_of_matings   60
-number_of_mutants   20
-number_of_randoms   20
-max_number_gens     20
+max_number_inputs   10
+number_of_matings   12
+number_of_mutants   12
+number_of_randoms   6
+max_number_gens     30
 crit_stop_nrep      10
 
 ========== Discrimination =============
 
 min_energy_difference   0.01
-min_volume_difference   0.01
+min_volume_difference   0.001
 energy_range            10.0
 
 ====== Calculation parameters =========

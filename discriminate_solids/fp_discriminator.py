@@ -80,18 +80,23 @@ def compare_fingerprints(xtal_a,xtal_b,vol_restr):
 	vdif = abs(fp_a[2] - fp_b[2])/t_atma
 	sym_a, sym_b = fp_a[1],fp_b[1]
 	equal = True
-	if edif <= min_dE:
-		return equal, edif, vdif, sym_a, sym_b
-	elif vdif <= min_dV:
-		if sym_a == sym_b and edif <= 0.1:
+	if vol_restr:
+		if edif <= min_dE and sym_a == sym_b:
 			return equal, edif, vdif, sym_a, sym_b
 		else:
 			equal = False
 			return equal, edif, vdif, sym_a, sym_b
 	else:
-		equal = False
-		return equal, edif, vdif, sym_a, sym_b		
-
+		if edif <= min_dE and vdif <= min_dV:
+			if sym_a == sym_b:
+				return equal, edif, vdif, sym_a, sym_b
+			else:
+				equal = False
+				return equal, edif, vdif, sym_a, sym_b
+		else:
+			equal = False
+			return equal, edif, vdif, sym_a, sym_b
+		
 #---------------------------------------------------------------------------------------------------------
 def discriminate_calculated(xtalist_in, vol_restr):
 	'''Compares each structure with the remaining fo the list taking into consideration volume restriction
@@ -106,18 +111,20 @@ def discriminate_calculated(xtalist_in, vol_restr):
 	xtalist_out = xtalist_in.copy()
 	l_list = len(xtalist_in)
 	fopen = open(log_file,'a')
-	print('-------------------------------------------------------------------',file=fopen)
-	print('------------------- DISCRIMINATION Generation ---------------------',file=fopen)
+	print('\n-------------------------------------------------------------------',file=fopen)
+	print('--------------- Duplicates Removal in Generation ------------------',file=fopen)
+	print('\nTolerance Values Given: Maximum dE ='+str(min_dE)+', Maximum dV = '+str(min_dV),file=fopen)
+	disc_count = 0
 	for i, str_a in enumerate(xtalist_in):
 		for j in range(i+1,l_list):
 			str_b = xtalist_in[j]
 			e, dE, dV, sym_a, sym_b = compare_fingerprints(str_a,str_b,vol_restr)
 			if e == True:
 				if str_b in xtalist_out:
-					print('%s sym: %18s discriminated, too similar to %s sym: %18s, dE = %.5f dV = %.5f' %(str_b.i,sym_b,str_a.i,sym_a,dE,dV),file=fopen)
+					print('%s PG:%18s removed, similar to %s PG:%18s, dE=%.5f dV=%.5f' %(str_b.i,sym_b,str_a.i,sym_a,dE,dV),file=fopen)
 					xtalist_out.remove(str_b)
-	if len(xtalist_out) == len(xtalist_in):
-		print('No similar structures found!',file=fopen)
+					disc_count = disc_count + 1
+	print('\n'+str(disc_count)+' structures removed by similarity in generation comparison',file=fopen)
 	fopen.close()
 	return xtalist_out
 
@@ -135,19 +142,22 @@ def discriminate_calculated_vs_pool(calulation_list, pool_list, vol_restr):
 	xtalist_out (list); Final list of curated structures, this will become the new pool
 	'''
 	fopen = open(log_file,'a')
-	print('-------------------------------------------------------------------',file=fopen)
-	print('------------------ DISCRIMINATION Gen vs Pool ---------------------',file=fopen)
+	print('\n-------------------------------------------------------------------',file=fopen)
+	print('---------------- Duplicates Removal Gen vs Pool -------------------\n',file=fopen)
 	xtalist_out = calulation_list.copy()
+	disc_count = 0 
 	for pool_str in pool_list:
 		for calc_str in calulation_list:
 			e, dE, dV, sym_p, sym_c = compare_fingerprints(pool_str,calc_str,vol_restr)
 			if e == True:
 				if calc_str in xtalist_out:
-					print('%s sym: %18s discriminated, too similar to %s sym: %18s, dE = %.5f dV = %.5f' %(calc_str.i,sym_c,pool_str.i,sym_p,dE,dV),file=fopen)
+					print('%s PG: %18s removed, similar to %s PG: %18s, dE=%.5f dV=%.5f' %(calc_str.i,sym_c,pool_str.i,sym_p,dE,dV),file=fopen)
 					xtalist_out.remove(calc_str)
+					disc_count = disc_count + 1
 	if xtalist_out:
 		xtalist_out = sort_by_energy(xtalist_out,1)
+		print('\n'+str(disc_count)+' structures removed by similarity in Gen vs Pool comparison',file=fopen)
 	else:
-		print('All generation structures discriminated!',file=fopen)
+		print('All generation structures were removed!',file=fopen)
 	fopen.close()
 	return xtalist_out

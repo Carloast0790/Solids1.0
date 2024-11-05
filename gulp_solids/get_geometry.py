@@ -10,7 +10,7 @@ def get_normaltermination_gulp(path,filename):
     if os.path.isfile(path+filename):
         file=open(path+filename,'r')
         for line in file:
-            if '**** Optimisation achieved ****' in line:
+            if 'Job Finished' in line:
                 normal = 1
                 break
             else:

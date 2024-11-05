@@ -19,6 +19,7 @@ flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
 atms_specie,atms_per_specie = get_xcomp(composition)
 formula_units = get_a_int('formula_units',2)
+restart = get_a_str('restart','FALSE')
 #------------------
 z = len(atms_per_specie)
 for i in range(z):
@@ -64,7 +65,8 @@ def build_population_0():
         writeposcars(xtalist_out, initialfile, 'D')
     else:
         xtalist_out = readposcars(initialfile)
-        xtalist_out = rename_molecule(xtalist_out, 'restart_000_', 3)
+        if restart == 'FALSE':
+            xtalist_out = rename_molecule(xtalist_out, 'restart_000_', 3)
         fopen = open(log_file,'a')
         print("%s exists... we take it" %(initialfile), file=fopen)
         fopen.close()
