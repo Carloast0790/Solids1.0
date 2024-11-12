@@ -9,12 +9,11 @@ log_file = get_a_str('output_file','solids_out.txt')
 def get_normaltermination_gulp(path,filename):
     if os.path.isfile(path+filename):
         file=open(path+filename,'r')
+        normal = 0
         for line in file:
             if 'Job Finished' in line:
                 normal = 1
                 break
-            else:
-                normal = 0
         file.close()
         return normal
     else:

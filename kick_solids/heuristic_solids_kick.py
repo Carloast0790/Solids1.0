@@ -21,6 +21,7 @@ z = len(atms_per_specie)
 for i in range(z):
     atms_per_specie[i] = atms_per_specie[i] * formula_units
 #------------
+restart = get_a_str('restart','FALSE')
 total_structures = get_a_int('initial_structures', 10)
 dimension = get_a_int('dimension',3)
 volume_factor = get_a_float('volume_factor', 1.0)
@@ -57,7 +58,8 @@ def build_population_0():
         writeposcars(poscarlist, initialfile, 'D')
     else:
         poscarlist = readposcars(initialfile)
-        poscarlist = rename_molecule(poscarlist, 'restart', 4)
+        if restart == 'FALSE':
+            xtalist_out = rename_molecule(xtalist_out, 'restart', 3)
         fopen = open(log_file,'a')
         print("%s exists... we take it" %(initialfile), file=fopen)
         fopen.close()

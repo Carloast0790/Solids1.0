@@ -210,7 +210,7 @@ def crossover(base_xtal,complement_xtal,ref_d):
 	xtal_out (Molecule/False); Child structure, False if crossover is not possible
 	'''
 	base = copymol(base_xtal)
-	base = unit_cell_non_negative_coordinates(base)
+	base = unit_cell_non_negative_coordinates(base)	
 	org_stoich = molecular_stoichiometry(base,0)
 	comp = copymol(complement_xtal)
 	comp = unit_cell_non_negative_coordinates(comp)
