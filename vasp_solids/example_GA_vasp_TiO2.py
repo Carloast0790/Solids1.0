@@ -25,17 +25,18 @@ initial_structures  20
 ======== Algorithm parameters =========
 
 max_number_inputs   10
-number_of_matings   30
-number_of_mutants   10
-number_of_randoms   10
-max_number_gens     10
-crit_stop_nrep      5
+number_of_matings   12
+number_of_xchange   4
+number_of_strains   4
+number_of_randoms   5
+max_number_gens     30
+crit_stop_nrep      10
 
 ========== Discrimination =============
 
-min_energy_difference   0.001
-min_volume_difference   0.0001
-energy_range            10.0
+min_energy_difference   0.01
+min_volume_difference   0.001
+energy_range            5.0
 
 ====== Calculation parameters =========
 

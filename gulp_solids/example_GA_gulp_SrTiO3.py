@@ -13,11 +13,11 @@ Ti   1
 O    3
 ---COMPOSITION---
 
-formula_units   10
+formula_units   2
 
 =========== Constrictions =============
 
-interatom_scale_value 0.9
+interatom_scale_value 0.8
 
 ========= Initial population ==========
 
@@ -27,8 +27,9 @@ initial_structures  30
 
 max_number_inputs   10
 number_of_matings   12
-number_of_mutants   12
-number_of_randoms   6
+number_of_xchange   4
+number_of_strains   4
+number_of_randoms   5
 max_number_gens     30
 crit_stop_nrep      10
 
@@ -36,7 +37,7 @@ crit_stop_nrep      10
 
 min_energy_difference   0.01
 min_volume_difference   0.001
-energy_range            10.0
+energy_range            5.0
 
 ====== Calculation parameters =========
 

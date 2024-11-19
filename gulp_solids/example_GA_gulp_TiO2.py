@@ -20,22 +20,23 @@ interatom_scale_value 0.9
 
 ========= Initial population ==========
 
-initial_structures  40
+initial_structures  30
 
 ======== Algorithm parameters =========
 
-max_number_inputs   20
-number_of_matings   60
-number_of_mutants   20
-number_of_randoms   20
-max_number_gens     20
+max_number_inputs   10
+number_of_matings   12
+number_of_xchange   4
+number_of_strains   4
+number_of_randoms   5
+max_number_gens     30
 crit_stop_nrep      10
 
 ========== Discrimination =============
 
 min_energy_difference   0.01
-min_volume_difference   0.01
-energy_range            10.0
+min_volume_difference   0.001
+energy_range            5.0
 
 ====== Calculation parameters =========
 

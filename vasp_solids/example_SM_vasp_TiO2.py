@@ -28,9 +28,9 @@ number_of_stages    2
 
 ========== Discrimination =============
 
-min_energy_difference   0.001
-min_volume_difference   0.0001
-energy_range            10.0
+min_energy_difference   0.01
+min_volume_difference   0.001
+energy_range            5.0
 
 ====== Calculation parameters =========
 
