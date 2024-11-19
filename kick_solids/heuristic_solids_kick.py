@@ -43,7 +43,7 @@ def build_population_0():
     '''It builds the initial set of structures
 
     out:
-    poscarlist (list); Structures randomly generated using symmetry 
+    xtalist_out (list); Structures randomly generated using symmetry 
     '''
     initialfile = 'initial.vasp'
     if not os.path.isfile(initialfile):
@@ -53,17 +53,17 @@ def build_population_0():
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        poscarlist = random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
-        poscarlist = rename_molecule(poscarlist, 'random', 4)
-        writeposcars(poscarlist, initialfile, 'D')
+        xtalist_out = random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
+        xtalist_out = rename_molecule(xtalist_out, 'random', 4)
+        writeposcars(xtalist_out, initialfile, 'D')
     else:
-        poscarlist = readposcars(initialfile)
+        xtalist_out = readposcars(initialfile)
         if restart == 'FALSE':
             xtalist_out = rename_molecule(xtalist_out, 'restart', 3)
         fopen = open(log_file,'a')
         print("%s exists... we take it" %(initialfile), file=fopen)
         fopen.close()
-    return poscarlist
+    return xtalist_out
 
 #------------------------------------------------------------------------------------------------
 def run_calculator(poscarlistin, folder, stage=0):

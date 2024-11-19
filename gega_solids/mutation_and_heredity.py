@@ -4,7 +4,6 @@ from utils_solids.libmoleculas import Molecule, Atom, copymol, rename_molecule
 from vasp_solids.libperiodicos import cartesian2direct, direct2cartesian
 from inout_solids.getbilparam import get_a_int, get_a_str
 from gega_solids.solids_roulette import get_roulette_wheel_selection
-
 from utils_solids.miscellaneous import rescale_str
 
 #number_of_mutants = get_a_int('number_of_mutants',5)
@@ -12,48 +11,6 @@ number_of_atmxchange = get_a_int('number_of_xchange',5)
 number_of_lattstr = get_a_int('number_of_strains',5)
 log_file = get_a_str('output_file','solids_out.txt')
 #------------------------------------------------------------------------------------------
-# def strained_lattice_unrestricted(original_lattice):
-#     # Nota ahorita es para pruebas, originalmente es el strained_lattice_restricted
-#     '''
-#     This functions multiplies a random strain matrix by all the lattice vectors of a crystal unit cell
-
-#     in: original_lattice (numpy array)
-#     out: mutated_lattice (numpy array) 
-#     '''
-#     flag = False
-#     stop = 0
-#     while flag == False:
-#         aux = []
-#         cont = 0 
-#         while cont <= 5:
-#             x = random.gauss(0,1)
-#             if abs(x) <= 1:
-#                 aux.append(x)
-#                 cont = cont + 1        
-#         random.shuffle(aux)
-#         e11, e22, e33 = 1 + aux[0], 1 + aux[1], 1 + aux[2]
-#         e12, e13, e23 = aux[3] / 2, aux[4] / 2, aux[5] / 2 
-#         strain_matrix = np.array([[e11,e12,e13],[e12,e22,e23],[e13,e23,e33]])
-#         mutated_lattice = np.array([np.dot(original_lattice[ii],strain_matrix) for ii in range(3)])
-#         for i in range(len(mutated_lattice)):
-#             vi = mutated_lattice[i]
-#             mi = np.linalg.norm(vi)
-#             for j in range(i+1,len(mutated_lattice)):
-#                 vj = mutated_lattice[j]
-#                 mj = np.linalg.norm(vj)
-#                 div = np.dot(vi,vj)/(mi*mj)
-#                 theta = np.arccos(div)
-#                 theta = round(theta,2)
-#                 if theta > 1.05 and theta < 2.10:
-#                     flag = True
-#                 else:
-#                     flag = False
-#                     break
-#             if flag == False:
-#                 break
-#     return mutated_lattice
-
-
 def lattice_correction(xtal_in):
     xtal_out = copymol(xtal_in)
     vs = [xtal_out.m[0],xtal_out.m[1],xtal_out.m[2]]
@@ -103,28 +60,6 @@ def strained_lattice_unrestricted(original_lattice):
     return mutated_lattice
 
 #------------------------------------------------------------------------------------------
-# def lattice_mutation(xtal_in):
-#     '''
-#     This function mutates the crystal lattice by appling a stain matrix which entries are taken 
-#     randomly from a gaussian distribution. The matrix is then applied to all lattice vectors 
-#     of the cell and the cell is reescaled to have the original volume.
-
-#     in: xtal_in (Molecule), the structure which UC will be mutated
-#     out: xtal_out (Molecule), the structure with the mutated UC
-#     '''
-    
-#     o_lat = xtal_in.m
-#     str_lat = strained_lattice_unrestricted(o_lat)
-#     name = '_lattice_strain'
-#     xtal_out = Molecule(xtal_in.i+name,xtal_in.e,str_lat)
-#     for a in xtal_in.atoms:
-#         ox,oy,oz = cartesian2direct(a.xc,a.yc,a.zc,o_lat)
-#         nxc,nyc,nzc = direct2cartesian(ox,oy,oz,str_lat)
-#         n_atm = Atom(a.s,nxc,nyc,nzc)
-#         xtal_out.add_atom(n_atm)
-#     # xtal_out = lattice_correction(xtal_out)
-#     return xtal_out
-
 def lattice_mutation(xtal_in):
     '''
     This function mutates the crystal lattice by appling a stain matrix which entries are taken 
@@ -178,13 +113,20 @@ def make_mutants(the_chosen_ones_list):
     xtal_out = []
     xchange_list = random.choices(the_chosen_ones_list, k = number_of_atmxchange)
     strain_list = random.choices(the_chosen_ones_list, k = number_of_lattstr)
-    for x_str in xchange_list:
-        r = random.randint(1,4)
-        mut_x = atom_exchange(x_str,r)
-        xtal_out.append(mut_x)
-    for s_str in strain_list:
-        mut_s = lattice_mutation(s_str)
-        xtal_out.append(mut_s)        
+    s_list = [a.s for a in the_chosen_ones_list[0].atoms]
+    s_list = list(dict.fromkeys(s_list))
+    if len(s_list) == 1:
+        for s_str in strain_list:
+            mut_s = lattice_mutation(s_str)
+            xtal_out.append(mut_s)
+    else:
+        for s_str in strain_list:
+            mut_s = lattice_mutation(s_str)
+            xtal_out.append(mut_s)        
+        for x_str in xchange_list:
+            r = random.randint(1,4)
+            mut_x = atom_exchange(x_str,r)
+            xtal_out.append(mut_x)
     return xtal_out
 
 #--------------------------------------------------------------------------------------------
@@ -235,4 +177,67 @@ def popgen_mutants(xtal_list, generation):
 #         else: 
 #             muty = lattice_mutation(xtal)
 #         xtal_out.append(muty)
+#     return xtal_out
+
+# def strained_lattice_unrestricted(original_lattice):
+#     # Nota ahorita es para pruebas, originalmente es el strained_lattice_restricted
+#     '''
+#     This functions multiplies a random strain matrix by all the lattice vectors of a crystal unit cell
+
+#     in: original_lattice (numpy array)
+#     out: mutated_lattice (numpy array) 
+#     '''
+#     flag = False
+#     stop = 0
+#     while flag == False:
+#         aux = []
+#         cont = 0 
+#         while cont <= 5:
+#             x = random.gauss(0,1)
+#             if abs(x) <= 1:
+#                 aux.append(x)
+#                 cont = cont + 1        
+#         random.shuffle(aux)
+#         e11, e22, e33 = 1 + aux[0], 1 + aux[1], 1 + aux[2]
+#         e12, e13, e23 = aux[3] / 2, aux[4] / 2, aux[5] / 2 
+#         strain_matrix = np.array([[e11,e12,e13],[e12,e22,e23],[e13,e23,e33]])
+#         mutated_lattice = np.array([np.dot(original_lattice[ii],strain_matrix) for ii in range(3)])
+#         for i in range(len(mutated_lattice)):
+#             vi = mutated_lattice[i]
+#             mi = np.linalg.norm(vi)
+#             for j in range(i+1,len(mutated_lattice)):
+#                 vj = mutated_lattice[j]
+#                 mj = np.linalg.norm(vj)
+#                 div = np.dot(vi,vj)/(mi*mj)
+#                 theta = np.arccos(div)
+#                 theta = round(theta,2)
+#                 if theta > 1.05 and theta < 2.10:
+#                     flag = True
+#                 else:
+#                     flag = False
+#                     break
+#             if flag == False:
+#                 break
+#     return mutated_lattice
+
+# def lattice_mutation(xtal_in):
+#     '''
+#     This function mutates the crystal lattice by appling a stain matrix which entries are taken 
+#     randomly from a gaussian distribution. The matrix is then applied to all lattice vectors 
+#     of the cell and the cell is reescaled to have the original volume.
+
+#     in: xtal_in (Molecule), the structure which UC will be mutated
+#     out: xtal_out (Molecule), the structure with the mutated UC
+#     '''
+    
+#     o_lat = xtal_in.m
+#     str_lat = strained_lattice_unrestricted(o_lat)
+#     name = '_lattice_strain'
+#     xtal_out = Molecule(xtal_in.i+name,xtal_in.e,str_lat)
+#     for a in xtal_in.atoms:
+#         ox,oy,oz = cartesian2direct(a.xc,a.yc,a.zc,o_lat)
+#         nxc,nyc,nzc = direct2cartesian(ox,oy,oz,str_lat)
+#         n_atm = Atom(a.s,nxc,nyc,nzc)
+#         xtal_out.add_atom(n_atm)
+#     # xtal_out = lattice_correction(xtal_out)
 #     return xtal_out
