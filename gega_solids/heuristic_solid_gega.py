@@ -2,6 +2,9 @@ import os.path
 import numpy as np
 from discriminate_solids.energy import cutter_energy
 from discriminate_solids.fp_discriminator import discriminate_calculated, discriminate_calculated_vs_pool
+
+from discriminate_solids.removal_by_descriptors import descriptor_comparison_calculated, descriptor_comparison_calculated_vs_pool
+
 from inout_solids.getbilparam import get_a_int, get_a_str, get_a_float
 from inout_solids.readbil import read_var_composition, clustername
 from inout_solids.messag import write_welcome
@@ -35,6 +38,9 @@ log_file  = get_a_str('output_file','solids_out.txt')
 nmaxgen   = get_a_int('max_number_gens',10)
 nmaxrep   = get_a_int('crit_stop_nrep',10)
 emax = get_a_float('energy_range', 3.0)
+
+simil_tol = get_a_float('similarity_tolerance',0.8)
+
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
 fopen = open(log_file,'w')
@@ -154,20 +160,41 @@ def build_population_n(poscarlist,ref_d,generation=1):
     return xtal_out
 
 #------------------------------------------------------------------------------------------------
+# Build population zero and relaxing it
 s_initial = build_population_0()
 s_relax = run_calculator(s_initial, 'generation000/', 0)
-s_clean = discriminate_calculated(s_relax,vol_restriction)
+
+# Check for ill structures
+ill_str = []
+e_best0, e_second0 = s_relax[0].e,s_relax[1].e
+e_gap0 = abs(e_best0 - e_second0)
+if e_gap0 >= 10:
+    fopen = open(log_file,'a')
+    print('structure ',s_relax[0].i,' deemed ill, e-gap = ',e_gap0, ', saved in ill_structures.vasp', file=fopen)
+    ill_str.append(s_relax[0])
+    writeposcars(ill_str,'ill_structures.vasp','D')
+    s_ready_n = s_relax[1:]
+    fopen.close()
+
+#Removal of similar structures and list trimming
+# s_clean = discriminate_calculated(s_relax,vol_restriction)
+s_clean = descriptor_comparison_calculated(s_relax,simil_tol)
 s_ready = s_clean[:max_number_inputs]
 display_info(s_ready, 0)
 writeposcars(s_ready, 'summary.vasp', 'D')
+
 emin = s_ready[0].e
 cont = 0
 for generation in range(1,nmaxgen + 1):
     folder = 'generation' + str(generation).zfill(3) + '/'
     s_initial_n = build_population_n(s_ready,l_tol,generation)
     s_relax_n = run_calculator(s_initial_n, folder, generation)
-    s_clean_gen_n = discriminate_calculated(s_relax_n,vol_restriction)
-    s_cleanpool_n = discriminate_calculated_vs_pool(s_clean_gen_n,s_ready,vol_restriction)
+    # s_clean_gen_n = discriminate_calculated(s_relax_n,vol_restriction)
+    # s_cleanpool_n = discriminate_calculated_vs_pool(s_clean_gen_n,s_ready,vol_restriction)
+
+    s_clean_gen_n = descriptor_comparison_calculated(s_relax_n,simil_tol)
+    s_cleanpool_n = descriptor_comparison_calculated_vs_pool(s_clean_gen_n,s_ready,simil_tol)
+    
     if len(s_cleanpool_n) == 0:
         fopen = open(log_file,'a')
         print("-------------------------------------------------------------------", file=fopen)
@@ -177,6 +204,15 @@ for generation in range(1,nmaxgen + 1):
         display_info(s_ready,0,generation)
         exit()
     s_ready_n = sort_by_energy(s_cleanpool_n,1)
+    e_best,e_second = s_ready_n[0].e,s_ready_n[1].e
+    e_gap = abs(e_best - e_second)
+    if e_gap >= 10:
+        fopen = open(log_file,'a')
+        print('structure ',s_ready_n[0].i,' deemed ill, e-gap = ',e_gap, ', saved in ill_structures.vasp', file=fopen)
+        fopen.close()
+        ill_str.append(s_ready_n[0])
+        writeposcars(ill_str,'ill_structures.vasp','D')
+        s_ready_n = s_ready_n[1:]
     s_ready_n = cutter_energy(s_ready_n,emax)
     s_ready_n = s_ready_n[0:max_number_inputs]
     display_info(s_ready_n,1,generation)

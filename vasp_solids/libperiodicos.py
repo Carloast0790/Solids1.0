@@ -39,16 +39,11 @@ def readposcars(filename):
         print("The file %s does not exist." %(filename))
         exit()
     contcarfile=open(filename,'r')
-    lines = contcarfile.readlines()
-    last = lines[-1]
-    contcarfile.close()
-    contcarfile=open(filename,'r')
-    line=contcarfile.readline()
     poscarout=[]
-    while(line != '\n'):
-        name=line.strip()
-        #name=name.replace(" ", "")
-        energy=float(0.0)
+    for line in contcarfile:
+        header=line.split()
+        name=header[0]
+        energy=float(header[1]) if len(header)>1 else 0.0
         line=contcarfile.readline()
         if str(line.split()[0])=='0.00000000E+00': break
         #-----------------------------------
@@ -59,8 +54,8 @@ def readposcars(filename):
         a2x, a2y, a2z=map(float,line.split())
         line=contcarfile.readline()
         a3x, a3y, a3z=map(float,line.split())
-        matrix=np.array([[a0*a1x, a0*a1y, a0*a1z],[a0*a2x, a0*a2y, a0*a2z],[a0*a3x, a0*a3y, a0*a3z]])
-        poscarx=Molecule(name, energy, matrix)
+        cell=np.array([[a0*a1x, a0*a1y, a0*a1z],[a0*a2x, a0*a2y, a0*a2z],[a0*a3x, a0*a3y, a0*a3z]])
+        poscarx=Molecule(name, energy, cell)
         #-----------------------------------
         line=contcarfile.readline()
         elements=line.split()
@@ -82,49 +77,43 @@ def readposcars(filename):
             line=contcarfile.readline()
             sd=1
         if 'Direct' in line:
+            symbols=[]
+            positions=[]
             for iatom in range(natom):
                 line=contcarfile.readline()
                 vecxyz=line.split()
                 s=liste[iatom]
+                symbols.append(s)
                 xd=float(vecxyz[0])
                 yd=float(vecxyz[1])
                 zd=float(vecxyz[2])
                 xc=a0*(a1x*xd+a2x*yd+a3x*zd)
                 yc=a0*(a1y*xd+a2y*yd+a3y*zd)
                 zc=a0*(a1z*xd+a2z*yd+a3z*zd)
-                if sd==1:
-                    xf=str(vecxyz[3])
-                    yf=str(vecxyz[4])
-                    zf=str(vecxyz[5])
-                    xatom=Atom(s,xc,yc,zc,xf,yf,zf)
-                elif sd==0:
-                    xatom=Atom(s,xc,yc,zc)
+                xatom=Atom(s,xc,yc,zc)
                 poscarx.add_atom(xatom)
         if 'Cartesian' in line:
+            symbols=[]
+            positions=[]
             for iatom in range(natom):
                 line=contcarfile.readline()
                 vecxyz=line.split()
                 s=liste[iatom]
+                symbols.append(s)
                 xc=float(vecxyz[0])
                 yc=float(vecxyz[1])
                 zc=float(vecxyz[2])
-                if sd==1:
-                    xf=str(vecxyz[3])
-                    yf=str(vecxyz[4])
-                    zf=str(vecxyz[5])
-                    xatom=Atom(s,xc,yc,zc,xf,yf,zf)
-                elif sd==0:
-                    xatom=Atom(s,xc,yc,zc)
+                xatom=Atom(s,xc,yc,zc)
                 poscarx.add_atom(xatom)
         poscarout.extend([poscarx])
-        line='\n' if line == last else contcarfile.readline()
     contcarfile.close()
     return poscarout
 #------------------------------------------------------------------------------------------
 def writeposcars(poscarlist, file, opt='D'):
     fh=open(file,"w")
     for poscar in poscarlist:
-        print(poscar.i, file=fh)
+        #print(poscar.i, file=fh)
+        print("%s %12.8f" %(poscar.i, poscar.e), file=fh)
         print('1.0', file=fh)
         matrix=poscar.m
         print("%20.16f %20.16f %20.16f" %(matrix[0,0],matrix[0,1],matrix[0,2]), file=fh)
@@ -321,4 +310,3 @@ def run_sample():
     poscar5=expand_poscar([poscar4],2,2,2)
     writeposcars(poscar5,'xposcar.vasp')
 #run_sample()
-#------------------------------------------------------------------------------------------
