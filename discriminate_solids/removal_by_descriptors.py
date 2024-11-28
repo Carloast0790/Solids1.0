@@ -48,7 +48,7 @@ def descriptor_comparison_calculated(xtalist_in, tolerance):
                 break
         if stop_flag == False:
             xtalist_out.append(xtalist_in[i])
-    print('\n'+str(disc_count)+' structures removed by similarity in generation comparison',file=fopen)
+    print('\n'+str(disc_count)+' structures removed by similarity in generation comparison \n',file=fopen)
     fopen.close()
     return xtalist_out
 

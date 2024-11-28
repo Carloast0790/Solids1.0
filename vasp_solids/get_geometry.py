@@ -32,7 +32,8 @@ def get_energy_vasp(path):
     for line in outcarfile:
         if "energy  without entropy" in line:
              eneline = line.split()
-             eneineV = float(eneline[6])
+             if len(eneline) > 5:
+                eneineV = float(eneline[6])
     outcarfile.close()
     # eVtokcalpermol=float(23.0605)
     # eneinkcalpermol=eneineV*eVtokcalpermol

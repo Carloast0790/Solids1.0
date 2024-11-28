@@ -410,7 +410,31 @@ def unit_cell_non_negative_coordinates(xtal_in):
     return xtal_out
 
 
-# from vasp.libperiodicos import readposcars,writeposcars
-# o = readposcars('test.vasp')[0]
-# o = overlap_check(o)
-# writeposcars([o],'no_neg.vasp','D')
+# def check_for_ill_structures_gen(xtalist_in,ill_list):
+#     ill_str = ill_list.copy()
+#     xtalist_out = []
+#     llist = len(xtalist_in) - 2
+#     for i in range(llist):
+#         e_best0, e_second0, e_third0 = float(xtalist_in[i].e), float(xtalist_in[i+1].e), float(xtalist_in[i+2].e)
+#         e_gap0 = abs(e_best0 - e_second0)
+#         e_gap1 = abs(e_second0 - e_third0)
+#         print('gap between',xtalist_in[i].i,xtalist_in[i+1].i,e_gap0,e_gap1)
+#         if e_gap0 <= 10 and e_gap1 <= 10:
+#             xtalist_out.append(xtalist_in[i])
+#             print('keeping',xtalist_in[i].i)
+#         else:
+#             fopen = open(log_file,'a')
+#             print('structure ',xtalist_in[i].i,' deemed ill, e-gap = ',e_gap0, ', saved in ill_structures.vasp', file=fopen)
+#             ill_str.append(xtalist_in[i])
+#             fopen.close()
+#         if i + 1 == llist:
+#             xtalist_out.append(xtalist_in[i+1])
+#     writeposcars(ill_str,'ill_structures.vasp','D')
+#     return xtalist_out 
+
+# from vasp_solids.libperiodicos import readposcars,writeposcars
+# o = readposcars('illsearch.vasp')
+# log_file = 'solids_out.txt'
+# y = []
+# oclean = check_for_ill_structures_gen(o,y)
+# writeposcars(oclean,'curated.vasp','D')

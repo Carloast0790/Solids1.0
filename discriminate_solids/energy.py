@@ -17,10 +17,10 @@ def cutter_energy(xtalist_in, enemax, silence=0):
     moleculesort = sort_by_energy(xtalist_in,1)
     emin0 = moleculesort[0].e
     fopen = open(log_file,'a')
-    print('-------------------------------------------------------------------',file=fopen)
+    print('\n-------------------------------------------------------------------',file=fopen)
     print('------------------ Structure Removal by Energy --------------------',file=fopen)
-    if silence==0:
-        print("\nMaximum energy gap allowed = %3.2f eV" %(enemax), file=fopen)
+    if silence == 0:
+        print("\nMaximum energy gap allowed = %3.2f eV \n" %(enemax), file=fopen)
     for imol in xtalist_in:
         de = imol.e - emin0
         if de < enemax:

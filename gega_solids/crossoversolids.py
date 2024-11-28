@@ -258,7 +258,7 @@ def crossover(base_xtal,complement_xtal,ref_d):
 			xtal_out.i = str(base_xtal.i) + '_x_' + str(complement_xtal.i)
 		else:
 			general_stop = general_stop + 1
-		if general_stop == 2:
+		if general_stop == 3:
 			xtal_out = False
 			break
 	return xtal_out

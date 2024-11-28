@@ -8,6 +8,7 @@ from vasp_solids.libperiodicos import readposcars, writeposcars
 from gulp_solids.calculator_all import calculator_gulp_all_check
 from discriminate_solids.fp_discriminator import discriminate_calculated
 from utils_solids.miscellaneous import get_xcomp, uc_restriction, get_tolerances
+from discriminate_solids.removal_by_descriptors import descriptor_comparison_calculated
 #------------------------------------------------------------------------------------------------
 # Variables
 vol_restriction = uc_restriction() 
@@ -28,6 +29,7 @@ volume_factor = get_a_float('volume_factor', 1.0)
 nofstages = get_a_int('number_of_stages', 1)
 log_file = get_a_str('output_file','solids_out.txt')
 l_tol,p_tol = get_tolerances(atms_specie)
+simil_tol = get_a_float('similarity_tolerance',0.8)
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
 fopen = open(log_file,'w')
@@ -121,8 +123,8 @@ for stage in range(nofstages):
     folder = basenm+'/'
     poscar01 = rename_molecule(poscar00, basenm, 3)
     poscar00 = run_calculator(poscar01, folder, stage)
-    poscar00 = cutter_energy(poscar00,emax,1)
-    poscar00 = discriminate_calculated(poscar00,vol_restriction)
+    poscar00 = cutter_energy(poscar00,emax,0)
+    poscar00 = descriptor_comparison_calculated(poscar00,simil_tol)
     display_mol_info(poscar00,stage)
     writeposcars(poscar00, basenm + '.vasp', 'D')
 fopen = open(log_file,'a')

@@ -4,7 +4,7 @@ from vasp_solids.make_potcar   import make_potcar_file
 from vasp_solids.make_inputs   import make_ainput_vasp
 from vasp_solids.get_geometry  import get_normaltermination_vasp, get_all_nt_geometry_vasp, get_all_at_geometry_vasp, get_all_xt_geometry_vasp
 from vasp_solids.clean         import clean_vasp
-from discriminate_solids.usrp  import molin_sim_molref, kick_similar_molecules
+#from discriminate_solids.usrp  import molin_sim_molref, kick_similar_molecules
 from utils_solids.libmoleculas import readxyzs
 #------------------------------------------------------------------------------------------
 listnoa  = get_int_list('no_attempts_opt',[1, 1])
