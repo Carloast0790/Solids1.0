@@ -4,8 +4,6 @@ from vasp_solids.make_potcar   import make_potcar_file
 from vasp_solids.make_inputs   import make_ainput_vasp
 from vasp_solids.get_geometry  import get_normaltermination_vasp, get_all_nt_geometry_vasp, get_all_at_geometry_vasp, get_all_xt_geometry_vasp
 from vasp_solids.clean         import clean_vasp
-#from discriminate_solids.usrp  import molin_sim_molref, kick_similar_molecules
-from utils_solids.libmoleculas import readxyzs
 #------------------------------------------------------------------------------------------
 listnoa  = get_int_list('no_attempts_opt',[1, 1])
 listper  = get_float_list('percent_of_convergence',[90.0, 90.0])
@@ -44,72 +42,8 @@ def calculator_vasp_all(moleculein, folder, stage=0):
         foldername = imol.i
         path = folder+foldername+'/'
         clean_vasp(path, foldername)
+
 #------------------------------------------------------------------------------------------
-# def calculator_vasp_kernel(moleculein, folder, stage=0):
-#     success,count = 0,1
-#     n0 = len(moleculein)
-#     noa = listnoa[stage]
-#     per = listper[stage]
-#     while success == 0:
-#         fopen = open(log_file,'a')
-#         print("---------------------------------------- BEGIN CALC-ATTEMP %d" %(count), file=fopen)
-#         fopen.close()
-#         if count == 1:
-#             calculator_vasp_all(moleculein, folder, stage)
-#             moleculeout = get_all_nt_geometry_vasp(folder, moleculein)
-#         else:
-#             calculator_vasp_all(moleculeux, folder, stage)
-#             moleculetmp = get_all_nt_geometry_vasp(folder, moleculeux)
-#             moleculeout.extend(moleculetmp)
-#             moleculeux.clear()
-#         n1 = len(moleculeout) if moleculeout != [] else 0
-#         p = float(n1)*100.0/float(n0)
-#         if p < per:
-#             fopen = open(log_file,'a')
-#             print("Calculations with NT = %2.1f percent, less than the requested (%2.1f percent)" %(p,per), file=fopen)
-#             fopen.close()
-#             if count == noa:
-#                 fopen = open(log_file,'a')
-#                 print("We have reached the maximum number of attempts (%d)." %(noa), file=fopen)
-#                 print("------------------------------------------ END CALC-ATTEMP %d" %(count), file=fopen)
-#                 fopen.close()
-#                 break
-#             else:
-#                 erase = 0
-#                 moleculeux = get_all_at_geometry_vasp(folder, moleculein, erase)
-#                 if moleculeux != []:
-#                     n2a = len(moleculeux)
-#                     moleculeux = molin_sim_molref(moleculeux, moleculeout, tol_opt, 0)
-#                     memory = readxyzs('memory.xyz')
-#                     moleculeux = molin_sim_molref(moleculeux, memory, tol_opt, 0)
-
-#                     n2d=len(moleculeux)
-#                     n0=n0-(n2a-n2d)
-#                     if moleculeux != []:
-#                         n3a=len(moleculeux)
-#                         moleculeux=kick_similar_molecules(moleculeux, tol_opt, 0)
-#                         n3d=len(moleculeux)
-#                         n0=n0-(n3a-n3d)
-#                         erase=1
-#                         moleculeux=get_all_at_geometry_vasp(folder, moleculeux, erase)
-#                 else:
-#                     fopen = open(log_file,'a')
-#                     print("None AT calculation provide structural information", file=fopen)
-#                     print("------------------------------------------ END CALC-ATTEMP %d" %(count), file=fopen)
-#                     fopen.close()
-#                     if n1==0: exit()
-#                     else: break
-#             fopen = open(log_file,'a')
-#             print("------------------------------------------ END CALC-ATTEMP %d" %(count), file=fopen)
-#             fopen.close()
-#             count=count+1
-#         else:
-#             fopen = open(log_file,'a')
-#             print("Calculations with NT = %2.1f percent satisfying the requested (%2.1f percent)" %(p,per), file=fopen)
-#             print("------------------------------------------ END CALC-ATTEMP %d" %(count), file=fopen)
-#             fopen.close()
-#             success=1
-
 def calculator_vasp_kernel(moleculein, folder, stage=0):
     success,count = 0,1
     org_leng = len(moleculein)
@@ -143,8 +77,7 @@ def calculator_vasp_kernel(moleculein, folder, stage=0):
                 fopen.close()
                 break
             else:
-                erase = 1 #creo que este debe de ser uno 
-                moleculeux = get_all_at_geometry_vasp(folder, moleculein, erase)
+                moleculeux = get_all_at_geometry_vasp(folder, moleculein, 1)
                 if moleculeux:
                     num_abnorm_term = len(moleculeux)
                     org_leng = org_leng - num_abnorm_term

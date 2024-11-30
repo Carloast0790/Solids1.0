@@ -64,8 +64,6 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_un
                 s_xtal.c.append(0)
                 print('random_000_'+str(xc).zfill(3)+' ---> PG_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
                 xtalist_out.append(s_xtal)
-        if xc == total_of_xtals:
-            break
     fopen.close()
     xtalist_out = sort_by_stoichiometry(xtalist_out)
     return xtalist_out

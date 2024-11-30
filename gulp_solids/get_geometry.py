@@ -1,7 +1,7 @@
 import os.path
 import numpy as np
 from utils_solids.atomic import get_chemical_symbol
-from utils_solids.libmoleculas import Atom, Molecule, writexyzs
+from utils_solids.libmoleculas import Atom, Molecule
 from vasp_solids.libperiodicos import direct2cartesian, writeposcars
 from inout_solids.getbilparam import get_a_str
 log_file = get_a_str('output_file','solids_out.txt')

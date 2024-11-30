@@ -1,6 +1,5 @@
 import random
 import numpy as np
-from utils_solids.atomic  import get_covalent_radius
 from utils_solids.libmoleculas import copymol, Molecule, Atom, sort_by_stoichiometry, molecular_stoichiometry, rename_molecule
 from utils_solids.miscellaneous import unit_cell_non_negative_coordinates, overlap_check
 from utils_solids.translation_rotation import translation_3D

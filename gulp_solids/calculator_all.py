@@ -60,16 +60,3 @@ def calculator_gulp_all_check(poscarlist, folder='./', blockname='gulp', stage=0
         exit()
     return moleculeout
 #------------------------------------------------------------------------------------------
-def run_sample():
-    from vasp_solids.libperiodicos import readposcars, writeposcars, expand_poscar
-    from utils_solids.libmoleculas import readxyzs, writexyzs, rename_molecule, sort_by_energy
-    #poscars=readposcars('initial.vasp')
-    poscars=readxyzs('initial.xyz')
-    poscars=rename_molecule(poscars, 'test', 3)
-    ###calculator_gulp_queue(poscars, 'stage0/', 'gulp', 0)
-    moleculeoutlist=calculator_gulp_all_check(poscars, 'stage0/', 'gulp', 0)
-    moleculeoutlist=sort_by_energy(moleculeoutlist,0)
-    writeposcars(moleculeoutlist, 'stage0.vasp', 'D')
-    poscarliste=expand_poscar(moleculeoutlist, 1, 1, 1)
-    writexyzs(poscarliste, 'stage0.xyz')
-#run_sample()

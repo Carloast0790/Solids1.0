@@ -32,6 +32,7 @@ def descriptor_comparison_calculated(xtalist_in, tolerance):
     species = list(aselist_in[0].get_chemical_symbols())
     species = set(species)
     vo = ValleOganov(species=species, function='distance', n=100, sigma=1E-5, r_cut=10)
+    # vo = ValleOganov(species=species, k2 = {"sigma": 1E-5, "n":100, "r_cut":10})
     descriptors = [vo.create(structure) for structure in aselist_in]
     disc_count = 0
     for i in range(len(descriptors)):
@@ -64,6 +65,7 @@ def descriptor_comparison_calculated_vs_pool(xtal_calculated, xtal_pool, toleran
     species = list(calculated_ase[0].get_chemical_symbols())
     species = set(species)
     vo = ValleOganov(species=species, function='distance', n=100, sigma=1E-5, r_cut=10)
+    # vo = ValleOganov(species=species, k2 = {"sigma": 1E-5, "n":100, "r_cut":10})
     descr_calc = [vo.create(structure) for structure in calculated_ase]
     descr_pool = [vo.create(structure) for structure in pool_ase]
     disc_count = 0

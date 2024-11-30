@@ -34,8 +34,7 @@ crit_stop_nrep      10
 
 ========== Discrimination =============
 
-min_energy_difference   0.01
-min_volume_difference   0.001
+similarity_tolerance    0.90
 energy_range            5.0
 
 ====== Calculation parameters =========

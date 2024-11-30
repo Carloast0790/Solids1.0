@@ -1,8 +1,7 @@
-long_string = """Gamma-point only
- 0
-Monkhorst Pack
- 1 1 1
- 0 0 0
+long_string = """Automatic kpoint scheme
+0
+Monkhorst
+4 4 4
 """
 
 exfile = open("kpoints", "w")

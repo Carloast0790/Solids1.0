@@ -50,17 +50,3 @@ def make_ainput_vasp(moleculein, path, stage, opt):
             string='cp POTCAR '+path
             os.system(string)
 #------------------------------------------------------------------------------------------
-def run_sample():
-    from utils.libmoleculas import readxyzs
-    moleculelist=readxyzs('initial.xyz')
-    stage='generation000'
-    if not os.path.exists(stage): os.system('mkdir '+stage)
-    ii=0
-    for imol in moleculelist:
-        basen='calc_000_'+str(ii).zfill(3)
-        path=stage+'/'+basen+'/'
-        if not os.path.exists(path): os.system('mkdir '+path)
-        make_ainput_vasp(imol, path, 'D')
-        ii=ii+1
-#run_sample()
-#------------------------------------------------------------------------------------------
