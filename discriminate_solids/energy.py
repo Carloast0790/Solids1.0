@@ -1,6 +1,7 @@
 from utils_solids.libmoleculas import sort_by_energy
 from inout_solids.getbilparam  import get_a_str
-log_file=get_a_str('output_file','solids_out.txt')
+
+log_file = get_a_str('output_file','solids_out.txt')
 #------------------------------------------------------------------------------------------
 def cutter_energy(xtalist_in, enemax, silence=0):
     """Returns a list of structures whose energies lies under the cut energy criteria
@@ -29,7 +30,7 @@ def cutter_energy(xtalist_in, enemax, silence=0):
             count = count+1
             jj = str(count).zfill(5)
             if silence == 0:
-                print("%s %15s ... Removed: DeltaE = %3.2f" %(jj, imol.i, de), file=fopen)
+                print("%15s Removed: DeltaE = %3.2f" %(imol.i, de), file=fopen)
     if count == 0 and silence == 0:
         print("ZERO elements Removed by Energy", file=fopen)
     elif xtalist_out == [] and silence == 0:
