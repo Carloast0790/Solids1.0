@@ -1,4 +1,4 @@
-#!/home/carlos/miniconda3/bin/python3.8 -u
+#!/home/carlos0790/miniconda3/bin/python -u
 from inout_solids.readbil import get_bilfile
 from inout_solids.getbilparam import get_a_int, get_a_str
 #------------------------------------------------------------------------------------------------
