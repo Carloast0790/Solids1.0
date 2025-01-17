@@ -14,7 +14,7 @@ from discriminate_solids.removal_by_descriptors import descriptor_comparison_cal
 vol_restriction = uc_restriction() 
 flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
-emax =  get_a_float('energy_range', 99.0)
+emax =  get_a_float('energy_range', 5.0)
 atms_specie,atms_per_specie = get_xcomp(composition)
 formula_units = get_a_int('formula_units',4)
 #------------
@@ -23,7 +23,7 @@ for i in range(z):
     atms_per_specie[i] = atms_per_specie[i] * formula_units
 #------------
 restart = get_a_str('restart','FALSE')
-total_structures = get_a_int('initial_structures', 10)
+total_structures = get_a_int('initial_structures', 30)
 dimension = get_a_int('dimension',3)
 volume_factor = get_a_float('volume_factor', 1.0)
 nofstages = get_a_int('number_of_stages', 1)
@@ -41,13 +41,13 @@ print("Chemical Formula     = %s" %(cf), file=fopen)
 print("Formula Units        = %s" %(formula_units), file=fopen)
 fopen.close()
 #------------------------------------------------------------------------------------------------
-def build_population_0():
+def build_population_0(run):
     '''It builds the initial set of structures
 
     out:
     xtalist_out (list); Structures randomly generated using symmetry 
     '''
-    initialfile = 'initial.vasp'
+    initialfile = 'initial'+'_'+str(run)+'.vasp'
     if not os.path.isfile(initialfile):
         from utils_solids.randxtal import random_crystal_gen
         fopen = open(log_file,'a')
@@ -96,6 +96,7 @@ def run_calculator(poscarlistin, folder, stage=0):
        blockg='mopac'+str(stage+1)
        from mopac.calculator_all import calculator_mopac_all_check
        poscarlistout=calculator_mopac_all_check(poscarlistin, folder, blockg, stage)
+    poscarlistout = sort_by_energy(poscarlistout, 1)
     return poscarlistout
 
 #------------------------------------------------------------------------------------------------
@@ -117,16 +118,25 @@ def display_mol_info(moleculein, stage=0, opt=0):
         fopen.close()
 
 #------------------------------------------------------------------------------------------------
-poscar00 = build_population_0()
-for stage in range(nofstages):
-    basenm = 'stage'+str(stage+1)
-    folder = basenm+'/'
-    poscar01 = rename_molecule(poscar00, basenm, 3)
-    poscar00 = run_calculator(poscar01, folder, stage)
-    poscar00 = cutter_energy(poscar00,emax,0)
-    poscar00 = descriptor_comparison_calculated(poscar00,simil_tol)
-    display_mol_info(poscar00,stage)
-    writeposcars(poscar00, basenm + '.vasp', 'D')
+run = 1
+for i in range(4):
+    fopen = open(log_file,'a')
+    print ("\n-------------------------------------------------------------", file=fopen)
+    print ("START of RUN", file=fopen)
+    print ("-------------------------------------------------------------", file=fopen)
+    fopen.close()
+    #poscar00 = build_population_0()
+    poscar00 = build_population_0(run)    
+    for stage in range(nofstages):
+        basenm = 'stage'+str(stage+1)+'_'+str(run)
+        folder = basenm+'/'
+        poscar01 = rename_molecule(poscar00, basenm, 3)
+        poscar00 = run_calculator(poscar01, folder, stage)
+        poscar00 = cutter_energy(poscar00,emax,0)
+        poscar00 = descriptor_comparison_calculated(poscar00,simil_tol)
+        display_mol_info(poscar00,stage)
+        writeposcars(poscar00, basenm + '.vasp', 'D')
+    run = run + 1 
 fopen = open(log_file,'a')
 print ("-------------------------------------------------------------", file=fopen)
 print ("SOLIDS HAS FINISHED SUCCESSFULLY", file=fopen)

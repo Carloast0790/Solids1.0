@@ -208,6 +208,7 @@ def crossover(base_xtal,complement_xtal,ref_d):
 	out: 
 	xtal_out (Molecule/False); Child structure, False if crossover is not possible
 	'''
+	#from vasp_solids.libperiodicos import readposcars, writeposcars
 	base = copymol(base_xtal)
 	base = unit_cell_non_negative_coordinates(base)	
 	org_stoich = molecular_stoichiometry(base,0)
@@ -217,16 +218,35 @@ def crossover(base_xtal,complement_xtal,ref_d):
 	rw2 = 1 - rw1
 	avg_uc = combined_unit_cell(base, comp,rw1,rw2)
 	avg_base = translating_to_avg_uc(base,avg_uc)
+	
+	#writeposcars([avg_base],'base.vasp','D')
+
 	avg_comp = translating_to_avg_uc(comp,avg_uc)
+	
+	#writeposcars([avg_comp],'comp.vasp','D')
+
 	general_stop = 0
 	wflag = False
 	while wflag == False:
 		r_vect = random.choice(['a','b','c'])
 		r_point = bounded_random_point(0.7,0.4)
 		avg_base = translation_3D(avg_base)
+
+		#writeposcars([avg_base],'base_trans.vasp','D')
+
 		avg_comp = translation_3D(avg_comp)
+
+		#writeposcars([avg_comp],'comp_trans.vasp','D')
+
+
 		xtal_out = parent_cut_bellow(avg_base,r_vect,r_point)
+
+		#writeposcars([xtal_out],'cut_base.vasp','D')
+
 		cut_comp = parent_cut_above(avg_comp,r_vect,r_point)
+
+		#writeposcars([cut_comp],'cut_comp.vasp','D')
+
 		new_stoich = molecular_stoichiometry(xtal_out,0)
 		comp_stoich = molecular_stoichiometry(cut_comp,0)
 		m_atm = missing_atoms_identifier(org_stoich,new_stoich)
@@ -260,7 +280,16 @@ def crossover(base_xtal,complement_xtal,ref_d):
 		if general_stop == 3:
 			xtal_out = False
 			break
+
+		#writeposcars([xtal_out],'result.vasp','D')
+
 	return xtal_out
+
+# from vasp_solids.libperiodicos import readposcars, writeposcars
+
+# x = readposcars('1.vasp')
+# y = readposcars('2.vasp')
+# z = crossover(x,y,[(Mg,Mg,1.0),(Mg,Al,1.0),(Mg,O,1.0),(Al,Al,1.0),(Al,O,1.0),(O,O,1.0)])
 
 #----------------------------------------------------------------------------------------------------------
 def many_crossovers(m_list,f_list,ref_d):

@@ -69,7 +69,6 @@ def lattice_mutation(xtal_in):
     in: xtal_in (Molecule), the structure which UC will be mutated
     out: xtal_out (Molecule), the structure with the mutated UC
     '''
-    
     o_lat = xtal_in.m
     volume = lambda v0,v1,v2: abs(np.dot(np.cross(v0,v1),v2))
     org_vol = volume(o_lat[0],o_lat[1],o_lat[2])
@@ -81,7 +80,7 @@ def lattice_mutation(xtal_in):
         nxc,nyc,nzc = direct2cartesian(ox,oy,oz,str_lat)
         n_atm = Atom(a.s,nxc,nyc,nzc)
         xtal_out.add_atom(n_atm)
-    xtal_out = rescale_str(xtal_out,org_vol)
+    #xtal_out = rescale_str(xtal_out,org_vol)
     return xtal_out
 
 #------------------------------------------------------------------------------------------
@@ -113,6 +112,7 @@ def atom_exchange(xtal_in,rounds):
 
 #--------------------------------------------------------------------------------------------
 def make_mutants(the_chosen_ones_list):
+    from vasp_solids.libperiodicos import writeposcars
     xtal_out = []
     xchange_list = random.choices(the_chosen_ones_list, k = number_of_atmxchange)
     strain_list = random.choices(the_chosen_ones_list, k = number_of_lattstr)
@@ -124,11 +124,24 @@ def make_mutants(the_chosen_ones_list):
             xtal_out.append(mut_s)
     else:
         for s_str in strain_list:
+
+            #writeposcars([s_str],'str_s.vasp','D')
+
             mut_s = lattice_mutation(s_str)
+
+            #writeposcars([mut_s],'mut_s.vasp','D')
+
             xtal_out.append(mut_s)        
         for x_str in xchange_list:
+
+            #writeposcars([x_str],'str_x.vasp','D')
+
+
             r = random.randint(1,4)
             mut_x = atom_exchange(x_str,r)
+
+            #writeposcars([mut_x],'mut_x.vasp','D')
+
             xtal_out.append(mut_x)
     return xtal_out
 

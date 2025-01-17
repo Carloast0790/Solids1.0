@@ -16,7 +16,7 @@ formula_units   4
 
 =========== Constrictions =============
 
-interatom_scale_value 0.9
+tol_atomic_overlap 0.9
 
 ========= Initial population ==========
 

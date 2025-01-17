@@ -20,16 +20,17 @@ flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
 atms_specie,atms_per_specie = get_xcomp(composition)
 formula_units = get_a_int('formula_units',2)
-restart = get_a_str('restart','FALSE')
+restart = get_a_str('restart','True')
 #------------------
 z = len(atms_per_specie)
 for i in range(z):
     atms_per_specie[i] = atms_per_specie[i] * formula_units
 #-----------------
 total_structures   = get_a_int('initial_structures', 4)
-max_number_inputs  = get_a_int('max_number_inputs',20)
+max_number_inputs  = get_a_int('max_number_inputs',10)
 number_of_randoms = get_a_int('number_of_randoms',10)
 volume_factor = get_a_float('volume_factor', 1.0)
+
 l_tol,p_tol   = get_tolerances(atms_specie)
 dimension = get_a_int('dimension',3)
 log_file  = get_a_str('output_file','solids_out.txt')
@@ -69,7 +70,7 @@ def build_population_0():
         writeposcars(xtalist_out, initialfile, 'D')
     else:
         xtalist_out = readposcars(initialfile)
-        if restart == 'FALSE':
+        if restart == 'False':
             xtalist_out = rename_molecule(xtalist_out, 'restart_000_', 3)
         fopen = open(log_file,'a')
         print("%s exists... we take it" %(initialfile), file=fopen)
@@ -158,9 +159,11 @@ def build_population_n(poscarlist,ref_d,generation=1):
     return xtal_out
 
 #------------------------------------------------------------------------------------------------
-# Build population zero and relax it
-s_initial = build_population_0()
+# Build population zero, check for similarities and relax it
+s_initial = build_population_0() 
 s_relax = run_calculator(s_initial, 'generation000/', 0)
+writeposcars(s_relax,'relaxedGen000.vasp','D')
+s_clean = descriptor_comparison_calculated(s_relax,simil_tol)
 
 # Check for ill structures
 ill_str = []
@@ -174,8 +177,10 @@ if e_gap0 >= 10:
     s_ready_n = s_relax[1:]
     fopen.close()
 
-#Remove similar structures
-s_clean = descriptor_comparison_calculated(s_relax,simil_tol)
+#Start memory file
+mem_list = s_clean.copy()
+
+# Create summary and pool
 s_ready = s_clean[:max_number_inputs]
 display_info(s_ready, 0)
 writeposcars(s_ready, 'summary.vasp', 'D')
@@ -185,11 +190,12 @@ emin = s_ready[0].e
 cont = 0
 for generation in range(1,nmaxgen + 1):
     folder = 'generation' + str(generation).zfill(3) + '/'
+    gen_name = 'relaxedGen'+ str(generation).zfill(3) + '.vasp'
     s_initial_n = build_population_n(s_ready,l_tol,generation)
     s_relax_n = run_calculator(s_initial_n, folder, generation)
+    writeposcars(s_relax_n,gen_name,'D')
     s_clean_gen_n = descriptor_comparison_calculated(s_relax_n,simil_tol)
     s_cleanpool_n = descriptor_comparison_calculated_vs_pool(s_clean_gen_n,s_ready,simil_tol)
-    
     if len(s_cleanpool_n) == 0:
         fopen = open(log_file,'a')
         print("-------------------------------------------------------------------", file=fopen)
@@ -200,6 +206,7 @@ for generation in range(1,nmaxgen + 1):
         exit()
     s_ready_n = sort_by_energy(s_cleanpool_n,1)
     
+    #Check for ill structures 
     e_best,e_second = float(s_ready_n[0].e), float(s_ready_n[1].e)
     e_gap = abs(e_best - e_second)
     if e_gap >= 10:
@@ -210,6 +217,11 @@ for generation in range(1,nmaxgen + 1):
         writeposcars(ill_str,'ill_structures.vasp','D')
         s_ready_n = s_ready_n[1:]
 
+    #Update the memory list
+    mem_list.extend(s_ready_n)
+    writeposcars(mem_list,'memory.vasp','D')
+
+    #Update the summary list
     s_ready_n = cutter_energy(s_ready_n,emax)
     s_ready_n = s_ready_n[0:max_number_inputs]
     display_info(s_ready_n,1,generation)

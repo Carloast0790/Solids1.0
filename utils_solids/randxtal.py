@@ -29,32 +29,36 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_un
     xtalist_out (list); This list will contain all crystal structures as Molecule object
     '''
     xtalist_out = []
-    xc = 0
+    xc = 1
     fopen = open(log_file,'a')
-    while xc <= total_of_xtals:
+    number_of_xtals = 230
+    if dimension == 2:
+        number_of_xtals = 80
+    #while xc <= total_of_xtals:
+    for sym in range(1,number_of_xtals):
         xtal = pyxtal()
         if dimension == 2:
             try:
-                sym = random.randint(2,80)
+                #sym = random.randint(2,80)
                 xtal.from_random(dimension,sym,species,atoms_per_specie,thickness=0.0)
             except:
                 continue
             else:
-                xc = xc + 1
+                sg = Group (sym)
+                sg_symbol = str(sg.symbol)
                 s_xtal = pyxtal2solids(xtal,dimension)
                 s_xtal = unit_cell_non_negative_coordinates(s_xtal)
                 s_xtal.c.append(0)
-                print('random_000_'+str(xc).zfill(3)+' ---> PG_'+str(sym).zfill(3),file=fopen)
+                print('random_000_'+str(xc).zfill(3)+' ---> SG_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
                 xtalist_out.append(s_xtal)
+                xc = xc + 1
         elif dimension == 3:
             try:
-                sym = random.randint(2,230)
-                # sym = random.randint(16,74)
+                #sym = random.randint(2,230)
                 xtal.from_random(dimension, sym, species, atoms_per_specie,volume_factor,p_list)
             except:
                 continue
             else:
-                xc = xc + 1
                 sg = Group (sym)
                 sg_symbol = str(sg.symbol)
                 s_xtal = pyxtal2solids(xtal,dimension)
@@ -62,8 +66,9 @@ def random_crystal_gen(total_of_xtals,species,atoms_per_specie,p_list,formula_un
                 if vol_restr:
                     s_xtal = rescale_str(s_xtal,vol_restr)
                 s_xtal.c.append(0)
-                print('random_000_'+str(xc).zfill(3)+' ---> PG_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
+                print('random_000_'+str(xc).zfill(3)+' ---> SG_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
                 xtalist_out.append(s_xtal)
+                xc = xc + 1
     fopen.close()
     xtalist_out = sort_by_stoichiometry(xtalist_out)
     return xtalist_out

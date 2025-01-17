@@ -128,7 +128,7 @@ def rescale_str(xtal_in, reference_volume):
     return xtal_out
 
 #------------------------------------------------------------------------------------------------
-def get_default_tolerances(species,scale_value):
+def get_default_tolerances(species,scale_value=0.9):
     '''Gets the default tolerances for each pair of atoms in the structure
     
     in: 
@@ -169,7 +169,7 @@ def get_default_tolerances(species,scale_value):
         return tolerances,py_tol 
 
 #------------------------------------------------------------------------------------------------
-def get_default_tolerances_solids(species,scale_value):
+def get_default_tolerances_solids(species,scale_value=0.9):
     '''Gets the default tolerances for each pair of atoms in the structure, only used
     to bypass the usage of pyxtal 
     
@@ -270,7 +270,7 @@ def get_tolerances(species,bypass=False):
     p_dtv, p_ctv (Tol_matrix); Pyxtal tolerance object, p_dtv if default, p_ctv otherwise
     '''
     from inout_solids.getbilparam import get_a_float
-    tv = get_a_float('interatom_scale_value',False)
+    tv = get_a_float('tol_atomic_overlap',False)
     if bypass == False:
         if tv:
             dtv,p_dtv = get_default_tolerances(species,tv)

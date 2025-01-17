@@ -13,7 +13,7 @@ def cutter_energy(xtalist_in, enemax, silence=0):
     xtalis_out (List); Filtered list with only structures under energetic cutoff
     """
     xtalist_out, count = [],0
-    if xtalist_in == []: 
+    if not xtalist_in: 
         return xtalist_out
     moleculesort = sort_by_energy(xtalist_in,1)
     emin0 = moleculesort[0].e
@@ -22,22 +22,22 @@ def cutter_energy(xtalist_in, enemax, silence=0):
     print('------------------ Structure Removal by Energy --------------------',file=fopen)
     if silence == 0:
         print("\nMaximum energy gap allowed = %3.2f eV \n" %(enemax), file=fopen)
-    for imol in xtalist_in:
-        de = imol.e - emin0
-        if de < enemax:
-            xtalist_out.extend([imol])
+        for imol in xtalist_in:
+            de = imol.e - emin0
+            if de < enemax:
+                xtalist_out.extend([imol])
+            else:
+                count = count + 1
+                print("%9s Removed: DeltaE = %3.2f" %(imol.i, de), file=fopen)
+        if count == 0:
+            print("ZERO elements Removed by Energy", file=fopen)
         else:
-            count = count+1
-            jj = str(count).zfill(5)
-            if silence == 0:
-                print("%15s Removed: DeltaE = %3.2f" %(imol.i, de), file=fopen)
-    if count == 0 and silence == 0:
-        print("ZERO elements Removed by Energy", file=fopen)
-    elif xtalist_out == [] and silence == 0:
-        print("All the elements were Removed by Energy", file=fopen)
-        print("Please choose another value for energy_range", file=fopen)
-        fopen.close()
-        exit()
+            print(str(count) + " elements Removed by Energy", file=fopen)
+        if not xtalist_out:
+            print("\nAll the elements were Removed by Energy", file=fopen)
+            print("Please choose another value for energy_range", file=fopen)
+            fopen.close()
+            exit()
     fopen.close()
     return xtalist_out
 #------------------------------------------------------------------------------------------

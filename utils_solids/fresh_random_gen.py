@@ -43,10 +43,12 @@ def popgen_fresh_random_gen(number_of_random,species,atoms_per_specie,volume_fac
                 continue
             else:
                 xc = xc + 1
+                sg = Group (sym)
+                sg_symbol = str(sg.symbol)
                 s_xtal = pyxtal2solids(xtal,dimension)
                 s_xtal = unit_cell_non_negative_coordinates(s_xtal)
                 s_xtal.c.append(0)
-                print(basename + str(xc).zfill(3) +'---> PG_' + str(sym).zfill(3),file=logfile)
+                print(basename + str(xc).zfill(3) +'---> SG_'+str(sg_symbol)+"_("+str(sym)+")",file=logfile)
                 xtalist_out.append(s_xtal)
         elif dimension == 3:
             try:
@@ -58,10 +60,12 @@ def popgen_fresh_random_gen(number_of_random,species,atoms_per_specie,volume_fac
                 continue
             else:
                 xc = xc + 1
+                sg = Group (sym)
+                sg_symbol = str(sg.symbol)
                 s_xtal = pyxtal2solids(xtal,dimension)
                 s_xtal = unit_cell_non_negative_coordinates(s_xtal)
                 s_xtal.c.append(0)
-                print(basename + str(xc).zfill(3) + ' ---> PG_' + str(sg_symbol).zfill(3),file=logfile)
+                print(basename + str(xc).zfill(3) + ' ---> SG_'+str(sg_symbol)+"_("+str(sym)+")",file=logfile)
                 xtalist_out.append(s_xtal)        
             if xc == number_of_random:
                 break
