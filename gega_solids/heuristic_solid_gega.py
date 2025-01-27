@@ -20,7 +20,7 @@ flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
 atms_specie,atms_per_specie = get_xcomp(composition)
 formula_units = get_a_int('formula_units',2)
-restart = get_a_str('restart','True')
+restart = get_a_str('restart','False')
 #------------------
 z = len(atms_per_specie)
 for i in range(z):
@@ -59,13 +59,13 @@ def build_population_0():
     '''
     initialfile = 'initial000.vasp'
     if not os.path.isfile(initialfile):
-        from utils_solids.randxtal import random_crystal_gen
+        from utils_solids.randxtal import random_crystal_gen_GA
         fopen = open(log_file,'a')
         print("Making initial file  = %s" %(initialfile),file=fopen)
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        xtalist_out = random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
+        xtalist_out = random_crystal_gen_GA(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
         xtalist_out = rename_molecule(xtalist_out, 'random_000_', 3)
         writeposcars(xtalist_out, initialfile, 'D')
     else:

@@ -49,7 +49,7 @@ def build_population_0(run):
     '''
     initialfile = 'initial'+'_'+str(run)+'.vasp'
     if not os.path.isfile(initialfile):
-        from utils_solids.randxtal import random_crystal_gen
+        from utils_solids.randxtal import random_crystal_gen_SM
         fopen = open(log_file,'a')
         print("Making initial file  = %s" %(initialfile),file=fopen)
         print("-------------------------------------------------------------------",file=fopen)
@@ -119,10 +119,10 @@ def display_mol_info(moleculein, stage=0, opt=0):
 
 #------------------------------------------------------------------------------------------------
 run = 1
-for i in range(4):
+for i in range(15):
     fopen = open(log_file,'a')
     print ("\n-------------------------------------------------------------", file=fopen)
-    print ("START of RUN", file=fopen)
+    print ("START of RUN %d" %(run), file=fopen)
     print ("-------------------------------------------------------------", file=fopen)
     fopen.close()
     #poscar00 = build_population_0()
