@@ -162,8 +162,8 @@ def build_population_n(poscarlist,ref_d,generation=1):
 # Build population zero, check for similarities and relax it
 s_initial = build_population_0() 
 s_relax = run_calculator(s_initial, 'generation000/', 0)
-writeposcars(s_relax,'relaxedGen000.vasp','D')
 s_clean = descriptor_comparison_calculated(s_relax,simil_tol)
+writeposcars(s_clean,'relaxedGen000.vasp','D')
 
 # Check for ill structures
 ill_str = []
@@ -193,7 +193,6 @@ for generation in range(1,nmaxgen + 1):
     gen_name = 'relaxedGen'+ str(generation).zfill(3) + '.vasp'
     s_initial_n = build_population_n(s_ready,l_tol,generation)
     s_relax_n = run_calculator(s_initial_n, folder, generation)
-    writeposcars(s_relax_n,gen_name,'D')
     s_clean_gen_n = descriptor_comparison_calculated(s_relax_n,simil_tol)
     s_cleanpool_n = descriptor_comparison_calculated_vs_pool(s_clean_gen_n,s_ready,simil_tol)
     if len(s_cleanpool_n) == 0:
@@ -204,6 +203,7 @@ for generation in range(1,nmaxgen + 1):
         fopen.close()
         display_info(s_ready,0,generation)
         exit()
+    writeposcars(s_cleanpool_n,gen_name,'D')
     s_ready_n = sort_by_energy(s_cleanpool_n,1)
     
     #Check for ill structures 
