@@ -17,26 +17,26 @@ formula_units   2
 
 =========== Constrictions =============
 
-tol_atomic_overlap 0.8
+tol_atomic_overlap 0.95
 
 ========= Initial population ==========
 
 initial_structures  30
 
-======== Algorithm parameters =========
+======== Algorithm Parameters =========
 
 max_number_inputs   10
-number_of_matings   12
-number_of_xchange   4
-number_of_strains   4
-number_of_randoms   5
+number_of_matings   20
+number_of_xchange   6
+number_of_strains   6
+number_of_randoms   3
 max_number_gens     30
 crit_stop_nrep      10
 
 ========== Discrimination =============
 
-similarity_tolerance    0.90
-energy_range            5.0
+similarity_tolerance    0.95
+energy_range            2.0
 
 ====== Calculation parameters =========
 

@@ -55,7 +55,7 @@ def build_population_0(run):
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        xtalist_out = random_crystal_gen(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
+        xtalist_out = random_crystal_gen_SM(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
         xtalist_out = rename_molecule(xtalist_out, 'random', 4)
         writeposcars(xtalist_out, initialfile, 'D')
     else:
@@ -119,7 +119,7 @@ def display_mol_info(moleculein, stage=0, opt=0):
 
 #------------------------------------------------------------------------------------------------
 run = 1
-for i in range(15):
+for i in range(1):
     fopen = open(log_file,'a')
     print ("\n-------------------------------------------------------------", file=fopen)
     print ("START of RUN %d" %(run), file=fopen)

@@ -16,7 +16,7 @@ formula_units   4
 
 =========== Constrictions =============
 
-interatom_scale_value 0.8
+tol_atomic_overlap 0.95
 
 ========= Initial population ==========
 
@@ -28,20 +28,20 @@ number_of_stages    2
 
 ========== Discrimination =============
 
-similarity_tolerance    0.90
-energy_range            5.0
+similarity_tolerance    0.95
+energy_range            2.0
 
 ====== Calculation parameters =========
 
 no_attempts_opt         2
-percent_of_convergence  95.0
+percent_of_convergence  85.0
 
 ## Queue system and Computer resources
 queue                   {queue}
 njobs                   10
 nprocshared             10
 memory_in_gb            8
-walltime                00:45:00 00:45:00
+walltime                08:00:00
 timesleep               2.0
 
 ## Periodic/VASP parameters

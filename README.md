@@ -7,7 +7,8 @@ Solids is interfaced with VASP and GULP to carry structural relaxations.
 
 # Dependencies 
 
-Pyxtal 
+Pyxtal
+DScribe 
 
 # Updates
 - Correction of initial random generator
