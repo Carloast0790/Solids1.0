@@ -41,13 +41,13 @@ print("Chemical Formula     = %s" %(cf), file=fopen)
 print("Formula Units        = %s" %(formula_units), file=fopen)
 fopen.close()
 #------------------------------------------------------------------------------------------------
-def build_population_0(run):
+def build_population_0():
     '''It builds the initial set of structures
 
     out:
     xtalist_out (list); Structures randomly generated using symmetry 
     '''
-    initialfile = 'initial'+'_'+str(run)+'.vasp'
+    initialfile = 'initial.vasp'
     if not os.path.isfile(initialfile):
         from utils_solids.randxtal import random_crystal_gen_SM
         fopen = open(log_file,'a')
@@ -118,25 +118,16 @@ def display_mol_info(moleculein, stage=0, opt=0):
         fopen.close()
 
 #------------------------------------------------------------------------------------------------
-run = 1
-for i in range(1):
-    fopen = open(log_file,'a')
-    print ("\n-------------------------------------------------------------", file=fopen)
-    print ("START of RUN %d" %(run), file=fopen)
-    print ("-------------------------------------------------------------", file=fopen)
-    fopen.close()
-    #poscar00 = build_population_0()
-    poscar00 = build_population_0(run)    
-    for stage in range(nofstages):
-        basenm = 'stage'+str(stage+1)+'_'+str(run)
-        folder = basenm+'/'
-        poscar01 = rename_molecule(poscar00, basenm, 3)
-        poscar00 = run_calculator(poscar01, folder, stage)
-        poscar00 = cutter_energy(poscar00,emax,0)
-        poscar00 = descriptor_comparison_calculated(poscar00,simil_tol)
-        display_mol_info(poscar00,stage)
-        writeposcars(poscar00, basenm + '.vasp', 'D')
-    run = run + 1 
+poscar00 = build_population_0()   
+for stage in range(nofstages):
+    basenm = 'stage'+str(stage+1)
+    folder = basenm+'/'
+    poscar01 = rename_molecule(poscar00, basenm, 3)
+    poscar00 = run_calculator(poscar01, folder, stage)
+    poscar00 = cutter_energy(poscar00,emax,0)
+    poscar00 = descriptor_comparison_calculated(poscar00,simil_tol)
+    display_mol_info(poscar00,stage)
+    writeposcars(poscar00, basenm + '.vasp', 'D')
 fopen = open(log_file,'a')
 print ("-------------------------------------------------------------", file=fopen)
 print ("SOLIDS HAS FINISHED SUCCESSFULLY", file=fopen)

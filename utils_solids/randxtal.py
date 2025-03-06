@@ -9,7 +9,6 @@ warnings.filterwarnings("ignore")
 #------------------------------------------------------------------------------------------------
 # Variables
 log_file = get_a_str('output_file','solids_out.txt')
-num_of_symvisit = get_a_int('num_of_symvist', 1)
 #------------------------------------------------------------------------------------------------
 def random_crystal_gen_SM(total_of_xtals,species,atoms_per_specie,p_list,formula_units=1,dimension=3,volume_factor=1.0,vol_restr=False):
     '''Generates a specified number of crystal structures
@@ -32,44 +31,40 @@ def random_crystal_gen_SM(total_of_xtals,species,atoms_per_specie,p_list,formula
     xtalist_out = []
     xc = 1
     fopen = open(log_file,'a')
-    number_of_xtals = 230
-    if dimension == 2:
-        number_of_xtals = 80
-    for _ in range (num_of_symvisit):
-        for sym in range(1,number_of_xtals):
-            xtal = pyxtal()
-            if dimension == 2:
-                try:
-                    #sym = random.randint(2,80)
-                    xtal.from_random(dimension,sym,species,atoms_per_specie,thickness=0.0)
-                except:
-                    continue
-                else:
-                    sg = Group (sym)
-                    sg_symbol = str(sg.symbol)
-                    s_xtal = pyxtal2solids(xtal,dimension)
-                    s_xtal = unit_cell_non_negative_coordinates(s_xtal)
-                    s_xtal.c.append(0)
-                    print('random_000_'+str(xc).zfill(3)+' ---> SG_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
-                    xtalist_out.append(s_xtal)
-                    xc = xc + 1
-            elif dimension == 3:
-                try:
-                    #sym = random.randint(2,230)
-                    xtal.from_random(dimension, sym, species, atoms_per_specie,volume_factor,p_list)
-                except:
-                    continue
-                else:
-                    sg = Group (sym)
-                    sg_symbol = str(sg.symbol)
-                    s_xtal = pyxtal2solids(xtal,dimension)
-                    s_xtal = unit_cell_non_negative_coordinates(s_xtal)
-                    if vol_restr:
-                        s_xtal = rescale_str(s_xtal,vol_restr)
-                    s_xtal.c.append(0)
-                    print('random_000_'+str(xc).zfill(3)+' ---> SG_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
-                    xtalist_out.append(s_xtal)
-                    xc = xc + 1
+    while xc <= total_of_xtals:
+        xtal = pyxtal()
+        if dimension == 2:
+            try:
+                sym = random.randint(2,80)
+                xtal.from_random(dimension,sym,species,atoms_per_specie,thickness=0.0)
+            except:
+                continue
+            else:
+                sg = Group (sym)
+                sg_symbol = str(sg.symbol)
+                s_xtal = pyxtal2solids(xtal,dimension)
+                s_xtal = unit_cell_non_negative_coordinates(s_xtal)
+                s_xtal.c.append(0)
+                print('random_000_'+str(xc).zfill(3)+' ---> SG_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
+                xtalist_out.append(s_xtal)
+                xc = xc + 1
+        elif dimension == 3:
+            try:
+                sym = random.randint(2,230)
+                xtal.from_random(dimension, sym, species, atoms_per_specie,volume_factor,p_list)
+            except:
+                continue
+            else:
+                sg = Group (sym)
+                sg_symbol = str(sg.symbol)
+                s_xtal = pyxtal2solids(xtal,dimension)
+                s_xtal = unit_cell_non_negative_coordinates(s_xtal)
+                if vol_restr:
+                    s_xtal = rescale_str(s_xtal,vol_restr)
+                s_xtal.c.append(0)
+                print('random_000_'+str(xc).zfill(3)+' ---> SG_'+str(sg_symbol)+"_("+str(sym)+")",file=fopen)
+                xtalist_out.append(s_xtal)
+                xc = xc + 1
     fopen.close()
     xtalist_out = sort_by_stoichiometry(xtalist_out)
     return xtalist_out
