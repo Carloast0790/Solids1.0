@@ -14,7 +14,7 @@ from discriminate_solids.removal_by_descriptors import descriptor_comparison_cal
 vol_restriction = uc_restriction() 
 flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
-emax =  get_a_float('energy_range', 5.0)
+emax =  get_a_float('energy_range', 1.0)
 atms_specie,atms_per_specie = get_xcomp(composition)
 formula_units = get_a_int('formula_units',4)
 #------------
@@ -22,7 +22,6 @@ z = len(atms_per_specie)
 for i in range(z):
     atms_per_specie[i] = atms_per_specie[i] * formula_units
 #------------
-restart = get_a_str('restart','FALSE')
 total_structures = get_a_int('initial_structures', 30)
 dimension = get_a_int('dimension',3)
 volume_factor = get_a_float('volume_factor', 1.0)
@@ -30,6 +29,7 @@ nofstages = get_a_int('number_of_stages', 1)
 log_file = get_a_str('output_file','solids_out.txt')
 l_tol,p_tol = get_tolerances(atms_specie)
 simil_tol = get_a_float('similarity_tolerance',0.8)
+revisit_syms = get_a_int('revisit_syms',1)
 #------------------------------------------------------------------------------------------------
 pid = os.getpid()
 fopen = open(log_file,'w')
@@ -55,13 +55,10 @@ def build_population_0():
         print("-------------------------------------------------------------------",file=fopen)
         print("-----------------------POPULATION  GENERATOR-----------------------",file=fopen)
         fopen.close()
-        xtalist_out = random_crystal_gen_SM(total_structures,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
+        xtalist_out = random_crystal_gen_SM(revisit_syms,atms_specie,atms_per_specie,p_tol,formula_units,dimension,volume_factor,vol_restriction)
         xtalist_out = rename_molecule(xtalist_out, 'random', 4)
         writeposcars(xtalist_out, initialfile, 'D')
     else:
-        xtalist_out = readposcars(initialfile)
-        if restart == 'FALSE':
-            xtalist_out = rename_molecule(xtalist_out, 'restart', 3)
         fopen = open(log_file,'a')
         print("%s exists... we take it" %(initialfile), file=fopen)
         fopen.close()

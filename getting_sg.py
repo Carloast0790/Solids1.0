@@ -2,7 +2,7 @@
 from pymatgen.io.vasp import Poscar
 import spglib
 
-poscar = Poscar.from_file("c8_graphite.vasp")
+poscar = Poscar.from_file("bestc12.vasp")
 structure = poscar.structure
 lattice = structure.lattice.matrix # 3x3 array of lattice vectors
 positions = structure.frac_coords # Fractional coordinates of atoms

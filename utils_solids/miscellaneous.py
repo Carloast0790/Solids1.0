@@ -99,6 +99,37 @@ def uc_restriction():
                 break
         f.close()
     return restr_v
+#------------------------------------------------------------------------------------------------
+def get_symmetry_constrains(str_range, dimension=3):
+    ''' This routine extracts a desired range of integers to be used as SGs in the construction of
+    structures. The result is presented in list format, eg. range 1-5, range_list = [1,2,3,4,5]. If 
+    the restriction is not provided, the list ranges from 2-80 for 2D structures and from 2-230 for 3D.
+
+    in: str_range (str), flag to locate the desired range of integers
+        dimension (int), list of all numbers within the desired range
+    out: range_list (list), list of all numbers within the desired range
+    '''
+    import os.path
+    file = 'INPUT.txt'
+    range_list = []
+    if os.path.isfile(file):
+        f = open(file,'r')
+        flag = False
+        for line in f:
+            if not line.startswith('#') and str_range in line:
+                line = line.lstrip('\t\n\r')
+                line = line.split()
+                readline = line[1].split('-')
+                bottom, top = int(readline[0])-1, int(readline[1])
+                range_list = [s+1 for s in range(bottom,top)]
+                flag = True
+                break
+        f.close()
+        if flag == False and dimension == 2:
+            range_list = [i for i in range(2,81)]
+        elif flag == False and dimension == 3:
+            range_list = [i for i in range(2,231)]
+    return range_list
 
 #------------------------------------------------------------------------------------------------
 def rescale_str(xtal_in, reference_volume):

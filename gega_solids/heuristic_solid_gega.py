@@ -8,7 +8,7 @@ from inout_solids.readbil import read_var_composition, clustername
 from inout_solids.messag import write_welcome
 from utils_solids.libmoleculas import rename_molecule, sort_by_energy, sort_by_stoichiometry
 from utils_solids.miscellaneous import get_xcomp, uc_restriction, rescale_str,get_tolerances
-from utils_solids.fresh_random_gen import popgen_fresh_random_gen
+from utils_solids.randxtal import random_crystal_gen_GA, popgen_fresh_random_gen
 from gega_solids.aptitude import get_aptitude
 from gega_solids.crossoversolids import crossover, popgen_childs
 from gega_solids.mutation_and_heredity import popgen_mutants, make_mutants
@@ -20,7 +20,7 @@ flag = get_a_str('calculator','vasp')
 composition = read_var_composition('composition')
 atms_specie,atms_per_specie = get_xcomp(composition)
 formula_units = get_a_int('formula_units',2)
-restart = get_a_str('restart','False')
+seeded_run = get_a_str('seeded_run','False')
 #------------------
 z = len(atms_per_specie)
 for i in range(z):
@@ -52,14 +52,13 @@ print("Formula Units        = %s" %(formula_units), file=fopen)
 fopen.close()
 #------------------------------------------------------------------------------------------------
 def build_population_0():
-    '''Creates the initial population of crystalline structures.
+    '''Creates the initial population of structures.
 
     out: 
     xtalist_out (list); List with Molecule objects  
     '''
     initialfile = 'initial000.vasp'
     if not os.path.isfile(initialfile):
-        from utils_solids.randxtal import random_crystal_gen_GA
         fopen = open(log_file,'a')
         print("Making initial file  = %s" %(initialfile),file=fopen)
         print("-------------------------------------------------------------------",file=fopen)
@@ -70,8 +69,8 @@ def build_population_0():
         writeposcars(xtalist_out, initialfile, 'D')
     else:
         xtalist_out = readposcars(initialfile)
-        if restart == 'False':
-            xtalist_out = rename_molecule(xtalist_out, 'restart_000_', 3)
+        if seeded_run == 'True':
+            xtalist_out = rename_molecule(xtalist_out, 'seed_000_', 3)
         fopen = open(log_file,'a')
         print("%s exists... we take it" %(initialfile), file=fopen)
         fopen.close()
