@@ -1,0 +1,5 @@
+=========== Constrictions =============
+
+tol_atomic_overlap 0.95
+#fixed_lattice      2.474 8.121 6.138 90.0 90.0 90.0
+fixed_volume       130

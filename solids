@@ -9,19 +9,19 @@ option = option.lower()
 if  option == 'sm':
     #print("Choosed option %s: Modified Stochastic Method from chem-formula/mol.xyz" %(option))
     import kick_solids.heuristic_solids_kick
-elif option == 'ga':
+elif option == 'ea':
     #print("Choosed option %s: Growth pattern Algorithm" %(option))
     import gega_solids.heuristic_solid_gega
 else:
-    print("You need to specify one VALID option in the %s (option = SM/GA)\n" %(bilfile))
+    print("You need to specify one VALID option in the %s (option = SM/EA)\n" %(bilfile))
     print("Please, build an valid INPUT.txt file. Try:\n")
     print("solids --example_SM_vasp_TiO2")
     print("solids --example_SM_gulp_TiO2")
     print("solids --example_SM_gulp_C8")
     print("solids --example_SM_gulp_Si8")
-    print("solids --example_GA_vasp_TiO2")
-    print("solids --example_GA_gulp_TiO2")
-    print("solids --example_GA_gulp_MgAl2O4")
-    print("solids --example_GA_gulp_MgSiO3")
-    print("solids --example_GA_gulp_SrTiO3\n")
+    print("solids --example_EA_vasp_TiO2")
+    print("solids --example_EA_gulp_TiO2")
+    print("solids --example_EA_gulp_MgAl2O4")
+    print("solids --example_EA_gulp_MgSiO3")
+    print("solids --example_EA_gulp_SrTiO3\n")
 exit()

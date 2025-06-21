@@ -1,18 +1,16 @@
 from inout_solids.messag import *
 
-qname = 'queue_name'
-
 long_string = """
-========= Optimization Scheme =========
+========= Optimization scheme =========
 
-option      GA
+option      EA
 
-==== Crystal Structure Information ====
+==== Crystal structure information ====
 
 ---COMPOSITION---
 Mg   1
-Al   2
-O    4
+Si   1
+O    3
 ---COMPOSITION---
 
 formula_units   4
@@ -20,8 +18,11 @@ formula_units   4
 =========== Constrictions =============
 
 tol_atomic_overlap 0.95
+symmetries         16-74
+fixed_lattice      2.474 8.121 6.138 90.0 90.0 90.0
+#fixed_volume      133.2
 
-========= Initial Population ==========
+========= Initial population ==========
 
 initial_structures  30
 
@@ -40,15 +41,14 @@ crit_stop_nrep      10
 similarity_tolerance    0.95
 energy_range            2.0
 
-====== Calculation Parameters =========
+====== Calculation parameters =========
 
 calculator        gulp
 qsys              local
 
 ---GULP---
-opti conjugate nosymmetry conp
+opti conjugate nosymmetry conv
 switch_minimiser bfgs gnorm 0.01
-pressure 100 GPa
 vectors
 LATTICEVECTORS
 frac
@@ -56,28 +56,33 @@ COORDINATES
 space
 1
 species
-Mg  2.0
-Al  3.0
-O  -2.0
+Mg 1.8
+Si 2.4
+O -1.4
 lennard 12 6
-Mg O   1.50 0.00 0.00 6.0
-Al O   1.50 0.00 0.00 6.0
-O O    1.50 0.00 0.00 6.0
-Mg Mg  1.50 0.00 0.00 6.0
-Mg Al  1.50 0.00 0.00 6.0
-Al Al  1.50 0.00 0.00 6.0
+Mg O  2.5 0.0 0.0 6.0
+Mg Si 1.5 0.0 0.0 6.0
+Si O  1.5 0.0 0.0 6.0
+Mg Mg 1.5 0.0 0.0 6.0
+Si O  1.5 0.0 0.0 6.0
+O  O  2.5 0.0 0.0 6.0
 buck
-Mg O 1428.5 0.2945 0.0 0.0 7.0
-Al O 1114.9 0.3118 0.0 0.0 7.0
-O O  2023.8 0.2674 0.0 0.0 7.0
-maxcyc 850
-switch rfo 0.010
+Mg O   806.915 0.291 2.346 0.0 10.0
+Si O  1122.392 0.256 0.000 0.0 10.0
+O O    792.329 0.362 31.58 0.0 10.0
+Mg Mg  900.343 0.220 0.174 0.0 10.0
+Mg Si 1536.282 0.185 0.000 0.0 10.0
+Si Si 3516.558 0.150 0.000 0.0 10.0
+maxcyc
+300
+switch rfo cycle 350
 ---GULP---
 
 ---GULP.CONF---
 exe_gulp=GULP_Dir/gulp
 ---GULP.CONF---
-""".format(queue=qname)
+
+"""
 
 exfile = open('INPUT.txt', "w")
 exfile.write(welcome_solids)

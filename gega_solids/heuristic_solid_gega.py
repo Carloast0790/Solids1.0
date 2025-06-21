@@ -145,15 +145,11 @@ def build_population_n(poscarlist,ref_d,generation=1):
         xtal_out.extend(mut)
         new_strs = popgen_fresh_random_gen(number_of_randoms,atms_specie,atms_per_specie,volume_factor,p_tol,dimension,generation)
         xtal_out.extend(new_strs)
-        if vol_restriction:
-            for x in xtal_out:
-                x = rescale_str(x,vol_restriction)
-        else:
-            get_vol = lambda v0,v1,v2: abs(np.dot(np.cross(v0,v1),v2))
-            best_mtx = poscarlist[0].m
-            best_vol = get_vol(best_mtx[0],best_mtx[1],best_mtx[2])
-            for x in xtal_out:
-                x = rescale_str(x,best_vol)
+        get_vol = lambda v0,v1,v2: abs(np.dot(np.cross(v0,v1),v2))
+        best_mtx = poscarlist[0].m
+        best_vol = get_vol(best_mtx[0],best_mtx[1],best_mtx[2])
+        for x in xtal_out:
+            x = rescale_str(x,best_vol)
         writeposcars(xtal_out, initialfile, 'D')
     return xtal_out
 

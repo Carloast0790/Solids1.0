@@ -72,91 +72,41 @@ def pyxtal2solids(xtal_from_pyxtal,dimension):
 #-------------------------------------General Constrains-----------------------------------------
 #------------------------------------------------------------------------------------------------
 def uc_restriction():
-    '''Obtains the volume for the restrictions imposed to the unit cell
+    '''Obtains the restrictions, imposed by the user in the INPUT.txt file, to the parameters of the unit cell.
+    Format a,b,c,alpha,beta,gamma
 
     out: 
-    restr_uc (float); Desired volume (it is under evaluation if Pyxtal tools are necessary for this)
+    restr_uc (Lattice); Pyxtal object for the lattice
     '''
     import os.path
-    #from pyxtal.lattice import Lattice
+    from pyxtal.lattice import Lattice
     file = 'INPUT.txt'
     if os.path.isfile(file):
-        restr_v = False
-        a,b,c = 0,0,0
+        restr_lattice = False
         f=open(file,"r")
         for line in f:
-            if '#' in line:
-                continue
-            if 'fixed_uc' in line:
+            if not line.startswith('#') and 'fixed_lattice' in line:
                 line = line.split()
-                a,b,c = float(line[1]),float(line[2]),float(line[3])
-                restr_v = a*b*c
-                # restr_uc = Lattice.from_para(a,b,c,A,B,G)
-                break
-            elif 'fixed_vol' in line:
-                line = line.split()
-                restr_v = float(line[1])
+                a,b,c,alpha,beta,gamma = float(line[1]), float(line[2]), float(line[3]), float(line[4]), float(line[5]), float(line[6])
+                restr_lattice = Lattice.from_para(a,b,c,alpha,beta,gamma)
                 break
         f.close()
-    return restr_v
-#------------------------------------------------------------------------------------------------
-def get_symmetry_constrains(str_range, dimension=3):
-    ''' This routine extracts a desired range of integers to be used as SGs in the construction of
-    structures. The result is presented in list format, eg. range 1-5, range_list = [1,2,3,4,5]. If 
-    the restriction is not provided, the list ranges from 2-80 for 2D structures and from 2-230 for 3D.
+    return restr_lattice
 
-    in: str_range (str), flag to locate the desired range of integers
-        dimension (int), list of all numbers within the desired range
-    out: range_list (list), list of all numbers within the desired range
-    '''
+#------------------------------------------------------------------------------------------------
+def vol_restriction():
     import os.path
     file = 'INPUT.txt'
-    range_list = []
     if os.path.isfile(file):
-        f = open(file,'r')
-        flag = False
+        restr_volume = False
+        f=open(file,"r")
         for line in f:
-            if not line.startswith('#') and str_range in line:
-                line = line.lstrip('\t\n\r')
+            if not line.startswith('#') and 'fixed_volume' in line:
                 line = line.split()
-                readline = line[1].split('-')
-                bottom, top = int(readline[0])-1, int(readline[1])
-                range_list = [s+1 for s in range(bottom,top)]
-                flag = True
+                restr_volume =  float(line[1])
                 break
         f.close()
-        if flag == False and dimension == 2:
-            range_list = [i for i in range(2,81)]
-        elif flag == False and dimension == 3:
-            range_list = [i for i in range(2,231)]
-    return range_list
-
-#------------------------------------------------------------------------------------------------
-def rescale_str(xtal_in, reference_volume):
-    '''Reescales the volume of the unit cell to match a given parameter
-
-    in: 
-    xtal_in (Molecule); Structure to be reescaled
-    reference_volume (float); Desired volume
-    
-    out: 
-    xtal_out (Molecule); Reescaled structure 
-    '''
-    from utils_solids.libmoleculas import Molecule, Atom
-    from vasp_solids.libperiodicos import cartesian2direct, direct2cartesian
-    volume = lambda v0,v1,v2: abs(np.dot(np.cross(v0,v1),v2))
-    mtx = xtal_in.m
-    org_vol = volume(mtx[0],mtx[1],mtx[2])
-    r = reference_volume / org_vol
-    dv = np.cbrt([r])
-    mtx[0],mtx[1],mtx[2] = dv*mtx[0],dv*mtx[1],dv*mtx[2]
-    xtal_out = Molecule(xtal_in.i,xtal_in.e,mtx)
-    for a in xtal_in.atoms:
-        xc,yc,zc = cartesian2direct(a.xc,a.yc,a.zc,xtal_in.m)
-        xn, yn,zn = direct2cartesian(xc,yc,zc,mtx)
-        natm = Atom(a.s,xn,yn,zn)
-        xtal_out.add_atom(natm)
-    return xtal_out
+    return restr_volume
 
 #------------------------------------------------------------------------------------------------
 def get_default_tolerances(species,scale_value=0.9):
@@ -198,6 +148,63 @@ def get_default_tolerances(species,scale_value=0.9):
                 tolerances.append((s1,s2,tv_mix))
                 py_tol.set_tol(s1,s2,tv_mix)
         return tolerances,py_tol 
+#------------------------------------------------------------------------------------------------
+def rescale_str(xtal_in, reference_volume):
+    '''Reescales the volume of the unit cell to match a given parameter
+
+    in: 
+    xtal_in (Molecule); Structure to be reescaled
+    reference_volume (float); Desired volume
+    
+    out: 
+    xtal_out (Molecule); Reescaled structure 
+    '''
+    from utils_solids.libmoleculas import Molecule, Atom
+    from vasp_solids.libperiodicos import cartesian2direct, direct2cartesian
+    volume = lambda v0,v1,v2: abs(np.dot(np.cross(v0,v1),v2))
+    mtx = xtal_in.m
+    org_vol = volume(mtx[0],mtx[1],mtx[2])
+    r = reference_volume / org_vol
+    dv = np.cbrt([r])
+    mtx[0],mtx[1],mtx[2] = dv*mtx[0],dv*mtx[1],dv*mtx[2]
+    xtal_out = Molecule(xtal_in.i,xtal_in.e,mtx)
+    for a in xtal_in.atoms:
+        xc,yc,zc = cartesian2direct(a.xc,a.yc,a.zc,xtal_in.m)
+        xn, yn,zn = direct2cartesian(xc,yc,zc,mtx)
+        natm = Atom(a.s,xn,yn,zn)
+        xtal_out.add_atom(natm)
+    return xtal_out
+#------------------------------------------------------------------------------------------------
+def get_symmetry_constrains(str_range, dimension=3):
+    ''' This routine extracts a desired range of integers to be used as SGs in the construction of
+    structures. The result is presented in list format, eg. range 1-5, range_list = [1,2,3,4,5]. If 
+    the restriction is not provided, the list ranges from 2-80 for 2D structures and from 2-230 for 3D.
+
+    in: str_range (str), flag to locate the desired range of integers
+        dimension (int), list of all numbers within the desired range
+    out: range_list (list), list of all numbers within the desired range
+    '''
+    import os.path
+    file = 'INPUT.txt'
+    range_list = []
+    if os.path.isfile(file):
+        f = open(file,'r')
+        flag = False
+        for line in f:
+            if not line.startswith('#') and str_range in line:
+                line = line.lstrip('\t\n\r')
+                line = line.split()
+                readline = line[1].split('-')
+                bottom, top = int(readline[0])-1, int(readline[1])
+                range_list = [s+1 for s in range(bottom,top)]
+                flag = True
+                break
+        f.close()
+        if flag == False and dimension == 2:
+            range_list = [i for i in range(2,81)]
+        elif flag == False and dimension == 3:
+            range_list = [i for i in range(2,231)]
+    return range_list
 
 #------------------------------------------------------------------------------------------------
 def get_default_tolerances_solids(species,scale_value=0.9):

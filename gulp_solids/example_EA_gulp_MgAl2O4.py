@@ -1,16 +1,18 @@
 from inout_solids.messag import *
 
+qname = 'queue_name'
+
 long_string = """
-========= Optimization scheme =========
+========= Optimization Scheme =========
 
-option      GA
+option      EA
 
-==== Crystal structure information ====
+==== Crystal Structure Information ====
 
 ---COMPOSITION---
 Mg   1
-Si   1
-O    3
+Al   2
+O    4
 ---COMPOSITION---
 
 formula_units   4
@@ -19,13 +21,13 @@ formula_units   4
 
 tol_atomic_overlap 0.95
 
-========= Initial population ==========
+========= Initial Population ==========
 
 initial_structures  30
 
 ======== Algorithm Parameters =========
 
-max_number_inputs   10
+max_number_inputs   5
 number_of_matings   20
 number_of_xchange   6
 number_of_strains   6
@@ -38,14 +40,15 @@ crit_stop_nrep      10
 similarity_tolerance    0.95
 energy_range            2.0
 
-====== Calculation parameters =========
+====== Calculation Parameters =========
 
 calculator        gulp
 qsys              local
 
 ---GULP---
-opti conjugate nosymmetry conv
+opti conjugate nosymmetry conp
 switch_minimiser bfgs gnorm 0.01
+pressure 100 GPa
 vectors
 LATTICEVECTORS
 frac
@@ -53,33 +56,28 @@ COORDINATES
 space
 1
 species
-Mg 1.8
-Si 2.4
-O -1.4
+Mg  2.0
+Al  3.0
+O  -2.0
 lennard 12 6
-Mg O  2.5 0.0 0.0 6.0
-Mg Si 1.5 0.0 0.0 6.0
-Si O  1.5 0.0 0.0 6.0
-Mg Mg 1.5 0.0 0.0 6.0
-Si O  1.5 0.0 0.0 6.0
-O  O  2.5 0.0 0.0 6.0
+Mg O   1.50 0.00 0.00 6.0
+Al O   1.50 0.00 0.00 6.0
+O O    1.50 0.00 0.00 6.0
+Mg Mg  1.50 0.00 0.00 6.0
+Mg Al  1.50 0.00 0.00 6.0
+Al Al  1.50 0.00 0.00 6.0
 buck
-Mg O   806.915 0.291 2.346 0.0 10.0
-Si O  1122.392 0.256 0.000 0.0 10.0
-O O    792.329 0.362 31.58 0.0 10.0
-Mg Mg  900.343 0.220 0.174 0.0 10.0
-Mg Si 1536.282 0.185 0.000 0.0 10.0
-Si Si 3516.558 0.150 0.000 0.0 10.0
-maxcyc
-300
-switch rfo cycle 350
+Mg O 1428.5 0.2945 0.0 0.0 7.0
+Al O 1114.9 0.3118 0.0 0.0 7.0
+O O  2023.8 0.2674 0.0 0.0 7.0
+maxcyc 850
+switch rfo 0.010
 ---GULP---
 
 ---GULP.CONF---
 exe_gulp=GULP_Dir/gulp
 ---GULP.CONF---
-
-"""
+""".format(queue=qname)
 
 exfile = open('INPUT.txt', "w")
 exfile.write(welcome_solids)
