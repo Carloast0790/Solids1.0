@@ -18,7 +18,7 @@ menu_long_string = """
 # SYSTEM  | METHOD                     |    CODE   |  opt  |  NEEDS
 #----------------------------------------------------------------------------
 #Crystal  | Modified Stochastic Method | VASP/GULP |  SM   | (COMPOSITION)
-#Crystal  | Modified Genetic Algorithm | VASP/GULP |  GA   | (COMPOSITION)
+#Crystal  | Modified Genetic Algorithm | VASP/GULP |  EA   | (COMPOSITION)
 #----------------------------------------------------------------------------
 """
 

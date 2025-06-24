@@ -19,11 +19,11 @@ def get_bilfile():
             print("solids --example_SM_gulp_TiO2")
             print("solids --example_SM_gulp_C8")
             print("solids --example_SM_gulp_Si8")
-            print("solids --example_GA_vasp_TiO2")
-            print("solids --example_GA_gulp_TiO2")
-            print("solids --example_GA_gulp_MgAl2O4")
-            print("solids --example_GA_gulp_MgSiO3")
-            print("solids --example_GA_gulp_SrTiO3")
+            print("solids --example_EA_vasp_TiO2")
+            print("solids --example_EA_gulp_TiO2")
+            print("solids --example_EA_gulp_MgAl2O4")
+            print("solids --example_EA_gulp_MgSiO3")
+            print("solids --example_EA_gulp_SrTiO3")
             print("   ")
             sys.exit()
         #====================================================================
@@ -35,9 +35,9 @@ def get_bilfile():
             import vasp_solids.incar_1
             import vasp_solids.incar_2
             import vasp_solids.kpoints
-        if sys.argv[1] == "--example_GA_vasp_TiO2":
+        if sys.argv[1] == "--example_EA_vasp_TiO2":
             print("Built INPUT.txt file for TiO2 search using VASP and the Modified Genetic Algorithm")
-            import vasp_solids.example_GA_vasp_TiO2
+            import vasp_solids.example_EA_vasp_TiO2
             import vasp_solids.incar_1
             import vasp_solids.incar_2
             import vasp_solids.kpoints
@@ -56,21 +56,21 @@ def get_bilfile():
             print("Built INPUT.txt file for Si8 search using GULP and the Modified Stochastic Method")
             import gulp_solids.example_SM_gulp_Si8
 
-        if sys.argv[1] == "--example_GA_gulp_TiO2":
+        if sys.argv[1] == "--example_EA_gulp_TiO2":
             print("Built INPUT.txt file for TiO2 search using GULP and the Modified Genetic Algorithm")
-            import gulp_solids.example_GA_gulp_TiO2
+            import gulp_solids.example_EA_gulp_TiO2
 
-        if sys.argv[1] == "--example_GA_gulp_MgAl2O4":
+        if sys.argv[1] == "--example_EA_gulp_MgAl2O4":
             print("Built INPUT.txt file for MgAl2O4 search using GULP and the Modified Genetic Algorithm")
-            import gulp_solids.example_GA_gulp_MgAl2O4
+            import gulp_solids.example_EA_gulp_MgAl2O4
 
-        if sys.argv[1] == "--example_GA_gulp_MgSiO3":
+        if sys.argv[1] == "--example_EA_gulp_MgSiO3":
             print("Built INPUT.txt file for MgSiO3 search using GULP and the Modified Genetic Algorithm")
-            import gulp_solids.example_GA_gulp_MgSiO3
+            import gulp_solids.example_EA_gulp_MgSiO3
 
-        if sys.argv[1] == "--example_GA_gulp_SrTiO3":
+        if sys.argv[1] == "--example_EA_gulp_SrTiO3":
             print("Built INPUT.txt file for SrTiO3 search using GULP and the Modified Genetic Algorithm")
-            import gulp_solids.example_GA_gulp_SrTiO3
+            import gulp_solids.example_EA_gulp_SrTiO3
 
         print("Edit the INPUT.txt file and re-run solids as:")
         print("nohup solids > log &")

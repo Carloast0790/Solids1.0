@@ -20,7 +20,6 @@ formula_units   4
 tol_atomic_overlap 0.95
 symmetries         16-74
 fixed_lattice      2.474 8.121 6.138 90.0 90.0 90.0
-#fixed_volume      133.2
 
 ========= Initial population ==========
 

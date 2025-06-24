@@ -3,7 +3,7 @@ from inout_solids.messag import *
 long_string = """
 ========= Optimization scheme =========
 
-option      GA
+option      EA
 
 ==== Crystal structure information ====
 
