@@ -40,22 +40,17 @@ def distance_interatom(atoms):
                 min_distance = distance
     return min_distance
 #------------------------------------------------------------------------------------------
-def centroid(atoms):
-    posiciones = atoms.get_positions()
-    centroide = np.mean(posiciones, axis=0)
-    return centroide
-#------------------------------------------------------------------------------------------
-def radius_max(atoms):
-    ctd=centroid(atoms)
-    r=[np.linalg.norm(iatom.position - ctd) + covalent_radii[iatom.number] for iatom in atoms]
-    r.sort()
-    rmax=r[-1]
-    return rmax
-#------------------------------------------------------------------------------------------
 def scale_coords(atoms, factor):
     rcoords = atoms.positions - atoms.get_center_of_mass()
     atomsout=atoms.copy()
     atomsout.positions = rcoords*factor
+    return atomsout
+#------------------------------------------------------------------------------------------
+def merge_atoms(atoms_list):
+    atomsout = atoms_list[0].copy()
+    for index in range(1, len(atoms_list)):
+        for iatom in atoms_list[index]:
+            atomsout.append(iatom)
     return atomsout
 #------------------------------------------------------------------------------------------
 def adjacency_matrix(atoms, factor=1.2):
@@ -69,18 +64,12 @@ def adjacency_matrix(atoms, factor=1.2):
             jpos = atoms[jatom].position
             distance = np.linalg.norm(jpos - ipos)/(ri+rj)
             if ( distance <= factor ):
-                matrixc[iatom][jatom] = 1
-                matrixc[jatom][iatom] = 1
+                matrixc[iatom][jatom] = int(1)
+                matrixc[jatom][iatom] = int(1)
     return matrixc
 #------------------------------------------------------------------------------------------
-def degree_matrix(atoms, factor=1.2):
-    adj=adjacency_matrix(atoms, factor)    
-    degrees = np.sum(adj, axis=1)
-    degreematrix = np.diag(degrees)
-    return degreematrix
-#------------------------------------------------------------------------------------------
-def connected_graph(atoms, factor=1.2):
-    matrixadj=adjacency_matrix(atoms,factor)
+def molgraph_is_connected(atoms, factor=1.2):
+    matrixadj=conectmx(atoms,factor)
     matrixadjp=matrixadj.copy()
     nd=len(matrixadjp)
     vectord=np.zeros(shape=(nd),dtype=np.int64)
@@ -107,53 +96,16 @@ def rand_unit_vector():
     zu=np.cos(theta)
     return np.array([xu, yu, zu])
 #------------------------------------------------------------------------------------------
-def random_deg_angles():
-    qmin,qmax=0,360
-    qdegx=random.randint(qmin,qmax)
-    qdegy=random.randint(qmin,qmax)
-    qdegz=random.randint(qmin,qmax)
-    return qdegx, qdegy, qdegz
+def rename(atoms_list, basename, ndigist):
+    nnn=len(atoms_list)
+    for imol in range(nnn):
+        atoms_list[imol].info['i'] = basename+'_'+str(imol+1).zfill(ndigist)
+    return atoms_list
 #------------------------------------------------------------------------------------------
-def euler_matrix(qdegx, qdegy, qdegz):
-    qradx=float(qdegx)*(np.pi)/180.0
-    qrady=float(qdegy)*(np.pi)/180.0
-    qradz=float(qdegz)*(np.pi)/180.0
-    ##qradz=np.deg2rad(qdegz)
-    cx,cy,cz=np.cos(qradx),np.cos(qrady),np.cos(qradz)
-    sx,sy,sz=np.sin(qradx),np.sin(qrady),np.sin(qradz)
-    row1=[cy*cz,-cy*sz,sy]
-    row2=[cx*sz+cz*sx*sy,cx*cz-sx*sy*sz,-cy*sx]
-    row3=[sx*sz-cx*cz*sy,cz*sx+cx*sy*sz, cx*cy]
-    eulerm=np.array([row1,row2,row3])
-    return eulerm
-#------------------------------------------------------------------------------------------
-def rotate_matrix(moleculein, matrixr):
-    moleculein.set_positions(np.dot(moleculein.get_positions(),matrixr.T))
-    return moleculein
-#------------------------------------------------------------------------------------------
-def rotate_deg(moleculein, qdegx, qdegy, qdegz):
-    eulerm=euler_matrix(qdegx, qdegy, qdegz)
-    rotate_matrix(moleculein, eulerm)
-    return moleculein
-#------------------------------------------------------------------------------------------
-def rotate_random(moleculein):
-    qdegx, qdegy, qdegz=random_deg_angles()
-    rotate_deg(moleculein, qdegx, qdegy, qdegz)
-    return moleculein
-#------------------------------------------------------------------------------------------
-def rodrigues_rotation_matrix(kvector, qdeg):
-    qrad=float(qdeg)*np.pi/180.0
-    kvec=np.array(kvector)
-    kuv=kvec/np.linalg.norm(kvec)
-    kmat1 = np.array([[0.0, -kuv[2], kuv[1]], [kuv[2], 0.0, -kuv[0]], [-kuv[1], kuv[0], 0.0]])
-    kmat2 = np.matmul(kmat1,kmat1)
-    rodriguesrm = np.eye(3) + np.sin(qrad)*kmat1 + (1.0 - np.cos(qrad))*kmat2
-    return rodriguesrm
-#------------------------------------------------------------------------------------------
-def rotate_vector_angle_deg(moleculein, kvector, qdeg):
-    rodriguesrm=rodrigues_rotation_matrix(kvector, qdeg)
-    rotate_matrix(moleculein, rodriguesrm)
-    return moleculein
+def centroid(atoms):
+    posiciones = atoms.get_positions()
+    centroide = np.mean(posiciones, axis=0)
+    return centroide
 #------------------------------------------------------------------------------------------
 def align(atoms):
     #vref=atoms.get_center_of_mass()
@@ -164,6 +116,28 @@ def align(atoms):
     #atoms.translate(+vref)
     return atoms
 #------------------------------------------------------------------------------------------
+def four_points(atoms):
+    ####ctd: the molecular centroid
+    ####cst: The closest atom to the molecular centroid (ctd)
+    ####fct: The farthest atom from the molecular centroid (ctd)
+    ####ftf: The farthest atom from the fct
+    vecpos=[np.array(position) for position in atoms.get_positions()]
+    ctd=centroid(atoms)
+    r=[[np.linalg.norm(xyz - ctd), xyz] for xyz in vecpos]
+    r.sort(key=lambda x: x[0])
+    cst=r[0][1]
+    fct=r[-1][1]
+    s=[[np.linalg.norm(xyz - fct), xyz] for xyz in vecpos]
+    s.sort(key=lambda x: x[0])
+    ftf=s[-1][1]
+    return ctd, cst, fct, ftf
+#------------------------------------------------------------------------------------------
+diccionario_matrix={}
+diccionario_matrix[0]=np.array([[+1.0, +0.0, +0.0], [+0.0, +1.0, +0.0], [+0.0, +0.0, +1.0]])
+diccionario_matrix[1]=np.array([[-1.0, +0.0, +0.0], [+0.0, -1.0, +0.0], [+0.0, +0.0, +1.0]])
+diccionario_matrix[2]=np.array([[+1.0, +0.0, +0.0], [+0.0, -1.0, +0.0], [+0.0, +0.0, -1.0]])
+diccionario_matrix[3]=np.array([[-1.0, +0.0, +0.0], [+0.0, +1.0, +0.0], [+0.0, +0.0, -1.0]])
+#------------------------------------------------------------------------------------------
 def align_two(atoms1, atoms2):
     mol1=align(atoms1)
     mol2=align(atoms2)
@@ -171,11 +145,6 @@ def align_two(atoms1, atoms2):
     ctd2, cst2, fct2, ftf2=four_points(mol2)
     positions_ref1=np.array([cst1, fct1, ftf1])
     positions_ref2=np.array([cst2, fct2, ftf2])
-    diccionario_matrix={}
-    diccionario_matrix[0]=np.array([[+1.0,+0.0,+0.0], [+0.0,+1.0,+0.0], [+0.0,+0.0,+1.0]])
-    diccionario_matrix[1]=np.array([[-1.0,+0.0,+0.0], [+0.0,-1.0,+0.0], [+0.0,+0.0,+1.0]])
-    diccionario_matrix[2]=np.array([[+1.0,+0.0,+0.0], [+0.0,-1.0,+0.0], [+0.0,+0.0,-1.0]])
-    diccionario_matrix[3]=np.array([[-1.0,+0.0,+0.0], [+0.0,+1.0,+0.0], [+0.0,+0.0,-1.0]])
     v1=positions_ref1.flatten()
     min_rms = float('inf')
     for mi in diccionario_matrix.values():
@@ -188,18 +157,12 @@ def align_two(atoms1, atoms2):
     mol2.set_positions(np.dot(mol2.get_positions(), transformation_matrix.T))
     return mol1, mol2
 #------------------------------------------------------------------------------------------
-def planarity_index(atoms):
-    evals = atoms.get_moments_of_inertia()
-    ia, ib, ic = evals[0], evals[1], evals[2]
-    planarity = ic/(ia + ib)
-    return planarity
-#------------------------------------------------------------------------------------------
-def merge_atoms(atoms_list):
-    atomsout = atoms_list[0].copy()
-    for index in range(1, len(atoms_list)):
-        for iatom in atoms_list[index]:
-            atomsout.append(iatom)
-    return atomsout
+def radius_max(atoms):
+    ctd=centroid(atoms)
+    r=[np.linalg.norm(iatom.position - ctd) + covalent_radii[iatom.number] for iatom in atoms]
+    r.sort()
+    rmax=r[-1]
+    return rmax
 #------------------------------------------------------------------------------------------
 def is_number(s):
     try:
@@ -239,8 +202,7 @@ def readxyzs(filename):
     file.close()
     return moleculeout
 #------------------------------------------------------------------------------------------
-def writexyzs(atoms_list, filename):
-    if not isinstance(atoms_list, list): atoms_list = [atoms_list]
+def writexyzs(atoms_list, filename, in_log=0):
     fh=open(filename,"w")
     for atoms in atoms_list:
         print(len(atoms), file=fh)
@@ -250,13 +212,7 @@ def writexyzs(atoms_list, filename):
             xc, yc, zc = atom.position
             print("%-2s %16.9f %16.9f %16.9f" %(symbol, xc, yc, zc), file=fh)
     fh.close()
-    #if silence: print("Writing %s" %(filename))
-#------------------------------------------------------------------------------------------
-def rename(atoms_list, basename, ndigist):
-    nnn=len(atoms_list)
-    for imol in range(nnn):
-        atoms_list[imol].info['i'] = basename+'_'+str(imol+1).zfill(ndigist)
-    return atoms_list
+    if in_log==0: print("Writing %s" %(filename))
 #------------------------------------------------------------------------------------------
 def sort_by_energy(atoms_list, opt=0):
     atoms_list_out=[]
@@ -269,14 +225,6 @@ def sort_by_energy(atoms_list, opt=0):
         atoms_tmp.info['e']=ii[1] - energy_ref
         atoms_list_out.extend([atoms_tmp])
     return atoms_list_out
-#------------------------------------------------------------------------------------------
-def cutter_nonconnected(atoms_list, factor=1.2):
-    moleculeout = []
-    for imol in atoms_list:
-        ans=connected_graph(imol, factor)
-        if ( ans == 1 ):
-            moleculeout.extend([imol])
-    return moleculeout
 #------------------------------------------------------------------------------------------
 def cutter_energy(atoms_list, enemax):
     moleculesort=sort_by_energy(atoms_list, 1)

@@ -7,10 +7,8 @@ option = get_a_str('option','sm')
 option = option.lower()
 #------------------------------------------------------------------------------------------------
 if  option == 'sm':
-    #print("Choosed option %s: Modified Stochastic Method from chem-formula/mol.xyz" %(option))
     import kick_solids.heuristic_solids_kick
 elif option == 'ea':
-    #print("Choosed option %s: Growth pattern Algorithm" %(option))
     import gega_solids.heuristic_solid_gega
 else:
     print("You need to specify one VALID option in the %s (option = SM/EA)\n" %(bilfile))

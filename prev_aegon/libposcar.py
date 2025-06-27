@@ -3,32 +3,7 @@ import numpy as np
 from ase import Atoms
 from ase.data import covalent_radii
 from aegon.libutils import align
-#------------------------------------------------------------------------------------------
-#def make_cell_vectors(atoms, latsp):
-#    positions = atoms.get_positions()
-#    min_coords = np.min(positions, axis=0)
-#    max_coords = np.max(positions, axis=0)
-#    cell_vectors = np.diag(max_coords - min_coords + latsp)
-#    return cell_vectors
-#------------------------------------------------------------------------------------------
-#def molecule2poscar(atomslist, latsp=5.0):
-#    if not isinstance(atomslist, list): atomslist = [atomslist]
-#    moleculeout=[]
-#    for iatoms in atomslist:
-#        force = hasattr(iatoms, "forces")
-#        singleposcar=iatoms.copy()
-#        align(singleposcar)
-#        cell_vectors=make_cell_vectors(singleposcar, latsp)
-#        singleposcar.set_cell(cell_vectors)
-#        #vc=np.diag(cell_vectors)/2.0
-#        #singleposcar.translate(+vc)
-#        singleposcar.center()
-#        singleposcar.set_pbc(True)
-#        if force:
-#            singleposcar.arrays['forces'] = iatoms.arrays['forces']
-#        moleculeout.extend([singleposcar])
-#    moleculeout=order_and_tag(moleculeout)
-#    return moleculeout
+from collections import defaultdict
 #------------------------------------------------------------------------------------------
 def make_matrix(singlemoleculein, latsp):
     mol0=singlemoleculein.copy()
@@ -54,53 +29,6 @@ def molecule2poscar(atomslist, latsp=5.0):
         singleposcar.set_cell(matrix)
         singleposcar.set_pbc(True)
         moleculeout.extend([singleposcar])
-    return moleculeout
-#------------------------------------------------------------------------------------------
-def tag(poscarlist):
-    if not isinstance(poscarlist, list): poscarlist = [poscarlist]
-    moleculeout = []
-    for atoms in poscarlist:
-        force = hasattr(atoms, "forces")
-        numbers = list(set(atoms.get_atomic_numbers()))
-        tagdict = {zi: itag for itag, zi in enumerate(sorted(numbers))}
-        enumerate_molecule = atoms.copy()
-        for iatom in enumerate_molecule:
-            iatom.tag = tagdict[iatom.number]
-        if force:
-            enumerate_molecule.arrays['forces'] = atoms.arrays['forces']
-        moleculeout.append(enumerate_molecule)
-    return moleculeout
-#------------------------------------------------------------------------------------------
-def order_and_tag(poscarlist):
-    if not isinstance(poscarlist, list): poscarlist = [poscarlist]
-    moleculeout = []
-    for atoms in poscarlist:
-        numbers = list(set(atoms.get_atomic_numbers()))
-        tagdict = {zi: itag for itag, zi in enumerate(sorted(numbers))}
-        lista=[]
-        force = hasattr(atoms, "forces")
-        if force:
-            allforces=atoms.arrays['forces']
-            for k, katom in enumerate(atoms):
-                n  = katom.number
-                lista.append([tagdict[n], katom, allforces[k]])
-        else: 
-            for k, katom in enumerate(atoms):
-                n  = katom.number
-                lista.append([tagdict[n], katom]) 
-        sorted_lista = sorted(lista, key = lambda x: x[0])
-        sorted_forces=[]
-        sorted_molecule=atoms.copy()
-        for i, iatom in enumerate(sorted_molecule):
-            iatom.tag=sorted_lista[i][0]
-            xatom    =sorted_lista[i][1]
-            iatom.symbol  =xatom.symbol
-            iatom.position=xatom.position
-            if force:
-                sorted_forces.append(sorted_lista[i][2])
-        if force:
-            sorted_molecule.arrays['forces']=sorted_forces
-        moleculeout.append(sorted_molecule)
     return moleculeout
 #------------------------------------------------------------------------------------------
 def readposcars(filename):
@@ -172,7 +100,7 @@ def readposcars(filename):
     contcarfile.close()
     return poscarout
 #------------------------------------------------------------------------------------------
-def writeposcars(poscarlist, file, opt='D'):
+def writeposcars(poscarlist, file, opt='D', in_log=0):
     f=open(file,"w")
     for atoms in poscarlist:
         print("%s %12.8f" %(atoms.info['i'], atoms.info['e']), file=f)
@@ -181,16 +109,16 @@ def writeposcars(poscarlist, file, opt='D'):
         print("%20.16f %20.16f %20.16f" %(matrix[0,0],matrix[0,1],matrix[0,2]), file=f)
         print("%20.16f %20.16f %20.16f" %(matrix[1,0],matrix[1,1],matrix[1,2]), file=f)
         print("%20.16f %20.16f %20.16f" %(matrix[2,0],matrix[2,1],matrix[2,2]), file=f)
-        element_count = {}
-        for symbol in atoms.symbols: element_count[symbol] = element_count.get(symbol, 0) + 1 
+        element_count = defaultdict(int)
+        for symbol in atoms.symbols: element_count[symbol] += 1
         print(' '.join([str(item) for item in element_count.keys()]), file=f)
         print(' '.join([str(item) for item in element_count.values()]), file=f)
-        element_count = {}
+        element_count = defaultdict(int)
         if opt=='C':
             print('Cartesian', file=f)
             for atom in atoms:
                 symbol=atom.symbol
-                element_count[symbol] = element_count.get(symbol, 0) + 1
+                element_count[symbol] += 1
                 xc, yc, zc = atom.position
                 print("%20.16f %20.16f %20.16f   !%s%d" %(xc,yc,zc,symbol,element_count[symbol]), file=f)
         if opt=='D':
@@ -202,10 +130,43 @@ def writeposcars(poscarlist, file, opt='D'):
                 cart_coords=np.array(atom.position)
                 ##CHECAR PARA SOLIDS. LA T.
                 vd=np.dot(mi.T, cart_coords)
-                print("%20.16f %20.16f %20.16f   !%s%d" %(vd[0], vd[1], vd[2],symbol,element_count[symbol]), file=f)
+                xd, yd, zd = vd[0], vd[1], vd[2]
+                print("%20.16f %20.16f %20.16f   !%s%d" %(xd,yd,zd,symbol,element_count[symbol]), file=f)
     f.close()
-    #print("Writing %s" %(file))
-    ##if in_log==0: print("Writing %s" %(file))
+    if in_log==0: print("Writing %s" %(file))
+#------------------------------------------------------------------------------------------
+def writecfg(poscarlist, file):
+    f=open(file,"w")
+    for atoms in poscarlist:
+        print("BEGIN_CFG", file=f)
+        print(" Size", file=f)
+        natoms=len(atoms)
+        print("    %d" %(natoms), file=f)
+        print(" Supercell", file=f)
+        matrix=atoms.cell
+        mi=np.linalg.inv(matrix)
+        print("       %10.6f    %10.6f    %10.6f" %(matrix[0,0],matrix[0,1],matrix[0,2]), file=f)
+        print("       %10.6f    %10.6f    %10.6f" %(matrix[1,0],matrix[1,1],matrix[1,2]), file=f)
+        print("       %10.6f    %10.6f    %10.6f" %(matrix[2,0],matrix[2,1],matrix[2,2]), file=f)
+        print(" AtomData:  id type       cartes_x      cartes_y      cartes_z", file=f)
+        for k, atom in enumerate(atoms):
+            xc, yc, zc = atom.position
+            print("             0    %d     %10.6f    %10.6f    %10.6f" %(k+1,xc,yc,zc), file=f)
+        print("END_CFG", file=f)
+    f.close()
+#------------------------------------------------------------------------------------------
+def sort_poscar(atoms):
+    atoms_copy = atoms.copy()
+    species_positions = defaultdict(list)
+    for position, species in zip(atoms.positions, atoms.symbols):
+        species_positions[species].append(position)
+    k=0
+    for specie in species_positions.keys():
+        for position in species_positions[specie]:
+            atoms_copy[k].symbol=specie
+            atoms_copy[k].position=position
+            k=k+1
+    return atoms_copy
 #------------------------------------------------------------------------------------------
 def conventional(atoms, tol=0.01):
     lattice_vectors=np.copy(atoms.cell)

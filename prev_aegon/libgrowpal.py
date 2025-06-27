@@ -5,7 +5,6 @@ from ase import Atom
 from multiprocessing import Process
 from aegon.libpymatgen import inequivalent_finder
 from aegon.libutils import rename, adjacency_matrix, readxyzs, writexyzs, prepare_folders, split_poscarlist
-#from aegon.libdiscusr import molin_sim_molref
 #------------------------------------------------------------------------------------------
 def neighbor_finder(atoms):
     '''
@@ -140,17 +139,16 @@ def growpal_serial(poscarlist, specie):
 def make_growpal(ifolder, specie):
     atoms0=readxyzs(ifolder+'/'+ifolder+'.xyz')
     atoms1=growpal(atoms0, specie)
-    writexyzs(atoms1,ifolder+'/'+ifolder+'_growpal.xyz')
+    writexyzs(atoms1,ifolder+'/'+ifolder+'_growpal.xyz',1)
     return 0
 #------------------------------------------------------------------------------------------
-def growpal_parallel(poscarlist, specie, nproc, base_name, tol=0.95, n_features=16):
+def growpal_parallel(poscarlist, specie, nproc, base_name):
     start = time.time()
-    if not isinstance(poscarlist, list): poscarlist = [poscarlist]
     folderlist=prepare_folders(poscarlist, nproc, base_name)
     poscar_split_list=split_poscarlist(poscarlist, nproc)
     procs = []
     for ifolder, iposcars in zip(folderlist, poscar_split_list):
-        writexyzs(iposcars, ifolder+'/'+ifolder+'.xyz')
+        writexyzs(iposcars, ifolder+'/'+ifolder+'.xyz',1)
         proc = Process(target=make_growpal, args=(ifolder,specie,))
         procs.append(proc)
         proc.start()
@@ -159,7 +157,6 @@ def growpal_parallel(poscarlist, specie, nproc, base_name, tol=0.95, n_features=
     moleculeout=[]
     for ifolder in folderlist:
         molx=readxyzs(ifolder+'/'+ifolder+'_growpal.xyz')
-        #molx=molin_sim_molref(molx,moleculeout, tol, n_features)
         moleculeout=moleculeout+molx
     end = time.time()
     print('GrowPal (parallel) at %5.2f s [%d]' %(end - start, len(moleculeout)))

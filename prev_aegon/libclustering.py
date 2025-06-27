@@ -1,4 +1,4 @@
-from sklearn.cluster import KMeans, AgglomerativeClustering, HDBSCAN
+from sklearn.cluster import KMeans, AgglomerativeClustering
 #----------------------------------------------------------------------------------------------------------
 
 def clustering_agg(lista, descriptors, n_clusters):
@@ -15,7 +15,6 @@ def clustering_agg(lista, descriptors, n_clusters):
         clusters[label].append(lista[idx])
     
     return clusters
-#-----------------------------------------------------------------------------------------------------------
 
 def clustering_kmeans (lista, descriptors, n_clusters):
     
@@ -32,23 +31,5 @@ def clustering_kmeans (lista, descriptors, n_clusters):
         clusters[label].append(lista[idx])
 
     return clusters
-#--------------------------------------------------------------------------------------------------------------
     
-def clustering_hdbscan(lista, descriptores):
-    if len(descriptores) < 100:
-        print("La cantidad de descriptores es menor a 100. Devolviendo la lista original.")
-        return {0: lista}
     
-    model = HDBSCAN(min_cluster_size = 5, cluster_selection_epsilon = 0.2, cluster_selection_method = "eom")
-    #model = DBSCAN()
-    model.fit(descriptores)
-
-    labels = model.labels_
-    n_clus = len(set(labels))
-
-    clusters = {label: [] for label in set(labels)}  
-
-    for idx, label in enumerate(labels):
-        clusters[label].append(lista[idx])
-
-    return clusters, n_clus
